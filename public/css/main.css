@@ -1,1 +1,14 @@
-body{background:#fdfad0}
+/* line 6, ../sass/main.sass */
+#navbar {
+  background: #eeeeee;
+}
+
+/* line 8, ../sass/main.sass */
+#sidebar {
+  background: #cccccc;
+}
+
+/* line 10, ../sass/main.sass */
+#content {
+  background: #aaaaaa;
+}
