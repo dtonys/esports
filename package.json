@@ -1,0 +1,10 @@
+{
+    "name": "express-riak"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "3.0.0"
+     , "ejs": "0.8.5"
+     , "node-compass": "0.2.3"
+  }
+}
