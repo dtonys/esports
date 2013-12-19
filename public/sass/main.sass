@@ -1,11 +1,119 @@
 @import 'compass/css3'
 @import 'colors'
 
-body
+.clearfix
+  &:before
+    content: " "
+    display: table
+  &:after
+    content: " "
+    display: table
+    clear: both
 
+.hidden
+  display: none
+
+html
+  overflow: hidden
+
+body
+  +box-sizing(border-box)
+  margin-top: 40px
+  height: 100%
+  overflow-y: auto
+  > *
+    text-align: center
+    font-weight: bold
+    font-size: 18px
+    color: white
 #navbar
-  background: #EEE
+  width: 100%
+  position: absolute
+  background: #E00
+  height: 40px
+  opacity: 0.8
+  top: 0
+  left: 0
+  +box-sizing(border-box)
+  .navbar-left, .navbar-center, .navbar-right
+    transition: width 0.3s
+    float: left
+    background: #333
+    height: 100%
+  .navbar-left
+    opacity: 0.4
+  .navbar-center
+    opacity: 0.6
+  .navbar-right
+    opacity: 0.8
+  &.sidebar-closed
+    padding-left: 0
+    .navbar-left
+      width: 33%
+    .navbar-center
+      width: 33%
+    .navbar-right
+      width: 34%
+  &.sidebar-open
+    padding-left: 320px
+    .navbar-left
+      //display: none
+      width: 0%
+    .navbar-center
+      width: 50%
+    .navbar-right
+      width: 50%
+  
 #sidebar
-  background: #CCC
+  transition: width 0.3s
+  position: absolute
+  top: 0
+  left: 0
+  background: #080
+  height: 100%
+  opacity: 0.7
+  &.sidebar-closed
+    width: 80px
+  &.sidebar-open
+    width: 320px
+    
+#show-sidebar-2
+  position: absolute
+  top: 0
+  right: 0
+  
+#sidebar-2
+  position: absolute
+  top: 0
+  right: 0
+  background: #080
+  height: 100%
+  opacity: 0.7
+  &.sidebar-closed
+    width: 80px
+  &.sidebar-open
+    width: 320px
+  .close-sidebar
+    position: absolute
+    width: 50px
+    bottom: 15px
+    right: 15px
+#content-wrap
+  transition: margin-left 0.3s
+  +box-sizing(border-box)
+  &.sidebar-closed
+    margin-left: 0
+  &.sidebar-open
+    margin-left: 320px
+  &.sidebar-2-open
+    margin-right: 320px
+  &.sidebar-2-closed
+    margin-right: 0
 #content
-  background: #AAA
+  min-width: 320px
+  max-width: 960px
+  background: #00A
+  text-align: center
+  margin: auto
+    
+    

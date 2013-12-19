@@ -1,14 +1,187 @@
-/* line 6, ../sass/main.sass */
-#navbar {
-  background: #eeeeee;
+/* line 5, ../sass/main.sass */
+.clearfix:before {
+  content: " ";
+  display: table;
 }
-
 /* line 8, ../sass/main.sass */
-#sidebar {
-  background: #cccccc;
+.clearfix:after {
+  content: " ";
+  display: table;
+  clear: both;
 }
 
-/* line 10, ../sass/main.sass */
+/* line 13, ../sass/main.sass */
+.hidden {
+  display: none;
+}
+
+/* line 16, ../sass/main.sass */
+html {
+  overflow: hidden;
+}
+
+/* line 19, ../sass/main.sass */
+body {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 40px;
+  height: 100%;
+  overflow-y: auto;
+}
+/* line 24, ../sass/main.sass */
+body > * {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+/* line 29, ../sass/main.sass */
+#navbar {
+  width: 100%;
+  position: absolute;
+  background: #ee0000;
+  height: 40px;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 38, ../sass/main.sass */
+#navbar .navbar-left, #navbar .navbar-center, #navbar .navbar-right {
+  transition: width 0.3s;
+  float: left;
+  background: #333333;
+  height: 100%;
+}
+/* line 43, ../sass/main.sass */
+#navbar .navbar-left {
+  opacity: 0.4;
+}
+/* line 45, ../sass/main.sass */
+#navbar .navbar-center {
+  opacity: 0.6;
+}
+/* line 47, ../sass/main.sass */
+#navbar .navbar-right {
+  opacity: 0.8;
+}
+/* line 49, ../sass/main.sass */
+#navbar.sidebar-closed {
+  padding-left: 0;
+}
+/* line 51, ../sass/main.sass */
+#navbar.sidebar-closed .navbar-left {
+  width: 33%;
+}
+/* line 53, ../sass/main.sass */
+#navbar.sidebar-closed .navbar-center {
+  width: 33%;
+}
+/* line 55, ../sass/main.sass */
+#navbar.sidebar-closed .navbar-right {
+  width: 34%;
+}
+/* line 57, ../sass/main.sass */
+#navbar.sidebar-open {
+  padding-left: 320px;
+}
+/* line 59, ../sass/main.sass */
+#navbar.sidebar-open .navbar-left {
+  width: 0%;
+}
+/* line 62, ../sass/main.sass */
+#navbar.sidebar-open .navbar-center {
+  width: 50%;
+}
+/* line 64, ../sass/main.sass */
+#navbar.sidebar-open .navbar-right {
+  width: 50%;
+}
+
+/* line 67, ../sass/main.sass */
+#sidebar {
+  transition: width 0.3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #008800;
+  height: 100%;
+  opacity: 0.7;
+}
+/* line 75, ../sass/main.sass */
+#sidebar.sidebar-closed {
+  width: 80px;
+}
+/* line 77, ../sass/main.sass */
+#sidebar.sidebar-open {
+  width: 320px;
+}
+
+/* line 80, ../sass/main.sass */
+#show-sidebar-2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* line 85, ../sass/main.sass */
+#sidebar-2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #008800;
+  height: 100%;
+  opacity: 0.7;
+}
+/* line 92, ../sass/main.sass */
+#sidebar-2.sidebar-closed {
+  width: 80px;
+}
+/* line 94, ../sass/main.sass */
+#sidebar-2.sidebar-open {
+  width: 320px;
+}
+/* line 96, ../sass/main.sass */
+#sidebar-2 .close-sidebar {
+  position: absolute;
+  width: 50px;
+  bottom: 15px;
+  right: 15px;
+}
+
+/* line 101, ../sass/main.sass */
+#content-wrap {
+  transition: margin-left 0.3s;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 104, ../sass/main.sass */
+#content-wrap.sidebar-closed {
+  margin-left: 0;
+}
+/* line 106, ../sass/main.sass */
+#content-wrap.sidebar-open {
+  margin-left: 320px;
+}
+/* line 108, ../sass/main.sass */
+#content-wrap.sidebar-2-open {
+  margin-right: 320px;
+}
+/* line 110, ../sass/main.sass */
+#content-wrap.sidebar-2-closed {
+  margin-right: 0;
+}
+
+/* line 112, ../sass/main.sass */
 #content {
-  background: #aaaaaa;
+  min-width: 320px;
+  max-width: 960px;
+  background: #0000aa;
+  text-align: center;
+  margin: auto;
 }
