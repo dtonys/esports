@@ -1,0 +1,21 @@
+@import 'compass/css3'
+
+.clearfix
+  &:before
+    content: " "
+    display: table
+  &:after
+    content: " "
+    display: table
+    clear: both
+
+.hidden
+  display: none
+
+html
+  overflow: hidden
+
+body
+  +box-sizing(border-box)
+  > *
+    +box-sizing(border-box)
