@@ -1,0 +1,31 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/davidschwartz/.nvm/v0.11.16/bin/node',
+1 verbose cli   '/Users/davidschwartz/.nvm/v0.11.16/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@2.3.0
+3 info using node@v0.11.16
+4 error install Couldn't read dependencies
+5 verbose stack Error: Failed to parse json
+5 verbose stack Unexpected token <
+5 verbose stack     at parseError (/Users/davidschwartz/.nvm/v0.11.16/lib/node_modules/npm/node_modules/read-package-json/read-json.js:378:25)
+5 verbose stack     at parseJson (/Users/davidschwartz/.nvm/v0.11.16/lib/node_modules/npm/node_modules/read-package-json/read-json.js:85:51)
+5 verbose stack     at /Users/davidschwartz/.nvm/v0.11.16/lib/node_modules/npm/node_modules/read-package-json/read-json.js:59:33
+5 verbose stack     at evalmachine.<anonymous>:336:14
+5 verbose stack     at /Users/davidschwartz/.nvm/v0.11.16/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:102:5
+5 verbose stack     at FSReqWrap.oncomplete (evalmachine.<anonymous>:99:15)
+6 verbose cwd /Users/davidschwartz/projects/node_FE
+7 error Darwin 13.4.0
+8 error argv "/Users/davidschwartz/.nvm/v0.11.16/bin/node" "/Users/davidschwartz/.nvm/v0.11.16/bin/npm" "install"
+9 error node v0.11.16
+10 error npm  v2.3.0
+11 error file /Users/davidschwartz/projects/node_FE/package.json
+12 error code EJSONPARSE
+13 error Failed to parse json
+13 error Unexpected token <
+14 error File: /Users/davidschwartz/projects/node_FE/package.json
+15 error Failed to parse package.json data.
+15 error package.json must be actual JSON, not just JavaScript.
+15 error
+15 error This is not a bug in npm.
+15 error Tell the package author to fix their package.json file. JSON.parse
+16 verbose exit [ 1, true ]

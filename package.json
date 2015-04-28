@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "express-riak",
   "version": "0.0.1",
   "private": true,
@@ -17,21 +16,3 @@
     "grunt-contrib-compass": "~0.7.2"
   }
 }
-=======
-    "name": "express-riak"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-       "express": "3.0.0"
-     , "ejs": "0.8.5"
-     , "node-compass": "0.2.3"
-  },
-  "devDependencies": {
-      "grunt": "~0.4.1"
-    , "grunt-contrib-uglify": "~0.2.2"
-    , "grunt-contrib-cssmin": "~0.6.2"
-    , "grunt-contrib-jshint": "~0.6.4"
-    , "grunt-contrib-watch": "~0.5.3"
-  }
-}
->>>>>>> 3f7d98963f1211c2c9bc8bc62b5df7dad7e8dee2
