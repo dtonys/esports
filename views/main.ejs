@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="/css/main.css" >
   </head>
   <body>
-    <div> Grunt Compass with LiveReload </div>
-  </body>             
+    <div id="container">
+      <div class="head"> Front End Boilerplate </div>
+      <div class="content">
+        <div class="container">
+          <div class="text" > CSS -> SASS + COMPASS </div>
+          <div class="text" > JS -> jQuery + lodash </div>
+          <div class="text" > Assets -> Grunt + Livereload </div>
+          <div class="text" > Server -> Nodejs + Express </div>
+        </div>
+        <div class="container">
+          <% include ./partial_1 %>
+        </div>
+        <div class="container">
+          <% include ./partial_2 %>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

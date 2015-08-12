@@ -1,5 +1,7 @@
 @import 'compass/css3'
 
+@import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic)
+
 .clearfix
   &:before
     content: " "
@@ -14,6 +16,59 @@
 
 html
   overflow: hidden
+  font-family: 'Fira Sans', sans-serif
+  font-size: 14px
 
 *
   +box-sizing(border-box)
+
+@for $i from 1 through 100
+  .left-#{$i}
+    float: left
+    width: $i+'%'
+
+@for $i from 1 through 100
+  .right-#{$i}
+    float: right
+    width: $i+'%'
+
+@mixin placeholder
+  &::-webkit-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+
+// @include vendor_prefix(transition, all 1 ease-in-out)
+@mixin vendor-prefix($name, $value)
+  -webkit-#{$name}: #{$value}
+  -ms-#{$name}: #{$value}
+  -moz-#{$name}: #{$value}
+  -o-#{$name}: #{$value}
+  #{$name}: #{$value}
+
+@mixin keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-o-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+
++keyframes(fadeOut)
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
++keyframes(fadeIn)
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
