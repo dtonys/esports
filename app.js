@@ -36,8 +36,8 @@ app.get('/', function(req, res){
   res.render('main')
 });
 
-app.get('/styleguide', function(req, res){
-  res.render('styleguide')
+app.get('/components', function(req, res){
+  res.render('components')
 });
 
 app.listen(3002, function(){

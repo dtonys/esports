@@ -1,14 +1,14 @@
 @import 'compass/css3'
-@import 'default'
+
+@import 'base/reset'
+@import 'base/default'
+@import 'components/components'
+@import 'layout/layout'
 
 body
-  background: white
   text-align: center
 
-#container
-  max-width: 960px
-  margin: 10px auto 10px
-
+#main
   .head
     padding: 10px
     border: solid black 1px
@@ -17,14 +17,8 @@ body
     padding: 10px
     border: solid black 1px
 
-.container
-  border: solid black 1px
-  padding: 10px
-  margin: 0 0 10px 0
-
 .one
   color: red
-  // +vendor-prefix(animation, fadeOut 2.0s infinite)
 
 .two
   color: green

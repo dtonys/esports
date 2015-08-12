@@ -4,7 +4,7 @@ Error: File to import not found or unreadable: default.
          Compass::SpriteImporter
          /Users/davidschwartz/git-projects/node_FE/public/sass
          /Users/davidschwartz/.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets
-        on line 2 of /Users/davidschwartz/git-projects/node_FE/public/sass/main.sass
+        on line 2 of /Users/davidschwartz/git-projects/node_FE/public/sass/main_page.sass
 
 1: @import 'compass/css3'
 2: @import 'default'
@@ -15,7 +15,7 @@ Error: File to import not found or unreadable: default.
 7: #main
 
 Backtrace:
-/Users/davidschwartz/git-projects/node_FE/public/sass/main.sass:2
+/Users/davidschwartz/git-projects/node_FE/public/sass/main_page.sass:2
 /Users/davidschwartz/.rvm/gems/ruby-2.2.1/gems/sass-3.4.15/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /Users/davidschwartz/.rvm/gems/ruby-2.2.1/gems/sass-3.4.15/lib/sass/tree/import_node.rb:45:in `import'
 /Users/davidschwartz/.rvm/gems/ruby-2.2.1/gems/sass-3.4.15/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -62,4 +62,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: default.\A        Load paths:\A          Compass::SpriteImporter\A          /Users/davidschwartz/git-projects/node_FE/public/sass\A          /Users/davidschwartz/.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets\A         on line 2 of /Users/davidschwartz/git-projects/node_FE/public/sass/main.sass\A \A 1: @import 'compass/css3'\A 2: @import 'default'\A 3: \A 4: body\A 5:   text-align: center\A 6: \A 7: #main"; }
+  content: "Error: File to import not found or unreadable: default.\A        Load paths:\A          Compass::SpriteImporter\A          /Users/davidschwartz/git-projects/node_FE/public/sass\A          /Users/davidschwartz/.rvm/gems/ruby-2.2.1/gems/compass-core-1.0.3/stylesheets\A         on line 2 of /Users/davidschwartz/git-projects/node_FE/public/sass/main_page.sass\A \A 1: @import 'compass/css3'\A 2: @import 'default'\A 3: \A 4: body\A 5:   text-align: center\A 6: \A 7: #main"; }

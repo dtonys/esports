@@ -1,0 +1,37 @@
+@import 'compass/css3'
+
+@import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic)
+
+.clearfix
+  &:before
+    content: " "
+    display: table
+  &:after
+    content: " "
+    display: table
+    clear: both
+
+.hidden
+  display: none
+
+html
+  overflow: hidden
+  font-family: 'Fira Sans', sans-serif
+  font-size: 14px
+
+*
+  +box-sizing(border-box)
+
+body
+  background: #aaa
+  text-align: center
+
+@for $i from 1 through 100
+  .left-#{$i}
+    float: left
+    width: $i+'%'
+
+@for $i from 1 through 100
+  .right-#{$i}
+    float: right
+    width: $i+'%'

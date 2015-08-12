@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title> Front End Boilerplate </title>
+    <!-- For mobile responsive sites only -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
+    <!-- *** -->
+    <!-- CSS -->
+    <!-- *** -->
+    <% include ./core_css %>
+    <link rel="stylesheet" href="/css/pages/components.css" >
+
+  </head>
+  <body>
+    <div id="components" class="layout-content">
+      <div class="head"> Components </div>
+      <div class="content">
+        <div class="style-item">
+          <div class="head">
+            container
+          </div>
+          <div class="content">
+            <div class="container">
+              container content<br>
+              container content<br>
+              container content<br>              
+            </div>
+          </div>
+        </div>
+        <div class="style-item"> 
+          <div class="head">
+            input
+          </div>
+          <div class="content">
+            <input class="input" type="text" placeholder="Enter your name" />
+          </div>
+        </div>
+        <div class="style-item"> 
+          <div class="head">
+            btn
+          </div>
+          <div class="content">
+            <div class="btn"> Button </div>
+          </div>
+        </div>    
+      </div>
+    </div>
+
+    <!-- ** -->
+    <!-- JS -->
+    <!-- ** -->
+    <% include ./core_js %>
+
+  </body>
+</html>
