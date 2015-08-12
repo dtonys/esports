@@ -6,7 +6,9 @@ var methodOverride = require('method-override');  // todo: test PUT, DELETE
 var multer = require('multer');                   // todo: test multipart POST
 var cookieParser = require('cookie-parser');      // check req.cookies
 var morgan = require('morgan');   
-var favicon = require('serve-favicon');           
+var favicon = require('serve-favicon');
+var compression = require('compression');
+var errorhandler = require('errorhandler');      
 
 var uploads = multer({ dest: 'public/uploads' }); // todo: test upload files
 var express = require('express');
@@ -27,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());                                // allow PUT and DELETE
 app.use(cookieParser());                                  // populate req.cookies
 app.use(morgan('dev'));                                   // log requests
+app.use(compression());
+app.use(errorhandler());
 
 app.get('/', function(req, res){
   res.render('main')

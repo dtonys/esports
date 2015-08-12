@@ -1,3 +1,5 @@
 node_modules
 *.komodoproject
 .komodotools
+.sass-cache/
+public/css/
