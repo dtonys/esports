@@ -42,10 +42,6 @@ app.get('/components', function(req, res){
   res.render('components')
 });
 
-app.get('/examples', function(req, res){
-  res.render('examples')
-});
-
 app.listen(3002, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
