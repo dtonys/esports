@@ -33,11 +33,17 @@ app.use(compression());
 app.use(errorhandler());
 
 app.get('/', function(req, res){
-  res.render('main')
+  res.render('main', {
+    ejs: ejs
+  })
 });
 
 app.get('/components', function(req, res){
   res.render('components')
+});
+
+app.get('/examples', function(req, res){
+  res.render('examples')
 });
 
 app.listen(3002, function(){

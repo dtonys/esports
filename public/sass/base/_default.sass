@@ -1,4 +1,5 @@
 @import 'compass/css3'
+@import 'helpers/mixins'
 
 @import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic)
 
@@ -15,7 +16,7 @@
   display: none
 
 html
-  overflow: hidden
+  overflow: auto
   font-family: 'Fira Sans', sans-serif
   font-size: 14px
 
@@ -23,8 +24,15 @@ html
   +box-sizing(border-box)
 
 body
-  background: #aaa
   text-align: center
+
+a
+a:link
+a:visited
+a:hover
+a:active
+
+
 
 @for $i from 1 through 100
   .left-#{$i}
@@ -35,3 +43,39 @@ body
   .right-#{$i}
     float: right
     width: $i+'%'
+
++keyframes(rotate-right)
+  from
+    +transform(rotate(0deg))
+  to
+    +transform(rotate(360deg))
+
++keyframes(rotate-left)
+  from
+    +transform(rotate(360deg))
+  to
+    +transform(rotate(0deg))
+
++keyframes(fadeOut)
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
++keyframes(fadeIn)
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+.spinner
+  margin: auto
+  +yin-yang( 11px, white, black )
+
+.rotate
+  &.clockwise
+    +vendor-prefix(animation, rotate-right 1.25s linear infinite)
+  &.c-clockwise
+    +vendor-prefix(animation, rotate-left 1.25s linear infinite)
+
+

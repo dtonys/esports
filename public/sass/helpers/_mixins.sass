@@ -1,4 +1,4 @@
-@mixin placeholder
+=placeholder
   &::-webkit-input-placeholder
     @content
   &:-moz-placeholder
@@ -8,15 +8,14 @@
   &:-ms-input-placeholder
     @content
 
-// @include vendor_prefix(transition, all 1 ease-in-out)
-@mixin vendor-prefix($name, $value)
+=vendor-prefix($name, $value)
   -webkit-#{$name}: #{$value}
   -ms-#{$name}: #{$value}
   -moz-#{$name}: #{$value}
   -o-#{$name}: #{$value}
   #{$name}: #{$value}
 
-@mixin keyframes($name)
+=keyframes($name)
   @-webkit-keyframes #{$name}
     @content
   @-moz-keyframes #{$name}
@@ -26,14 +25,98 @@
   @keyframes #{$name}
     @content
 
-+keyframes(fadeOut)
-  0%
-    opacity: 1
-  100%
-    opacity: 0
+=triangle( $width, $height, $direction,  $color )
+  width: 0
+  height: 0
+  @if $direction == up
+    border-left: $width solid transparent
+    border-right: $width solid transparent
+    border-bottom: $height solid $color
+  @if $direction == right
+    border-top: $width solid transparent
+    border-left: $height solid $color
+    border-bottom: $width solid transparent  
+  @if $direction == down
+    border-left: $width solid transparent
+    border-right: $width solid transparent
+    border-top: $height solid $color  
+  @if $direction == left
+    border-top: $width solid transparent
+    border-right: $height solid $color
+    border-bottom: $width solid transparent
 
-+keyframes(fadeIn)
-  0%
-    opacity: 1
-  100%
-    opacity: 0
+=yin-yang( $height, $color1, $color2 )
+  +box-sizing( content-box )
+  width: $height*2
+  height: $height
+  background: $color1
+  border-color: $color2
+  border-style: solid
+  border-width: 2px 2px $height+1 2px
+  border-radius: 100%
+  position: relative
+  &:before
+    content: ""
+    position: absolute
+    top: 50%
+    left: 0
+    background: $color1
+    border: ($height/8)*3 solid $color1
+    border-radius: 100%
+    width: ($height/4)
+    height: ($height/4)
+  &:after
+    content: ""
+    position: absolute
+    top: 50%
+    left: 50%
+    background: $color2
+    border: ($height/8)*3 solid $color2
+    border-radius: 100%
+    width: ($height/4)
+    height: ($height/4)
+
+=border-arrow( $width, $height, $direction,  $color, $offset:0 )
+  position: relative
+  &:after
+    content: ''
+    position: absolute
+  @if $direction == up
+    &:after
+      +triangle($width, $height, up, black)
+      left: 50%
+      margin-left: (-1*($height/2))+$offset
+      top: (-$height)
+  @if $direction == right
+    &:after
+      +triangle($width, $height, right, black)
+      top: 50%
+      margin-top: (-1*($height/2))+$offset
+      right: (-$height)
+  @if $direction == down
+    &:after
+      +triangle($width, $height, down, black)
+      left: 50%
+      margin-left: (-1*($height/2))+$offset
+      bottom: (-$height)      
+
+  @if $direction == left
+    &:after
+      +triangle($width, $height, left, black) 
+      top: 50%
+      margin-top: (-1*($height/2))+$offset
+      left: (-$height)
+
+=border-arrow-directions( $width, $height, $color )
+  &.up
+    +border-arrow( $width, $height, up, $color )
+  &.right
+    +border-arrow( $width, $height, right, $color )
+  &.down
+    +border-arrow( $width, $height, down, $color )
+  &.left
+    +border-arrow( $width, $height, left, $color )
+
+
+
+
