@@ -1,1 +1,4 @@
-Front End protoyping with sass
+CSS :: SASS, COMPASS
+JS :: jQuery, FastClick
+Server :: Express
+Assets :: Grunt, Livereload
