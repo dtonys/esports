@@ -17,4 +17,5 @@ Start the server
 \> node app.js
 
 Compile SASS, watch and apply CSS updates
+
 \> grunt watch
