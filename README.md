@@ -2,6 +2,8 @@ Boilerplate for web applications.
 
 Cross Device, Cross Browser ( IE9 and up )
 
+#### Tech Stack
+
 CSS :: SASS, COMPASS
 
 JS :: jQuery, FastClick
