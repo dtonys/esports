@@ -1,4 +1,4 @@
-node_modules
-*.komodoproject
-.komodotools
+node_modules/
 .sass-cache/
+public/css/*
+!public/css/.gitkeep
