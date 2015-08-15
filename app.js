@@ -13,8 +13,6 @@ var errorhandler = require('errorhandler');
 var uploads = multer({ dest: 'public/uploads' }); // todo: test upload files
 var express = require('express');
 
-var compass = require('node-compass');
-
 var app = express();
 
 app.engine('ejs', cons.ejs);                              // match view engine to file extension
