@@ -1,5 +1,4 @@
-@import 'compass/css3'
-@import 'helpers/mixins'
+@import '../helpers/mixins'
 
 @import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic)
 
@@ -21,18 +20,13 @@ html
   font-size: 14px
 
 *
-  +box-sizing(border-box)
+  box-sizing: border-box
 
 body
   text-align: center
 
-a
-a:link
-a:visited
-a:hover
-a:active
-
-
+a, a:link, a:visited ,a:hover, a:active
+  display: inline
 
 @for $i from 1 through 100
   .left-#{$i}
@@ -46,15 +40,15 @@ a:active
 
 +keyframes(rotate-right)
   from
-    +transform(rotate(0deg))
+    transform: rotate(0deg)
   to
-    +transform(rotate(360deg))
+    transform: rotate(360deg)
 
 +keyframes(rotate-left)
   from
-    +transform(rotate(360deg))
+    transform: rotate(360deg)
   to
-    +transform(rotate(0deg))
+    transform: rotate(0deg)
 
 +keyframes(fadeOut)
   0%
