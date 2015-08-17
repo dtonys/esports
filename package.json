@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^5.2.0",
+    "esvalidate": "^0.1.3",
     "postcss-cli": "^1.5.0"
   },
   "config": {
@@ -25,7 +26,7 @@
   "scripts": {
     "test": "echo test $npm_package_config_test",
     "esvalidate": "(find public/js -type f -name '*.js'; find *.js) | xargs esvalidate --format=sublime",
-    "autoprefix": "find public/css -type f -name '*.css' | xargs postcss --use autoprefixer -b 'last 2 versions' -d public/css/pages",
+    "autoprefixer": "find public/css -type f -name '*.css' | xargs postcss --use autoprefixer -b 'last 2 versions' -d public/css/pages",
     "build": "npm run esvalidate"
   }
 }
