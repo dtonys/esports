@@ -2,6 +2,8 @@ Front End Boilerplate optimized for simplicity + fast development
 
 Uses npm as build tool ( http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  )
 
+Uses opinionated CSS structure ( http://www.sitepoint.com/architecture-sass-project/  )
+
 ### Run
 
 #### Main Commands
