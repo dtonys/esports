@@ -1,23 +1,29 @@
-Boilerplate for web applications.
+Front End Boilerplate optimized for simplicity + fast development
 
-Cross Device, Cross Browser ( IE9 and up )
-
-#### Tech Stack
-
-CSS :: SASS, COMPASS
-
-JS :: jQuery, FastClick
-
-Server :: Express
-
-Assets :: Grunt, Livereload
+Uses npm as build tool ( http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  )
 
 #### Run
 
+## Main Commands
+
 Start the server
 
-\> node app.js
+\> npm run start
 
-Compile SASS, watch and apply CSS updates
+Start Watch SASS and Livereload Tasks
 
-\> grunt watch
+\> npm run watch
+
+Stop Watch SASS and Livereload tasks
+
+\> npm run watch:stop
+
+## Other Commands
+
+Check for js errors in public/js
+
+\> npm run esvalidate
+
+Apply vendor prefix to css, via autoprefixer
+
+\> npm run autoprefixer
