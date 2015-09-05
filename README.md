@@ -26,6 +26,6 @@ Check for js errors in public/js
 
 \> npm run esvalidate
 
-Apply vendor prefix to css, via autoprefixer
+Apply vendor prefix to css, via autoprefixer, output css to public/css/pages
 
 \> npm run autoprefixer
