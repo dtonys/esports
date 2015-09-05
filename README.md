@@ -2,9 +2,9 @@ Front End Boilerplate optimized for simplicity + fast development
 
 Uses npm as build tool ( http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  )
 
-#### Run
+### Run
 
-## Main Commands
+#### Main Commands
 
 Start the server
 
@@ -18,7 +18,7 @@ Stop Watch SASS and Livereload tasks
 
 \> npm run watch:stop
 
-## Other Commands
+#### Other Commands
 
 Check for js errors in public/js
 
