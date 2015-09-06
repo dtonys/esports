@@ -1,4 +1,5 @@
 @import '../helpers/mixins'
+@import '../helpers/variables'
 
 @import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic)
 
@@ -17,13 +18,15 @@
 html
   overflow: auto
   font-family: 'Fira Sans', sans-serif
-  font-size: 14px
-
-*
+  font-size: $font-size
   box-sizing: border-box
+
+*, *:before, *:after
+  box-sizing: inherit
 
 body
   text-align: center
+  background: white
 
 a, a:link, a:visited ,a:hover, a:active
   display: inline
