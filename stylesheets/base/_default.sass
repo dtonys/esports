@@ -15,6 +15,9 @@
 .hidden
   display: none
 
+.bold
+  font-weight: bold
+
 html
   overflow: auto
   font-family: 'Fira Sans', sans-serif
@@ -31,15 +34,37 @@ body
 a, a:link, a:visited ,a:hover, a:active
   display: inline
 
+.f-left
+  float: left
+.f-right
+  float: right
+
+pre
+  text-align: left
+  background-color: black
+  color: white
+  border-radius: 5px
+  padding: 10px
+  margin: 0
+  overflow-x: auto
+  white-space: pre-wrap
+
+code
+  line-height: 1
+
 @for $i from 1 through 100
   .left-#{$i}
     float: left
-    width: $i+'%'
+    width: percentage($i/100)
 
 @for $i from 1 through 100
   .right-#{$i}
     float: right
-    width: $i+'%'
+    width: percentage($i/100)
+
+@for $i from 1 through 100
+  .margin-#{$i}
+    margin-bottom: $i + px
 
 +keyframes(rotate-right)
   from
@@ -74,5 +99,16 @@ a, a:link, a:visited ,a:hover, a:active
     +vendor-prefix(animation, rotate-right 1.25s linear infinite)
   &.c-clockwise
     +vendor-prefix(animation, rotate-left 1.25s linear infinite)
+
+.tablet-only
+  display: none
+
+@media #{$mobile_phone}
+  .phone-only
+    display: block
+
+@media #{$mobile_tablet}
+  .tablet-only
+    display: block
 
 

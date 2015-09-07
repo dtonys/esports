@@ -45,6 +45,16 @@
     border-right: $height solid $color
     border-bottom: $width solid transparent
 
+=triangle-directions( $width, $height, $color )
+  &.up
+    +triangle( $width, $height, up, $color )
+  &.right
+    +triangle( $width, $height, right, $color )
+  &.down
+    +triangle( $width, $height, down, $color )
+  &.left
+    +triangle( $width, $height, left, $color )
+
 =yin-yang( $height, $color1, $color2 )
   box-sizing: content-box
   width: $height*2

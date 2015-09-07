@@ -16,7 +16,7 @@
 
   +placeholder
     color: black
-    font-weight: 100
+    font-weight: 400
   &:focus
     box-shadow: 0px 0px 4px #000 inset
   &.error
@@ -27,7 +27,7 @@
 
 .btn
   height: 40px
-  padding: 12px 10px 10px 10px
+  padding: 10px 10px 10px 10px
   background: white
   color: black
   border: 0
@@ -40,18 +40,19 @@
   outline: none
   
   box-shadow: 0px 0px 4px #999
-  transition: transform 0.1s
+  // transition: transform 0.1s
   transition: background 0.1s
 
   &:hover
     box-shadow: 0px 0px 4px #000
   &:active
     background: #EEE
-    transform: scale(0.98)
+    // transform: scale(0.98)
     transition: transform 0.0s
 
 .select
   height: 40px
+  width: 100%
   padding: 8px 20px 10px 10px
   background: white
   color: black
@@ -71,9 +72,9 @@
   background-repeat: no-repeat
   background-position: 93% center
   background-size: 10px
-  max-width: 100px
 
 .textarea
+  width: 100%
   outline: none
   border: solid black 1px
   border-radius: 5px
@@ -83,34 +84,34 @@
   +vendor-prefix( appearance, none)
   +placeholder
     color: black
-    font-weight: 100
+    font-weight: 400
   box-shadow: 0px 0px 4px #999 inset
   &:focus
     box-shadow: 0px 0px 4px #000 inset
 
-.checked-icon, .unchecked-icon
-  vertical-align: top
-
 .checkbox
   display: none
-
 .radio
   display: none
 
-.unchecked-icon
+.checked-box, .unchecked-box, .checked-radio, .unchecked-radio
+  vertical-align: top
+  width: 20px
+  height: 20px
+  border: solid black 1px
+
+.unchecked-box, .unchecked-radio
   background: white
-  border-radius: 10px
-  width: 20px
-  height: 20px
-  border: solid black 1px
 
-.checked-icon
+.checked-box, .checked-radio
   background: black
-  border-radius: 10px
-  width: 20px
-  height: 20px
-  border: solid black 1px
 
+.unchecked-box, .checked-box
+  border-radius: 2px
+
+.unchecked-radio, .checked-radio
+  border-radius: 10px
+  
 .label
   cursor: pointer
   padding: 10px
@@ -120,28 +121,28 @@ input.checkbox
   cursor: pointer
 
 input.checkbox + label
-  .checked-icon
+  .checked-box
     display: none
-  .unchecked-icon
+  .unchecked-box
     display: inline-block
 
 input.checkbox:checked + label
-  .checked-icon
+  .checked-box
     display: inline-block
-  .unchecked-icon
+  .unchecked-box
     display: none
 
 input.radio
   cursor: pointer
 
 input.radio + label
-  .checked-icon
+  .checked-radio
     display: none
-  .unchecked-icon
+  .unchecked-radio
     display: inline-block
 input.radio:checked + label    
-  .checked-icon
+  .checked-radio
     display: inline-block
-  .unchecked-icon
+  .unchecked-radio
     display: none
 

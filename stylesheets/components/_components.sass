@@ -43,3 +43,88 @@ table.table
     height: 50px
     vertical-align: middle
     padding: 20px 0
+
+.section
+  overflow: hidden
+
+.anchor-link, a.anchor-link
+  text-decoration: none
+  color: black
+  text-align: left
+  display: block
+  .anchor-tip
+    display: none
+  .text:hover
+    .anchor-tip
+      display: inline
+
+
+.drop-head
+  border-bottom: solid black 5px
+  text-align: left
+  padding: 5px 15px
+  cursor: pointer
+  .text
+    font-size: 24px
+  &.active
+    border-bottom: solid black 3px
+    box-shadow: 0px 0px 4px #000
+
+.component-wrap
+  position: relative
+  text-align: left
+  .item-name
+    font-size: 16px
+    font-weight: 500  
+  .item-class
+  .toggle-code
+    position: absolute
+    top: 0
+    right: 0
+
+.drop-content
+  padding: 15px 15px
+  text-align: left
+
+.item-wrap
+  padding: 0
+  text-align: center
+  &.left-50
+    &.l
+      padding: 10px 10px 0 0
+    &.r
+      padding: 10px 0 0 10px
+@media #{$mobile_phone}
+  .item-wrap.left-50
+    width: 100%
+    padding: 0
+
+@media #{$mobile_tablet}
+  .item-wrap.left-50
+    width: 100%
+    padding: 0
+    &.l
+      padding: 0
+    &.r
+      padding: 0
+
+
+.arrow-drop
+  +triangle-directions( 10px, 20px, black )
+  position: relative
+  top: 5px
+  right: 5px
+
+
+
+
+
+
+
+
+
+
+
+
+
+

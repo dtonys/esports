@@ -1,0 +1,14 @@
+<div class="section" id="<%= item %>">
+  <div class="drop-head clearfix">
+    <a class="anchor-link" href="#<%= item %>">
+      <div class="text f-left">
+        <%= capitalize( item ) %>
+        <span class="anchor-tip" > # </span>
+      </div>
+    </a>
+    <div class="arrow-drop down f-right"></div>
+  </div>
+  <div class="drop-content clearfix hidden" >
+    <%- include( drop_content ) %>
+  </div>
+</div>
