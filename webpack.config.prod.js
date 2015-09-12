@@ -1,7 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
   resolveLoader: {
@@ -12,7 +14,7 @@ module.exports = {
     components: './public/js/components.js'
   },
   output: {
-    path: __dirname+'/public/build',
+    path: __dirname+'/public/minified',
     filename: '[name].js'
   },
   module: {
@@ -36,7 +38,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new ExtractTextPlugin('[name].css'),
     new CommonsChunkPlugin({ name: "common" }),
-    new ExtractTextPlugin('[name].css')
+    new UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
   ]
 }

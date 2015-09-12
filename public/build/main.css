@@ -1,0 +1,2052 @@
+@import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic);/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom. */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+/**
+ * Remove default margin. */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+ * ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11. */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera. */
+audio, canvas, progress, video {
+  display: inline-block;
+  vertical-align: baseline; }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices. */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22. */
+[hidden], template {
+  display: none; }
+
+/* Links
+ * ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10. */
+a {
+  background-color: transparent; }
+  a:active, a:hover {
+    outline: 0; }
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers. */
+/* Text-level semantics
+ * ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome. */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome. */
+b, strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome. */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome. */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9. */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers. */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers. */
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+ * ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10. */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11. */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+ * ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari. */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers. */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers. */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers. */
+code, kbd, pre, samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+ * ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set. */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome. */
+button, input, optgroup, select, textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0; }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11. */
+button {
+  overflow: visible;
+  text-transform: none; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox. */
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others. */
+button, html input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer; }
+
+input[type="reset"], input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer; }
+
+/**
+ * Re-set default cursor for disabled elements. */
+button[disabled], html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+. */
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+input {
+  line-height: normal; }
+  input::-moz-focus-inner {
+    border: 0;
+    padding: 0; }
+  input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0; }
+  input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+    height: auto; }
+  input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box; }
+    input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+      -webkit-appearance: none; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet. */
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10. */
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`. */
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof). */
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance). */
+/**
+ * Define consistent border, margin, and padding. */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets. */
+legend {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11. */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X. */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+ * ========================================================================== */
+/**
+ * Remove most spacing between table cells. */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td, th {
+  padding: 0; }
+
+.clearfix:before {
+  content: " ";
+  display: table; }
+
+.clearfix:after {
+  content: " ";
+  display: table;
+  clear: both; }
+
+.hidden {
+  display: none; }
+
+.bold {
+  font-weight: bold; }
+
+html {
+  overflow: auto;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+body {
+  text-align: center;
+  background: white; }
+
+a, a:link, a:visited, a:hover, a:active {
+  display: inline; }
+
+.f-left {
+  float: left; }
+
+.f-right {
+  float: right; }
+
+pre {
+  text-align: left;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre-wrap; }
+
+code {
+  line-height: 1; }
+
+.left-1 {
+  float: left;
+  width: 1%; }
+
+.left-2 {
+  float: left;
+  width: 2%; }
+
+.left-3 {
+  float: left;
+  width: 3%; }
+
+.left-4 {
+  float: left;
+  width: 4%; }
+
+.left-5 {
+  float: left;
+  width: 5%; }
+
+.left-6 {
+  float: left;
+  width: 6%; }
+
+.left-7 {
+  float: left;
+  width: 7%; }
+
+.left-8 {
+  float: left;
+  width: 8%; }
+
+.left-9 {
+  float: left;
+  width: 9%; }
+
+.left-10 {
+  float: left;
+  width: 10%; }
+
+.left-11 {
+  float: left;
+  width: 11%; }
+
+.left-12 {
+  float: left;
+  width: 12%; }
+
+.left-13 {
+  float: left;
+  width: 13%; }
+
+.left-14 {
+  float: left;
+  width: 14%; }
+
+.left-15 {
+  float: left;
+  width: 15%; }
+
+.left-16 {
+  float: left;
+  width: 16%; }
+
+.left-17 {
+  float: left;
+  width: 17%; }
+
+.left-18 {
+  float: left;
+  width: 18%; }
+
+.left-19 {
+  float: left;
+  width: 19%; }
+
+.left-20 {
+  float: left;
+  width: 20%; }
+
+.left-21 {
+  float: left;
+  width: 21%; }
+
+.left-22 {
+  float: left;
+  width: 22%; }
+
+.left-23 {
+  float: left;
+  width: 23%; }
+
+.left-24 {
+  float: left;
+  width: 24%; }
+
+.left-25 {
+  float: left;
+  width: 25%; }
+
+.left-26 {
+  float: left;
+  width: 26%; }
+
+.left-27 {
+  float: left;
+  width: 27%; }
+
+.left-28 {
+  float: left;
+  width: 28%; }
+
+.left-29 {
+  float: left;
+  width: 29%; }
+
+.left-30 {
+  float: left;
+  width: 30%; }
+
+.left-31 {
+  float: left;
+  width: 31%; }
+
+.left-32 {
+  float: left;
+  width: 32%; }
+
+.left-33 {
+  float: left;
+  width: 33%; }
+
+.left-34 {
+  float: left;
+  width: 34%; }
+
+.left-35 {
+  float: left;
+  width: 35%; }
+
+.left-36 {
+  float: left;
+  width: 36%; }
+
+.left-37 {
+  float: left;
+  width: 37%; }
+
+.left-38 {
+  float: left;
+  width: 38%; }
+
+.left-39 {
+  float: left;
+  width: 39%; }
+
+.left-40 {
+  float: left;
+  width: 40%; }
+
+.left-41 {
+  float: left;
+  width: 41%; }
+
+.left-42 {
+  float: left;
+  width: 42%; }
+
+.left-43 {
+  float: left;
+  width: 43%; }
+
+.left-44 {
+  float: left;
+  width: 44%; }
+
+.left-45 {
+  float: left;
+  width: 45%; }
+
+.left-46 {
+  float: left;
+  width: 46%; }
+
+.left-47 {
+  float: left;
+  width: 47%; }
+
+.left-48 {
+  float: left;
+  width: 48%; }
+
+.left-49 {
+  float: left;
+  width: 49%; }
+
+.left-50 {
+  float: left;
+  width: 50%; }
+
+.left-51 {
+  float: left;
+  width: 51%; }
+
+.left-52 {
+  float: left;
+  width: 52%; }
+
+.left-53 {
+  float: left;
+  width: 53%; }
+
+.left-54 {
+  float: left;
+  width: 54%; }
+
+.left-55 {
+  float: left;
+  width: 55%; }
+
+.left-56 {
+  float: left;
+  width: 56%; }
+
+.left-57 {
+  float: left;
+  width: 57%; }
+
+.left-58 {
+  float: left;
+  width: 58%; }
+
+.left-59 {
+  float: left;
+  width: 59%; }
+
+.left-60 {
+  float: left;
+  width: 60%; }
+
+.left-61 {
+  float: left;
+  width: 61%; }
+
+.left-62 {
+  float: left;
+  width: 62%; }
+
+.left-63 {
+  float: left;
+  width: 63%; }
+
+.left-64 {
+  float: left;
+  width: 64%; }
+
+.left-65 {
+  float: left;
+  width: 65%; }
+
+.left-66 {
+  float: left;
+  width: 66%; }
+
+.left-67 {
+  float: left;
+  width: 67%; }
+
+.left-68 {
+  float: left;
+  width: 68%; }
+
+.left-69 {
+  float: left;
+  width: 69%; }
+
+.left-70 {
+  float: left;
+  width: 70%; }
+
+.left-71 {
+  float: left;
+  width: 71%; }
+
+.left-72 {
+  float: left;
+  width: 72%; }
+
+.left-73 {
+  float: left;
+  width: 73%; }
+
+.left-74 {
+  float: left;
+  width: 74%; }
+
+.left-75 {
+  float: left;
+  width: 75%; }
+
+.left-76 {
+  float: left;
+  width: 76%; }
+
+.left-77 {
+  float: left;
+  width: 77%; }
+
+.left-78 {
+  float: left;
+  width: 78%; }
+
+.left-79 {
+  float: left;
+  width: 79%; }
+
+.left-80 {
+  float: left;
+  width: 80%; }
+
+.left-81 {
+  float: left;
+  width: 81%; }
+
+.left-82 {
+  float: left;
+  width: 82%; }
+
+.left-83 {
+  float: left;
+  width: 83%; }
+
+.left-84 {
+  float: left;
+  width: 84%; }
+
+.left-85 {
+  float: left;
+  width: 85%; }
+
+.left-86 {
+  float: left;
+  width: 86%; }
+
+.left-87 {
+  float: left;
+  width: 87%; }
+
+.left-88 {
+  float: left;
+  width: 88%; }
+
+.left-89 {
+  float: left;
+  width: 89%; }
+
+.left-90 {
+  float: left;
+  width: 90%; }
+
+.left-91 {
+  float: left;
+  width: 91%; }
+
+.left-92 {
+  float: left;
+  width: 92%; }
+
+.left-93 {
+  float: left;
+  width: 93%; }
+
+.left-94 {
+  float: left;
+  width: 94%; }
+
+.left-95 {
+  float: left;
+  width: 95%; }
+
+.left-96 {
+  float: left;
+  width: 96%; }
+
+.left-97 {
+  float: left;
+  width: 97%; }
+
+.left-98 {
+  float: left;
+  width: 98%; }
+
+.left-99 {
+  float: left;
+  width: 99%; }
+
+.left-100 {
+  float: left;
+  width: 100%; }
+
+.right-1 {
+  float: right;
+  width: 1%; }
+
+.right-2 {
+  float: right;
+  width: 2%; }
+
+.right-3 {
+  float: right;
+  width: 3%; }
+
+.right-4 {
+  float: right;
+  width: 4%; }
+
+.right-5 {
+  float: right;
+  width: 5%; }
+
+.right-6 {
+  float: right;
+  width: 6%; }
+
+.right-7 {
+  float: right;
+  width: 7%; }
+
+.right-8 {
+  float: right;
+  width: 8%; }
+
+.right-9 {
+  float: right;
+  width: 9%; }
+
+.right-10 {
+  float: right;
+  width: 10%; }
+
+.right-11 {
+  float: right;
+  width: 11%; }
+
+.right-12 {
+  float: right;
+  width: 12%; }
+
+.right-13 {
+  float: right;
+  width: 13%; }
+
+.right-14 {
+  float: right;
+  width: 14%; }
+
+.right-15 {
+  float: right;
+  width: 15%; }
+
+.right-16 {
+  float: right;
+  width: 16%; }
+
+.right-17 {
+  float: right;
+  width: 17%; }
+
+.right-18 {
+  float: right;
+  width: 18%; }
+
+.right-19 {
+  float: right;
+  width: 19%; }
+
+.right-20 {
+  float: right;
+  width: 20%; }
+
+.right-21 {
+  float: right;
+  width: 21%; }
+
+.right-22 {
+  float: right;
+  width: 22%; }
+
+.right-23 {
+  float: right;
+  width: 23%; }
+
+.right-24 {
+  float: right;
+  width: 24%; }
+
+.right-25 {
+  float: right;
+  width: 25%; }
+
+.right-26 {
+  float: right;
+  width: 26%; }
+
+.right-27 {
+  float: right;
+  width: 27%; }
+
+.right-28 {
+  float: right;
+  width: 28%; }
+
+.right-29 {
+  float: right;
+  width: 29%; }
+
+.right-30 {
+  float: right;
+  width: 30%; }
+
+.right-31 {
+  float: right;
+  width: 31%; }
+
+.right-32 {
+  float: right;
+  width: 32%; }
+
+.right-33 {
+  float: right;
+  width: 33%; }
+
+.right-34 {
+  float: right;
+  width: 34%; }
+
+.right-35 {
+  float: right;
+  width: 35%; }
+
+.right-36 {
+  float: right;
+  width: 36%; }
+
+.right-37 {
+  float: right;
+  width: 37%; }
+
+.right-38 {
+  float: right;
+  width: 38%; }
+
+.right-39 {
+  float: right;
+  width: 39%; }
+
+.right-40 {
+  float: right;
+  width: 40%; }
+
+.right-41 {
+  float: right;
+  width: 41%; }
+
+.right-42 {
+  float: right;
+  width: 42%; }
+
+.right-43 {
+  float: right;
+  width: 43%; }
+
+.right-44 {
+  float: right;
+  width: 44%; }
+
+.right-45 {
+  float: right;
+  width: 45%; }
+
+.right-46 {
+  float: right;
+  width: 46%; }
+
+.right-47 {
+  float: right;
+  width: 47%; }
+
+.right-48 {
+  float: right;
+  width: 48%; }
+
+.right-49 {
+  float: right;
+  width: 49%; }
+
+.right-50 {
+  float: right;
+  width: 50%; }
+
+.right-51 {
+  float: right;
+  width: 51%; }
+
+.right-52 {
+  float: right;
+  width: 52%; }
+
+.right-53 {
+  float: right;
+  width: 53%; }
+
+.right-54 {
+  float: right;
+  width: 54%; }
+
+.right-55 {
+  float: right;
+  width: 55%; }
+
+.right-56 {
+  float: right;
+  width: 56%; }
+
+.right-57 {
+  float: right;
+  width: 57%; }
+
+.right-58 {
+  float: right;
+  width: 58%; }
+
+.right-59 {
+  float: right;
+  width: 59%; }
+
+.right-60 {
+  float: right;
+  width: 60%; }
+
+.right-61 {
+  float: right;
+  width: 61%; }
+
+.right-62 {
+  float: right;
+  width: 62%; }
+
+.right-63 {
+  float: right;
+  width: 63%; }
+
+.right-64 {
+  float: right;
+  width: 64%; }
+
+.right-65 {
+  float: right;
+  width: 65%; }
+
+.right-66 {
+  float: right;
+  width: 66%; }
+
+.right-67 {
+  float: right;
+  width: 67%; }
+
+.right-68 {
+  float: right;
+  width: 68%; }
+
+.right-69 {
+  float: right;
+  width: 69%; }
+
+.right-70 {
+  float: right;
+  width: 70%; }
+
+.right-71 {
+  float: right;
+  width: 71%; }
+
+.right-72 {
+  float: right;
+  width: 72%; }
+
+.right-73 {
+  float: right;
+  width: 73%; }
+
+.right-74 {
+  float: right;
+  width: 74%; }
+
+.right-75 {
+  float: right;
+  width: 75%; }
+
+.right-76 {
+  float: right;
+  width: 76%; }
+
+.right-77 {
+  float: right;
+  width: 77%; }
+
+.right-78 {
+  float: right;
+  width: 78%; }
+
+.right-79 {
+  float: right;
+  width: 79%; }
+
+.right-80 {
+  float: right;
+  width: 80%; }
+
+.right-81 {
+  float: right;
+  width: 81%; }
+
+.right-82 {
+  float: right;
+  width: 82%; }
+
+.right-83 {
+  float: right;
+  width: 83%; }
+
+.right-84 {
+  float: right;
+  width: 84%; }
+
+.right-85 {
+  float: right;
+  width: 85%; }
+
+.right-86 {
+  float: right;
+  width: 86%; }
+
+.right-87 {
+  float: right;
+  width: 87%; }
+
+.right-88 {
+  float: right;
+  width: 88%; }
+
+.right-89 {
+  float: right;
+  width: 89%; }
+
+.right-90 {
+  float: right;
+  width: 90%; }
+
+.right-91 {
+  float: right;
+  width: 91%; }
+
+.right-92 {
+  float: right;
+  width: 92%; }
+
+.right-93 {
+  float: right;
+  width: 93%; }
+
+.right-94 {
+  float: right;
+  width: 94%; }
+
+.right-95 {
+  float: right;
+  width: 95%; }
+
+.right-96 {
+  float: right;
+  width: 96%; }
+
+.right-97 {
+  float: right;
+  width: 97%; }
+
+.right-98 {
+  float: right;
+  width: 98%; }
+
+.right-99 {
+  float: right;
+  width: 99%; }
+
+.right-100 {
+  float: right;
+  width: 100%; }
+
+.margin-1 {
+  margin-bottom: 1px; }
+
+.margin-2 {
+  margin-bottom: 2px; }
+
+.margin-3 {
+  margin-bottom: 3px; }
+
+.margin-4 {
+  margin-bottom: 4px; }
+
+.margin-5 {
+  margin-bottom: 5px; }
+
+.margin-6 {
+  margin-bottom: 6px; }
+
+.margin-7 {
+  margin-bottom: 7px; }
+
+.margin-8 {
+  margin-bottom: 8px; }
+
+.margin-9 {
+  margin-bottom: 9px; }
+
+.margin-10 {
+  margin-bottom: 10px; }
+
+.margin-11 {
+  margin-bottom: 11px; }
+
+.margin-12 {
+  margin-bottom: 12px; }
+
+.margin-13 {
+  margin-bottom: 13px; }
+
+.margin-14 {
+  margin-bottom: 14px; }
+
+.margin-15 {
+  margin-bottom: 15px; }
+
+.margin-16 {
+  margin-bottom: 16px; }
+
+.margin-17 {
+  margin-bottom: 17px; }
+
+.margin-18 {
+  margin-bottom: 18px; }
+
+.margin-19 {
+  margin-bottom: 19px; }
+
+.margin-20 {
+  margin-bottom: 20px; }
+
+.margin-21 {
+  margin-bottom: 21px; }
+
+.margin-22 {
+  margin-bottom: 22px; }
+
+.margin-23 {
+  margin-bottom: 23px; }
+
+.margin-24 {
+  margin-bottom: 24px; }
+
+.margin-25 {
+  margin-bottom: 25px; }
+
+.margin-26 {
+  margin-bottom: 26px; }
+
+.margin-27 {
+  margin-bottom: 27px; }
+
+.margin-28 {
+  margin-bottom: 28px; }
+
+.margin-29 {
+  margin-bottom: 29px; }
+
+.margin-30 {
+  margin-bottom: 30px; }
+
+.margin-31 {
+  margin-bottom: 31px; }
+
+.margin-32 {
+  margin-bottom: 32px; }
+
+.margin-33 {
+  margin-bottom: 33px; }
+
+.margin-34 {
+  margin-bottom: 34px; }
+
+.margin-35 {
+  margin-bottom: 35px; }
+
+.margin-36 {
+  margin-bottom: 36px; }
+
+.margin-37 {
+  margin-bottom: 37px; }
+
+.margin-38 {
+  margin-bottom: 38px; }
+
+.margin-39 {
+  margin-bottom: 39px; }
+
+.margin-40 {
+  margin-bottom: 40px; }
+
+.margin-41 {
+  margin-bottom: 41px; }
+
+.margin-42 {
+  margin-bottom: 42px; }
+
+.margin-43 {
+  margin-bottom: 43px; }
+
+.margin-44 {
+  margin-bottom: 44px; }
+
+.margin-45 {
+  margin-bottom: 45px; }
+
+.margin-46 {
+  margin-bottom: 46px; }
+
+.margin-47 {
+  margin-bottom: 47px; }
+
+.margin-48 {
+  margin-bottom: 48px; }
+
+.margin-49 {
+  margin-bottom: 49px; }
+
+.margin-50 {
+  margin-bottom: 50px; }
+
+.margin-51 {
+  margin-bottom: 51px; }
+
+.margin-52 {
+  margin-bottom: 52px; }
+
+.margin-53 {
+  margin-bottom: 53px; }
+
+.margin-54 {
+  margin-bottom: 54px; }
+
+.margin-55 {
+  margin-bottom: 55px; }
+
+.margin-56 {
+  margin-bottom: 56px; }
+
+.margin-57 {
+  margin-bottom: 57px; }
+
+.margin-58 {
+  margin-bottom: 58px; }
+
+.margin-59 {
+  margin-bottom: 59px; }
+
+.margin-60 {
+  margin-bottom: 60px; }
+
+.margin-61 {
+  margin-bottom: 61px; }
+
+.margin-62 {
+  margin-bottom: 62px; }
+
+.margin-63 {
+  margin-bottom: 63px; }
+
+.margin-64 {
+  margin-bottom: 64px; }
+
+.margin-65 {
+  margin-bottom: 65px; }
+
+.margin-66 {
+  margin-bottom: 66px; }
+
+.margin-67 {
+  margin-bottom: 67px; }
+
+.margin-68 {
+  margin-bottom: 68px; }
+
+.margin-69 {
+  margin-bottom: 69px; }
+
+.margin-70 {
+  margin-bottom: 70px; }
+
+.margin-71 {
+  margin-bottom: 71px; }
+
+.margin-72 {
+  margin-bottom: 72px; }
+
+.margin-73 {
+  margin-bottom: 73px; }
+
+.margin-74 {
+  margin-bottom: 74px; }
+
+.margin-75 {
+  margin-bottom: 75px; }
+
+.margin-76 {
+  margin-bottom: 76px; }
+
+.margin-77 {
+  margin-bottom: 77px; }
+
+.margin-78 {
+  margin-bottom: 78px; }
+
+.margin-79 {
+  margin-bottom: 79px; }
+
+.margin-80 {
+  margin-bottom: 80px; }
+
+.margin-81 {
+  margin-bottom: 81px; }
+
+.margin-82 {
+  margin-bottom: 82px; }
+
+.margin-83 {
+  margin-bottom: 83px; }
+
+.margin-84 {
+  margin-bottom: 84px; }
+
+.margin-85 {
+  margin-bottom: 85px; }
+
+.margin-86 {
+  margin-bottom: 86px; }
+
+.margin-87 {
+  margin-bottom: 87px; }
+
+.margin-88 {
+  margin-bottom: 88px; }
+
+.margin-89 {
+  margin-bottom: 89px; }
+
+.margin-90 {
+  margin-bottom: 90px; }
+
+.margin-91 {
+  margin-bottom: 91px; }
+
+.margin-92 {
+  margin-bottom: 92px; }
+
+.margin-93 {
+  margin-bottom: 93px; }
+
+.margin-94 {
+  margin-bottom: 94px; }
+
+.margin-95 {
+  margin-bottom: 95px; }
+
+.margin-96 {
+  margin-bottom: 96px; }
+
+.margin-97 {
+  margin-bottom: 97px; }
+
+.margin-98 {
+  margin-bottom: 98px; }
+
+.margin-99 {
+  margin-bottom: 99px; }
+
+.margin-100 {
+  margin-bottom: 100px; }
+
+@-webkit-keyframes rotate-right {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@-moz-keyframes rotate-right {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@-o-keyframes rotate-right {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@keyframes rotate-right {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@-webkit-keyframes rotate-left {
+  from {
+    transform: rotate(360deg); }
+  to {
+    transform: rotate(0deg); } }
+
+@-moz-keyframes rotate-left {
+  from {
+    transform: rotate(360deg); }
+  to {
+    transform: rotate(0deg); } }
+
+@-o-keyframes rotate-left {
+  from {
+    transform: rotate(360deg); }
+  to {
+    transform: rotate(0deg); } }
+
+@keyframes rotate-left {
+  from {
+    transform: rotate(360deg); }
+  to {
+    transform: rotate(0deg); } }
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@-o-keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+.spinner {
+  margin: auto;
+  box-sizing: content-box;
+  width: 22px;
+  height: 11px;
+  background: white;
+  border-color: black;
+  border-style: solid;
+  border-width: 2px 2px 12px 2px;
+  border-radius: 100%;
+  position: relative; }
+  .spinner:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: white;
+    border: 4.125px solid white;
+    border-radius: 100%;
+    width: 2.75px;
+    height: 2.75px; }
+  .spinner:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: black;
+    border: 4.125px solid black;
+    border-radius: 100%;
+    width: 2.75px;
+    height: 2.75px; }
+
+.rotate.clockwise {
+  -webkit-animation: rotate-right 1.25s linear infinite;
+  -ms-animation: rotate-right 1.25s linear infinite;
+  -moz-animation: rotate-right 1.25s linear infinite;
+  -o-animation: rotate-right 1.25s linear infinite;
+  animation: rotate-right 1.25s linear infinite; }
+
+.rotate.c-clockwise {
+  -webkit-animation: rotate-left 1.25s linear infinite;
+  -ms-animation: rotate-left 1.25s linear infinite;
+  -moz-animation: rotate-left 1.25s linear infinite;
+  -o-animation: rotate-left 1.25s linear infinite;
+  animation: rotate-left 1.25s linear infinite; }
+
+.tablet-only {
+  display: none; }
+
+@media screen and (max-width: 320px) {
+  .phone-only {
+    display: block; } }
+
+@media screen and (max-width: 740px) {
+  .tablet-only {
+    display: block; } }
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 5px 20px;
+  font-size: 14px;
+  outline: none;
+  user-select: none;
+  border: solid black 1px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px #999 inset; }
+  .input::-webkit-input-placeholder {
+    color: black;
+    font-weight: 400; }
+  .input:-moz-placeholder {
+    color: black;
+    font-weight: 400; }
+  .input::-moz-placeholder {
+    color: black;
+    font-weight: 400; }
+  .input:-ms-input-placeholder {
+    color: black;
+    font-weight: 400; }
+  .input:focus {
+    box-shadow: 0px 0px 4px #000 inset; }
+  .input.error {
+    border: solid red 1px;
+    box-shadow: 0px 0px 4px red inset; }
+    .input.error:focus {
+      box-shadow: 0px 0px 4px red inset; }
+
+.btn {
+  height: 40px;
+  padding: 10px 10px 10px 10px;
+  background: white;
+  color: black;
+  border: 0;
+  border: solid black 1px;
+  border-radius: 5px;
+  -webkit-touch-callout: none;
+  -ms-touch-callout: none;
+  -moz-touch-callout: none;
+  -o-touch-callout: none;
+  touch-callout: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0px 0px 4px #999;
+  transition: background 0.1s; }
+  .btn:hover {
+    box-shadow: 0px 0px 4px #000; }
+  .btn:active {
+    background: #EEE;
+    transition: transform 0s; }
+
+.select {
+  height: 40px;
+  width: 100%;
+  padding: 8px 20px 10px 10px;
+  background: white;
+  color: black;
+  border: 0;
+  border: solid black 1px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px #999;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+  -webkit-touch-callout: none;
+  -ms-touch-callout: none;
+  -moz-touch-callout: none;
+  -o-touch-callout: none;
+  touch-callout: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background-image: url("/img/arrow-down.png");
+  background-repeat: no-repeat;
+  background-position: 93% center;
+  background-size: 10px; }
+
+.textarea {
+  width: 100%;
+  outline: none;
+  border: solid black 1px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  resize: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  box-shadow: 0px 0px 4px #999 inset; }
+  .textarea::-webkit-input-placeholder {
+    color: black;
+    font-weight: 400; }
+  .textarea:-moz-placeholder {
+    color: black;
+    font-weight: 400; }
+  .textarea::-moz-placeholder {
+    color: black;
+    font-weight: 400; }
+  .textarea:-ms-input-placeholder {
+    color: black;
+    font-weight: 400; }
+  .textarea:focus {
+    box-shadow: 0px 0px 4px #000 inset; }
+
+.checkbox {
+  display: none; }
+
+.radio {
+  display: none; }
+
+.checked-box, .unchecked-box, .checked-radio, .unchecked-radio {
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  border: solid black 1px; }
+
+.unchecked-box, .unchecked-radio {
+  background: white; }
+
+.checked-box, .checked-radio {
+  background: black; }
+
+.unchecked-box, .checked-box {
+  border-radius: 2px; }
+
+.unchecked-radio, .checked-radio {
+  border-radius: 10px; }
+
+.label {
+  cursor: pointer;
+  padding: 10px;
+  line-height: 20px; }
+
+input.checkbox {
+  cursor: pointer; }
+
+input.checkbox + label .checked-box {
+  display: none; }
+
+input.checkbox + label .unchecked-box {
+  display: inline-block; }
+
+input.checkbox:checked + label .checked-box {
+  display: inline-block; }
+
+input.checkbox:checked + label .unchecked-box {
+  display: none; }
+
+input.radio {
+  cursor: pointer; }
+
+input.radio + label .checked-radio {
+  display: none; }
+
+input.radio + label .unchecked-radio {
+  display: inline-block; }
+
+input.radio:checked + label .checked-radio {
+  display: inline-block; }
+
+input.radio:checked + label .unchecked-radio {
+  display: none; }
+
+.style-item {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px; }
+
+.container {
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+  border: solid black 1px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px #999; }
+
+.arrow {
+  display: inline-block;
+  vertical-align: top; }
+  .arrow.up {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid black; }
+  .arrow.right {
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-left: 50px solid black;
+    border-bottom: 25px solid transparent; }
+  .arrow.down {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 50px solid black; }
+  .arrow.left {
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-right: 50px solid black;
+    border-bottom: 25px solid transparent; }
+
+.border-arrow.up {
+  position: relative; }
+  .border-arrow.up:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.up:after {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid black;
+    left: 50%;
+    margin-left: -5px;
+    top: -10px; }
+
+.border-arrow.right {
+  position: relative; }
+  .border-arrow.right:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.right:after {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid black;
+    border-bottom: 5px solid transparent;
+    top: 50%;
+    margin-top: -5px;
+    right: -10px; }
+
+.border-arrow.down {
+  position: relative; }
+  .border-arrow.down:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.down:after {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid black;
+    left: 50%;
+    margin-left: -5px;
+    bottom: -10px; }
+
+.border-arrow.left {
+  position: relative; }
+  .border-arrow.left:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.left:after {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 10px solid black;
+    border-bottom: 5px solid transparent;
+    top: 50%;
+    margin-top: -5px;
+    left: -10px; }
+
+.border-arrow.big.up {
+  position: relative; }
+  .border-arrow.big.up:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.big.up:after {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid black;
+    left: 50%;
+    margin-left: -10px;
+    top: -20px; }
+
+.border-arrow.big.right {
+  position: relative; }
+  .border-arrow.big.right:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.big.right:after {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-left: 20px solid black;
+    border-bottom: 10px solid transparent;
+    top: 50%;
+    margin-top: -10px;
+    right: -20px; }
+
+.border-arrow.big.down {
+  position: relative; }
+  .border-arrow.big.down:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.big.down:after {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid black;
+    left: 50%;
+    margin-left: -10px;
+    bottom: -20px; }
+
+.border-arrow.big.left {
+  position: relative; }
+  .border-arrow.big.left:after {
+    content: '';
+    position: absolute; }
+  .border-arrow.big.left:after {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 20px solid black;
+    border-bottom: 10px solid transparent;
+    top: 50%;
+    margin-top: -10px;
+    left: -20px; }
+
+.border-arrow.up.offset:after {
+  margin-left: 20px; }
+
+table.table {
+  width: 100%; }
+  table.table td {
+    border: solid black 1px;
+    height: 50px;
+    vertical-align: middle;
+    padding: 20px 0; }
+
+.section {
+  overflow: hidden; }
+
+.anchor-link, a.anchor-link {
+  text-decoration: none;
+  color: black;
+  text-align: left;
+  display: block; }
+  .anchor-link .anchor-tip, a.anchor-link .anchor-tip {
+    display: none; }
+  .anchor-link .text:hover .anchor-tip, a.anchor-link .text:hover .anchor-tip {
+    display: inline; }
+
+.drop-head {
+  border-bottom: solid black 5px;
+  text-align: left;
+  padding: 5px 15px;
+  cursor: pointer; }
+  .drop-head .text {
+    font-size: 24px; }
+  .drop-head.active {
+    border-bottom: solid black 3px;
+    box-shadow: 0px 0px 4px #000; }
+
+.component-wrap {
+  position: relative;
+  text-align: left; }
+  .component-wrap .item-name {
+    font-size: 16px;
+    font-weight: 500; }
+  .component-wrap .toggle-code {
+    position: absolute;
+    top: 0;
+    right: 0; }
+
+.drop-content {
+  padding: 15px 15px;
+  text-align: left; }
+
+.item-wrap {
+  padding: 0;
+  text-align: center; }
+  .item-wrap.left-50.l {
+    padding: 10px 10px 0 0; }
+  .item-wrap.left-50.r {
+    padding: 10px 0 0 10px; }
+
+@media screen and (max-width: 320px) {
+  .item-wrap.left-50 {
+    width: 100%;
+    padding: 0; } }
+
+@media screen and (max-width: 740px) {
+  .item-wrap.left-50 {
+    width: 100%;
+    padding: 0; }
+    .item-wrap.left-50.l {
+      padding: 0; }
+    .item-wrap.left-50.r {
+      padding: 0; } }
+
+.arrow-drop {
+  position: relative;
+  top: 5px;
+  right: 5px; }
+  .arrow-drop.up {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid black; }
+  .arrow-drop.right {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-left: 20px solid black;
+    border-bottom: 10px solid transparent; }
+  .arrow-drop.down {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid black; }
+  .arrow-drop.left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 20px solid black;
+    border-bottom: 10px solid transparent; }
+
+.layout-header {
+  padding: 20px 0;
+  background-color: black;
+  color: white; }
+
+.layout-content {
+  max-width: 960px;
+  margin: 10px auto 10px;
+  background: white;
+  border: none; }
+  .layout-content .head {
+    padding: 10px; }
+  .layout-content .content {
+    padding: 10px; }
+
+body {
+  text-align: center; }
+
+html {
+  background-color: #ddd; }
+
+#main {
+  background-color: #ddd; }
+  #main .title {
+    font-size: 26px; }
+  #main .text1 {
+    font-size: 18px; }
+  #main .yinyang {
+    background-color: white;
+    border-radius: 50px; }
+
+.layout-content {
+  margin-top: 0; }
