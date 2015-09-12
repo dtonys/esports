@@ -1,11 +1,17 @@
-// require sass
-require('test.sass');
+/*** CSS ***/
+// common
+require('base/reset.sass');
+require('base/default.sass');
+require('components/forms.sass');
+require('components/components.sass');
+require('layout/layout.sass');
+// page specific
 require('components.sass');
 
-// require non modular js via script tag
+/*** JS ***/
+// global
 require('script!compiled_templates.js');
-
-// require common modules
+// common
 var FastClick = require('fastclick.js');
 var _ = require('lodash.js');
 var $ = require('jquery.js');

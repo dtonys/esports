@@ -1,22 +1,33 @@
-webpackJsonp([1],{
-
-/***/ 0:
+webpackJsonp([1],[
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// require sass
+	/*** CSS ***/
+	// common
 	__webpack_require__(1);
-	__webpack_require__(11);
-
-	// require non modular js (via script tag)
+	__webpack_require__(3);
 	__webpack_require__(4);
+	__webpack_require__(5);
+	__webpack_require__(6);
+	// page specific
+	__webpack_require__(15);
 
-	// require common modules
-	var FastClick = __webpack_require__(7);
-	var _ = __webpack_require__(8);
-	var $ = __webpack_require__(10);
+	/*** JS ***/
+	// global
+	var templates = __webpack_require__(16);
+	console.log(
+	  templates("test")({
+	    str: "Goodbye Grunt!"
+	  })
+	)
 
-	// require app specific modules
-	var MainPage = __webpack_require__(12);
+	// require('script!compiled_templates.js');
+	// common
+	var FastClick = __webpack_require__(11);
+	var _ = __webpack_require__(12);
+	var $ = __webpack_require__(14);
+	// page specific
+	var MainPage = __webpack_require__(19);
 
 	$(document).ready(function(e){
 	  console.log('main.js loaded: document ready');
@@ -33,19 +44,76 @@ webpackJsonp([1],{
 
 
 /***/ },
-
-/***/ 11:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-
-/***/ 12:
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(8);
-	var $ = __webpack_require__(10);
+	module.exports = function( name ){
+	  return __webpack_require__(17)("./"+name+".tmpl.html")
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./test.tmpl.html": 18
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 17;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	module.exports = function (obj) {
+	obj || (obj = {});
+	var __t, __p = '';
+	with (obj) {
+	__p += '<div> ' +
+	((__t = ( str )) == null ? '' : __t) +
+	' </div>';
+
+	}
+	return __p
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(12);
+	var $ = __webpack_require__(14);
 
 	var MainPage = function( args ){
 	  _.extend( this, args );
@@ -89,5 +157,4 @@ webpackJsonp([1],{
 
 
 /***/ }
-
-});
+]);

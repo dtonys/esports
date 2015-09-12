@@ -100,35 +100,35 @@
 
 /***/ },
 /* 2 */,
-/* 3 */,
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/* 3 */
+/***/ function(module, exports) {
 
-	__webpack_require__(5)(__webpack_require__(6))
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	module.exports = function(src) {
-		if (typeof execScript === "function")
-			execScript(src);
-		else
-			eval.call(null, src);
-	}
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = "this[\"templates\"] = this[\"templates\"] || {};\n\nthis[\"templates\"][\"test\"] = function(obj) {obj || (obj = {});var __t, __p = '', __e = _.escape;with (obj) {__p += '<div> Test Template </div>';}return __p};"
+	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 7 */
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
@@ -974,10 +974,10 @@
 	}());
 
 /***/ },
-/* 8 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
+	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global, _) {/**
 	 * @license
 	 * lodash 3.10.1 (Custom Build) <https://lodash.com/>
 	 * Build: `lodash modern -o ./lodash.js`
@@ -13329,10 +13329,10 @@
 	    root._ = _;
 	  }
 	}.call(this));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module), (function() { return this; }()), __webpack_require__(12)))
 
 /***/ },
-/* 9 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -13348,7 +13348,7 @@
 
 
 /***/ },
-/* 10 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

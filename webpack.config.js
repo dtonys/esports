@@ -1,7 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var DefinePlugin = webpack.DefinePlugin;
 
 module.exports = {
   resolveLoader: {
@@ -31,12 +33,20 @@ module.exports = {
     modulesDirectories: [
       'stylesheets',
       'stylesheets/pages',
+      'public',
       'public/js',
       'public/js/vendor'
     ]
   },
   plugins: [
     new CommonsChunkPlugin({ name: "common" }),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new DefinePlugin({
+      PRODUCTION: false,
+      DEVELOPMENT: true
+    }),
+    new webpack.ProvidePlugin({
+      _: "lodash.js"
+    })
   ]
 }

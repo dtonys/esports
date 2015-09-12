@@ -4,9 +4,13 @@
     <title> <%= title %> </title>
     <!-- For mobile responsive sites only -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- use minified assets if specified -->
+    <% var min = req.query.minified ? '.min' : '' %>
+
     <!-- CSS -->
-    <link rel="stylesheet" href="/build/common.css" >
-    <link rel="stylesheet" href="/build/main.css" >
+    <link rel="stylesheet" href="/build/common<%= min %>.css" >
+    <link rel="stylesheet" href="/build/main<%= min %>.css" >    
   </head>
   <body>
     <div id="main">
@@ -25,7 +29,7 @@
       </div>
     </div>
     <!-- JS -->
-    <script src="/build/common.js"></script>
-    <script src="/build/main.js"></script>
+    <script src="/build/common<%= min %>.js"></script>
+    <script src="/build/main<%= min %>.js"></script>
   </body>
 </html>

@@ -1,16 +1,28 @@
-// require sass
-require('test.sass');
+/*** CSS ***/
+// common
+require('base/reset.sass');
+require('base/default.sass');
+require('components/forms.sass');
+require('components/components.sass');
+require('layout/layout.sass');
+// page specific
 require('main.sass');
 
-// require non modular js (via script tag)
-require('script!compiled_templates.js');
+/*** JS ***/
+// global
+var templates = require('templates.js');
+console.log(
+  templates("test")({
+    str: "Goodbye Grunt!"
+  })
+)
 
-// require common modules
+// require('script!compiled_templates.js');
+// common
 var FastClick = require('fastclick.js');
 var _ = require('lodash.js');
 var $ = require('jquery.js');
-
-// require app specific modules
+// page specific
 var MainPage = require('MainPage.js');
 
 $(document).ready(function(e){

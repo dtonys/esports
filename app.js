@@ -38,16 +38,21 @@ app.use(morgan('dev'));                                   // log requests
 app.use(compression());
 app.use(errorhandler());
 
+// expose req obj to view
+app.use( function( req, res, next ){
+  res.locals.req = req;
+  next();
+});
+
 app.get('/', function(req, res){
   var title = "Black and White";
-
   res.render('main', {
     title: title
-  })
+  });
 });
 
 app.get('/components', function(req, res){
-  res.render('components')
+  res.render('components');
 });
 
 app.post('/post', function( req, res ){
