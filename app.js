@@ -17,8 +17,7 @@ var express = require('express');
 
 var app = express();
 
-var util = require('./util.js');
-
+var util = require('./BE_util.js');
 _.extend( app.locals, util );                             // give views access to utils
 
 app.engine('ejs', cons.ejs);                              // match view engine to file extension

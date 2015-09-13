@@ -13,7 +13,10 @@ require('pages/main.sass');
 var FastClick = require('fastclick.js');
 var _ = require('lodash.js');
 var $ = require('jquery.js');
+var util = require('FE_util.js');
 var templates = require('templates.js');
+
+util.frontend();
 
 // page specific
 var MainPage = require('MainPage.js');

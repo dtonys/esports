@@ -41,6 +41,7 @@ module.exports = {
   },
   resolve: {
     root: [
+      __dirname+'/',
       __dirname+'/public',
       __dirname+'/public/js',
       __dirname+'/public/js/vendor',
