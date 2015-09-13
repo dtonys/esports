@@ -94,41 +94,492 @@
 /******/ ([
 /* 0 */,
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(2);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./reset.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./reset.sass");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ },
-/* 2 */,
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom. */\nhtml {\n  font-family: sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%; }\n\n/**\n * Remove default margin. */\nbody {\n  margin: 0; }\n\n/* HTML5 display definitions\n * ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11\n * and Firefox.\n * Correct `block` display not defined for `main` in IE 11. */\narticle, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {\n  display: block; }\n\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera. */\naudio, canvas, progress, video {\n  display: inline-block;\n  vertical-align: baseline; }\n\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices. */\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22. */\n[hidden], template {\n  display: none; }\n\n/* Links\n * ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10. */\na {\n  background-color: transparent; }\n  a:active, a:hover {\n    outline: 0; }\n\n/**\n * Improve readability when focused and also mouse hovered in all browsers. */\n/* Text-level semantics\n * ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome. */\nabbr[title] {\n  border-bottom: 1px dotted; }\n\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome. */\nb, strong {\n  font-weight: bold; }\n\n/**\n * Address styling not present in Safari and Chrome. */\ndfn {\n  font-style: italic; }\n\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome. */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0; }\n\n/**\n * Address styling not present in IE 8/9. */\nmark {\n  background: #ff0;\n  color: #000; }\n\n/**\n * Address inconsistent and variable font size in all browsers. */\nsmall {\n  font-size: 80%; }\n\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers. */\nsub {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n  top: -0.5em; }\n\nsub {\n  bottom: -0.25em; }\n\n/* Embedded content\n * ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10. */\nimg {\n  border: 0; }\n\n/**\n * Correct overflow not hidden in IE 9/10/11. */\nsvg:not(:root) {\n  overflow: hidden; }\n\n/* Grouping content\n * ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari. */\nfigure {\n  margin: 1em 40px; }\n\n/**\n * Address differences between Firefox and other browsers. */\nhr {\n  -moz-box-sizing: content-box;\n  box-sizing: content-box;\n  height: 0; }\n\n/**\n * Contain overflow in all browsers. */\npre {\n  overflow: auto; }\n\n/**\n * Address odd `em`-unit font size rendering in all browsers. */\ncode, kbd, pre, samp {\n  font-family: monospace, monospace;\n  font-size: 1em; }\n\n/* Forms\n * ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set. */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome. */\nbutton, input, optgroup, select, textarea {\n  color: inherit;\n  font: inherit;\n  margin: 0; }\n\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11. */\nbutton {\n  overflow: visible;\n  text-transform: none; }\n\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox. */\nselect {\n  text-transform: none; }\n\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others. */\nbutton, html input[type=\"button\"] {\n  -webkit-appearance: button;\n  cursor: pointer; }\n\ninput[type=\"reset\"], input[type=\"submit\"] {\n  -webkit-appearance: button;\n  cursor: pointer; }\n\n/**\n * Re-set default cursor for disabled elements. */\nbutton[disabled], html input[disabled] {\n  cursor: default; }\n\n/**\n * Remove inner padding and border in Firefox 4+. */\nbutton::-moz-focus-inner {\n  border: 0;\n  padding: 0; }\n\ninput {\n  line-height: normal; }\n  input::-moz-focus-inner {\n    border: 0;\n    padding: 0; }\n  input[type=\"checkbox\"], input[type=\"radio\"] {\n    box-sizing: border-box;\n    padding: 0; }\n  input[type=\"number\"]::-webkit-inner-spin-button, input[type=\"number\"]::-webkit-outer-spin-button {\n    height: auto; }\n  input[type=\"search\"] {\n    -webkit-appearance: textfield;\n    -moz-box-sizing: content-box;\n    -webkit-box-sizing: content-box;\n    box-sizing: content-box; }\n    input[type=\"search\"]::-webkit-search-cancel-button, input[type=\"search\"]::-webkit-search-decoration {\n      -webkit-appearance: none; }\n\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet. */\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10. */\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`. */\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof). */\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance). */\n/**\n * Define consistent border, margin, and padding. */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em; }\n\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets. */\nlegend {\n  border: 0;\n  padding: 0; }\n\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11. */\ntextarea {\n  overflow: auto; }\n\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X. */\noptgroup {\n  font-weight: bold; }\n\n/* Tables\n * ========================================================================== */\n/**\n * Remove most spacing between table cells. */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\ntd, th {\n  padding: 0; }\n", ""]);
+
+	// exports
+
+
+/***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0;
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function createStyleElement() {
+		var styleElement = document.createElement("style");
+		var head = getHeadElement();
+		styleElement.type = "text/css";
+		head.appendChild(styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement() {
+		var linkElement = document.createElement("link");
+		var head = getHeadElement();
+		linkElement.rel = "stylesheet";
+		head.appendChild(linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement());
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement();
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement();
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(6);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./default.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./default.sass");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	exports.push([module.id, "@import url(http://fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700,300italic,400italic,500italic);", ""]);
+
+	// module
+	exports.push([module.id, ".clearfix:before {\n  content: \" \";\n  display: table; }\n\n.clearfix:after {\n  content: \" \";\n  display: table;\n  clear: both; }\n\n.hidden {\n  display: none; }\n\n.bold {\n  font-weight: bold; }\n\nhtml {\n  overflow: auto;\n  font-family: 'Fira Sans', sans-serif;\n  font-size: 14px;\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nbody {\n  text-align: center;\n  background: white; }\n\na, a:link, a:visited, a:hover, a:active {\n  display: inline; }\n\n.f-left {\n  float: left; }\n\n.f-right {\n  float: right; }\n\npre {\n  text-align: left;\n  background-color: black;\n  color: white;\n  border-radius: 5px;\n  padding: 10px;\n  margin: 0;\n  overflow-x: auto;\n  white-space: pre-wrap; }\n\ncode {\n  line-height: 1; }\n\n.left-1 {\n  float: left;\n  width: 1%; }\n\n.left-2 {\n  float: left;\n  width: 2%; }\n\n.left-3 {\n  float: left;\n  width: 3%; }\n\n.left-4 {\n  float: left;\n  width: 4%; }\n\n.left-5 {\n  float: left;\n  width: 5%; }\n\n.left-6 {\n  float: left;\n  width: 6%; }\n\n.left-7 {\n  float: left;\n  width: 7%; }\n\n.left-8 {\n  float: left;\n  width: 8%; }\n\n.left-9 {\n  float: left;\n  width: 9%; }\n\n.left-10 {\n  float: left;\n  width: 10%; }\n\n.left-11 {\n  float: left;\n  width: 11%; }\n\n.left-12 {\n  float: left;\n  width: 12%; }\n\n.left-13 {\n  float: left;\n  width: 13%; }\n\n.left-14 {\n  float: left;\n  width: 14%; }\n\n.left-15 {\n  float: left;\n  width: 15%; }\n\n.left-16 {\n  float: left;\n  width: 16%; }\n\n.left-17 {\n  float: left;\n  width: 17%; }\n\n.left-18 {\n  float: left;\n  width: 18%; }\n\n.left-19 {\n  float: left;\n  width: 19%; }\n\n.left-20 {\n  float: left;\n  width: 20%; }\n\n.left-21 {\n  float: left;\n  width: 21%; }\n\n.left-22 {\n  float: left;\n  width: 22%; }\n\n.left-23 {\n  float: left;\n  width: 23%; }\n\n.left-24 {\n  float: left;\n  width: 24%; }\n\n.left-25 {\n  float: left;\n  width: 25%; }\n\n.left-26 {\n  float: left;\n  width: 26%; }\n\n.left-27 {\n  float: left;\n  width: 27%; }\n\n.left-28 {\n  float: left;\n  width: 28%; }\n\n.left-29 {\n  float: left;\n  width: 29%; }\n\n.left-30 {\n  float: left;\n  width: 30%; }\n\n.left-31 {\n  float: left;\n  width: 31%; }\n\n.left-32 {\n  float: left;\n  width: 32%; }\n\n.left-33 {\n  float: left;\n  width: 33%; }\n\n.left-34 {\n  float: left;\n  width: 34%; }\n\n.left-35 {\n  float: left;\n  width: 35%; }\n\n.left-36 {\n  float: left;\n  width: 36%; }\n\n.left-37 {\n  float: left;\n  width: 37%; }\n\n.left-38 {\n  float: left;\n  width: 38%; }\n\n.left-39 {\n  float: left;\n  width: 39%; }\n\n.left-40 {\n  float: left;\n  width: 40%; }\n\n.left-41 {\n  float: left;\n  width: 41%; }\n\n.left-42 {\n  float: left;\n  width: 42%; }\n\n.left-43 {\n  float: left;\n  width: 43%; }\n\n.left-44 {\n  float: left;\n  width: 44%; }\n\n.left-45 {\n  float: left;\n  width: 45%; }\n\n.left-46 {\n  float: left;\n  width: 46%; }\n\n.left-47 {\n  float: left;\n  width: 47%; }\n\n.left-48 {\n  float: left;\n  width: 48%; }\n\n.left-49 {\n  float: left;\n  width: 49%; }\n\n.left-50 {\n  float: left;\n  width: 50%; }\n\n.left-51 {\n  float: left;\n  width: 51%; }\n\n.left-52 {\n  float: left;\n  width: 52%; }\n\n.left-53 {\n  float: left;\n  width: 53%; }\n\n.left-54 {\n  float: left;\n  width: 54%; }\n\n.left-55 {\n  float: left;\n  width: 55%; }\n\n.left-56 {\n  float: left;\n  width: 56%; }\n\n.left-57 {\n  float: left;\n  width: 57%; }\n\n.left-58 {\n  float: left;\n  width: 58%; }\n\n.left-59 {\n  float: left;\n  width: 59%; }\n\n.left-60 {\n  float: left;\n  width: 60%; }\n\n.left-61 {\n  float: left;\n  width: 61%; }\n\n.left-62 {\n  float: left;\n  width: 62%; }\n\n.left-63 {\n  float: left;\n  width: 63%; }\n\n.left-64 {\n  float: left;\n  width: 64%; }\n\n.left-65 {\n  float: left;\n  width: 65%; }\n\n.left-66 {\n  float: left;\n  width: 66%; }\n\n.left-67 {\n  float: left;\n  width: 67%; }\n\n.left-68 {\n  float: left;\n  width: 68%; }\n\n.left-69 {\n  float: left;\n  width: 69%; }\n\n.left-70 {\n  float: left;\n  width: 70%; }\n\n.left-71 {\n  float: left;\n  width: 71%; }\n\n.left-72 {\n  float: left;\n  width: 72%; }\n\n.left-73 {\n  float: left;\n  width: 73%; }\n\n.left-74 {\n  float: left;\n  width: 74%; }\n\n.left-75 {\n  float: left;\n  width: 75%; }\n\n.left-76 {\n  float: left;\n  width: 76%; }\n\n.left-77 {\n  float: left;\n  width: 77%; }\n\n.left-78 {\n  float: left;\n  width: 78%; }\n\n.left-79 {\n  float: left;\n  width: 79%; }\n\n.left-80 {\n  float: left;\n  width: 80%; }\n\n.left-81 {\n  float: left;\n  width: 81%; }\n\n.left-82 {\n  float: left;\n  width: 82%; }\n\n.left-83 {\n  float: left;\n  width: 83%; }\n\n.left-84 {\n  float: left;\n  width: 84%; }\n\n.left-85 {\n  float: left;\n  width: 85%; }\n\n.left-86 {\n  float: left;\n  width: 86%; }\n\n.left-87 {\n  float: left;\n  width: 87%; }\n\n.left-88 {\n  float: left;\n  width: 88%; }\n\n.left-89 {\n  float: left;\n  width: 89%; }\n\n.left-90 {\n  float: left;\n  width: 90%; }\n\n.left-91 {\n  float: left;\n  width: 91%; }\n\n.left-92 {\n  float: left;\n  width: 92%; }\n\n.left-93 {\n  float: left;\n  width: 93%; }\n\n.left-94 {\n  float: left;\n  width: 94%; }\n\n.left-95 {\n  float: left;\n  width: 95%; }\n\n.left-96 {\n  float: left;\n  width: 96%; }\n\n.left-97 {\n  float: left;\n  width: 97%; }\n\n.left-98 {\n  float: left;\n  width: 98%; }\n\n.left-99 {\n  float: left;\n  width: 99%; }\n\n.left-100 {\n  float: left;\n  width: 100%; }\n\n.right-1 {\n  float: right;\n  width: 1%; }\n\n.right-2 {\n  float: right;\n  width: 2%; }\n\n.right-3 {\n  float: right;\n  width: 3%; }\n\n.right-4 {\n  float: right;\n  width: 4%; }\n\n.right-5 {\n  float: right;\n  width: 5%; }\n\n.right-6 {\n  float: right;\n  width: 6%; }\n\n.right-7 {\n  float: right;\n  width: 7%; }\n\n.right-8 {\n  float: right;\n  width: 8%; }\n\n.right-9 {\n  float: right;\n  width: 9%; }\n\n.right-10 {\n  float: right;\n  width: 10%; }\n\n.right-11 {\n  float: right;\n  width: 11%; }\n\n.right-12 {\n  float: right;\n  width: 12%; }\n\n.right-13 {\n  float: right;\n  width: 13%; }\n\n.right-14 {\n  float: right;\n  width: 14%; }\n\n.right-15 {\n  float: right;\n  width: 15%; }\n\n.right-16 {\n  float: right;\n  width: 16%; }\n\n.right-17 {\n  float: right;\n  width: 17%; }\n\n.right-18 {\n  float: right;\n  width: 18%; }\n\n.right-19 {\n  float: right;\n  width: 19%; }\n\n.right-20 {\n  float: right;\n  width: 20%; }\n\n.right-21 {\n  float: right;\n  width: 21%; }\n\n.right-22 {\n  float: right;\n  width: 22%; }\n\n.right-23 {\n  float: right;\n  width: 23%; }\n\n.right-24 {\n  float: right;\n  width: 24%; }\n\n.right-25 {\n  float: right;\n  width: 25%; }\n\n.right-26 {\n  float: right;\n  width: 26%; }\n\n.right-27 {\n  float: right;\n  width: 27%; }\n\n.right-28 {\n  float: right;\n  width: 28%; }\n\n.right-29 {\n  float: right;\n  width: 29%; }\n\n.right-30 {\n  float: right;\n  width: 30%; }\n\n.right-31 {\n  float: right;\n  width: 31%; }\n\n.right-32 {\n  float: right;\n  width: 32%; }\n\n.right-33 {\n  float: right;\n  width: 33%; }\n\n.right-34 {\n  float: right;\n  width: 34%; }\n\n.right-35 {\n  float: right;\n  width: 35%; }\n\n.right-36 {\n  float: right;\n  width: 36%; }\n\n.right-37 {\n  float: right;\n  width: 37%; }\n\n.right-38 {\n  float: right;\n  width: 38%; }\n\n.right-39 {\n  float: right;\n  width: 39%; }\n\n.right-40 {\n  float: right;\n  width: 40%; }\n\n.right-41 {\n  float: right;\n  width: 41%; }\n\n.right-42 {\n  float: right;\n  width: 42%; }\n\n.right-43 {\n  float: right;\n  width: 43%; }\n\n.right-44 {\n  float: right;\n  width: 44%; }\n\n.right-45 {\n  float: right;\n  width: 45%; }\n\n.right-46 {\n  float: right;\n  width: 46%; }\n\n.right-47 {\n  float: right;\n  width: 47%; }\n\n.right-48 {\n  float: right;\n  width: 48%; }\n\n.right-49 {\n  float: right;\n  width: 49%; }\n\n.right-50 {\n  float: right;\n  width: 50%; }\n\n.right-51 {\n  float: right;\n  width: 51%; }\n\n.right-52 {\n  float: right;\n  width: 52%; }\n\n.right-53 {\n  float: right;\n  width: 53%; }\n\n.right-54 {\n  float: right;\n  width: 54%; }\n\n.right-55 {\n  float: right;\n  width: 55%; }\n\n.right-56 {\n  float: right;\n  width: 56%; }\n\n.right-57 {\n  float: right;\n  width: 57%; }\n\n.right-58 {\n  float: right;\n  width: 58%; }\n\n.right-59 {\n  float: right;\n  width: 59%; }\n\n.right-60 {\n  float: right;\n  width: 60%; }\n\n.right-61 {\n  float: right;\n  width: 61%; }\n\n.right-62 {\n  float: right;\n  width: 62%; }\n\n.right-63 {\n  float: right;\n  width: 63%; }\n\n.right-64 {\n  float: right;\n  width: 64%; }\n\n.right-65 {\n  float: right;\n  width: 65%; }\n\n.right-66 {\n  float: right;\n  width: 66%; }\n\n.right-67 {\n  float: right;\n  width: 67%; }\n\n.right-68 {\n  float: right;\n  width: 68%; }\n\n.right-69 {\n  float: right;\n  width: 69%; }\n\n.right-70 {\n  float: right;\n  width: 70%; }\n\n.right-71 {\n  float: right;\n  width: 71%; }\n\n.right-72 {\n  float: right;\n  width: 72%; }\n\n.right-73 {\n  float: right;\n  width: 73%; }\n\n.right-74 {\n  float: right;\n  width: 74%; }\n\n.right-75 {\n  float: right;\n  width: 75%; }\n\n.right-76 {\n  float: right;\n  width: 76%; }\n\n.right-77 {\n  float: right;\n  width: 77%; }\n\n.right-78 {\n  float: right;\n  width: 78%; }\n\n.right-79 {\n  float: right;\n  width: 79%; }\n\n.right-80 {\n  float: right;\n  width: 80%; }\n\n.right-81 {\n  float: right;\n  width: 81%; }\n\n.right-82 {\n  float: right;\n  width: 82%; }\n\n.right-83 {\n  float: right;\n  width: 83%; }\n\n.right-84 {\n  float: right;\n  width: 84%; }\n\n.right-85 {\n  float: right;\n  width: 85%; }\n\n.right-86 {\n  float: right;\n  width: 86%; }\n\n.right-87 {\n  float: right;\n  width: 87%; }\n\n.right-88 {\n  float: right;\n  width: 88%; }\n\n.right-89 {\n  float: right;\n  width: 89%; }\n\n.right-90 {\n  float: right;\n  width: 90%; }\n\n.right-91 {\n  float: right;\n  width: 91%; }\n\n.right-92 {\n  float: right;\n  width: 92%; }\n\n.right-93 {\n  float: right;\n  width: 93%; }\n\n.right-94 {\n  float: right;\n  width: 94%; }\n\n.right-95 {\n  float: right;\n  width: 95%; }\n\n.right-96 {\n  float: right;\n  width: 96%; }\n\n.right-97 {\n  float: right;\n  width: 97%; }\n\n.right-98 {\n  float: right;\n  width: 98%; }\n\n.right-99 {\n  float: right;\n  width: 99%; }\n\n.right-100 {\n  float: right;\n  width: 100%; }\n\n.margin-1 {\n  margin-bottom: 1px; }\n\n.margin-2 {\n  margin-bottom: 2px; }\n\n.margin-3 {\n  margin-bottom: 3px; }\n\n.margin-4 {\n  margin-bottom: 4px; }\n\n.margin-5 {\n  margin-bottom: 5px; }\n\n.margin-6 {\n  margin-bottom: 6px; }\n\n.margin-7 {\n  margin-bottom: 7px; }\n\n.margin-8 {\n  margin-bottom: 8px; }\n\n.margin-9 {\n  margin-bottom: 9px; }\n\n.margin-10 {\n  margin-bottom: 10px; }\n\n.margin-11 {\n  margin-bottom: 11px; }\n\n.margin-12 {\n  margin-bottom: 12px; }\n\n.margin-13 {\n  margin-bottom: 13px; }\n\n.margin-14 {\n  margin-bottom: 14px; }\n\n.margin-15 {\n  margin-bottom: 15px; }\n\n.margin-16 {\n  margin-bottom: 16px; }\n\n.margin-17 {\n  margin-bottom: 17px; }\n\n.margin-18 {\n  margin-bottom: 18px; }\n\n.margin-19 {\n  margin-bottom: 19px; }\n\n.margin-20 {\n  margin-bottom: 20px; }\n\n.margin-21 {\n  margin-bottom: 21px; }\n\n.margin-22 {\n  margin-bottom: 22px; }\n\n.margin-23 {\n  margin-bottom: 23px; }\n\n.margin-24 {\n  margin-bottom: 24px; }\n\n.margin-25 {\n  margin-bottom: 25px; }\n\n.margin-26 {\n  margin-bottom: 26px; }\n\n.margin-27 {\n  margin-bottom: 27px; }\n\n.margin-28 {\n  margin-bottom: 28px; }\n\n.margin-29 {\n  margin-bottom: 29px; }\n\n.margin-30 {\n  margin-bottom: 30px; }\n\n.margin-31 {\n  margin-bottom: 31px; }\n\n.margin-32 {\n  margin-bottom: 32px; }\n\n.margin-33 {\n  margin-bottom: 33px; }\n\n.margin-34 {\n  margin-bottom: 34px; }\n\n.margin-35 {\n  margin-bottom: 35px; }\n\n.margin-36 {\n  margin-bottom: 36px; }\n\n.margin-37 {\n  margin-bottom: 37px; }\n\n.margin-38 {\n  margin-bottom: 38px; }\n\n.margin-39 {\n  margin-bottom: 39px; }\n\n.margin-40 {\n  margin-bottom: 40px; }\n\n.margin-41 {\n  margin-bottom: 41px; }\n\n.margin-42 {\n  margin-bottom: 42px; }\n\n.margin-43 {\n  margin-bottom: 43px; }\n\n.margin-44 {\n  margin-bottom: 44px; }\n\n.margin-45 {\n  margin-bottom: 45px; }\n\n.margin-46 {\n  margin-bottom: 46px; }\n\n.margin-47 {\n  margin-bottom: 47px; }\n\n.margin-48 {\n  margin-bottom: 48px; }\n\n.margin-49 {\n  margin-bottom: 49px; }\n\n.margin-50 {\n  margin-bottom: 50px; }\n\n.margin-51 {\n  margin-bottom: 51px; }\n\n.margin-52 {\n  margin-bottom: 52px; }\n\n.margin-53 {\n  margin-bottom: 53px; }\n\n.margin-54 {\n  margin-bottom: 54px; }\n\n.margin-55 {\n  margin-bottom: 55px; }\n\n.margin-56 {\n  margin-bottom: 56px; }\n\n.margin-57 {\n  margin-bottom: 57px; }\n\n.margin-58 {\n  margin-bottom: 58px; }\n\n.margin-59 {\n  margin-bottom: 59px; }\n\n.margin-60 {\n  margin-bottom: 60px; }\n\n.margin-61 {\n  margin-bottom: 61px; }\n\n.margin-62 {\n  margin-bottom: 62px; }\n\n.margin-63 {\n  margin-bottom: 63px; }\n\n.margin-64 {\n  margin-bottom: 64px; }\n\n.margin-65 {\n  margin-bottom: 65px; }\n\n.margin-66 {\n  margin-bottom: 66px; }\n\n.margin-67 {\n  margin-bottom: 67px; }\n\n.margin-68 {\n  margin-bottom: 68px; }\n\n.margin-69 {\n  margin-bottom: 69px; }\n\n.margin-70 {\n  margin-bottom: 70px; }\n\n.margin-71 {\n  margin-bottom: 71px; }\n\n.margin-72 {\n  margin-bottom: 72px; }\n\n.margin-73 {\n  margin-bottom: 73px; }\n\n.margin-74 {\n  margin-bottom: 74px; }\n\n.margin-75 {\n  margin-bottom: 75px; }\n\n.margin-76 {\n  margin-bottom: 76px; }\n\n.margin-77 {\n  margin-bottom: 77px; }\n\n.margin-78 {\n  margin-bottom: 78px; }\n\n.margin-79 {\n  margin-bottom: 79px; }\n\n.margin-80 {\n  margin-bottom: 80px; }\n\n.margin-81 {\n  margin-bottom: 81px; }\n\n.margin-82 {\n  margin-bottom: 82px; }\n\n.margin-83 {\n  margin-bottom: 83px; }\n\n.margin-84 {\n  margin-bottom: 84px; }\n\n.margin-85 {\n  margin-bottom: 85px; }\n\n.margin-86 {\n  margin-bottom: 86px; }\n\n.margin-87 {\n  margin-bottom: 87px; }\n\n.margin-88 {\n  margin-bottom: 88px; }\n\n.margin-89 {\n  margin-bottom: 89px; }\n\n.margin-90 {\n  margin-bottom: 90px; }\n\n.margin-91 {\n  margin-bottom: 91px; }\n\n.margin-92 {\n  margin-bottom: 92px; }\n\n.margin-93 {\n  margin-bottom: 93px; }\n\n.margin-94 {\n  margin-bottom: 94px; }\n\n.margin-95 {\n  margin-bottom: 95px; }\n\n.margin-96 {\n  margin-bottom: 96px; }\n\n.margin-97 {\n  margin-bottom: 97px; }\n\n.margin-98 {\n  margin-bottom: 98px; }\n\n.margin-99 {\n  margin-bottom: 99px; }\n\n.margin-100 {\n  margin-bottom: 100px; }\n\n@-webkit-keyframes rotate-right {\n  from {\n    transform: rotate(0deg); }\n  to {\n    transform: rotate(360deg); } }\n\n@-moz-keyframes rotate-right {\n  from {\n    transform: rotate(0deg); }\n  to {\n    transform: rotate(360deg); } }\n\n@-o-keyframes rotate-right {\n  from {\n    transform: rotate(0deg); }\n  to {\n    transform: rotate(360deg); } }\n\n@keyframes rotate-right {\n  from {\n    transform: rotate(0deg); }\n  to {\n    transform: rotate(360deg); } }\n\n@-webkit-keyframes rotate-left {\n  from {\n    transform: rotate(360deg); }\n  to {\n    transform: rotate(0deg); } }\n\n@-moz-keyframes rotate-left {\n  from {\n    transform: rotate(360deg); }\n  to {\n    transform: rotate(0deg); } }\n\n@-o-keyframes rotate-left {\n  from {\n    transform: rotate(360deg); }\n  to {\n    transform: rotate(0deg); } }\n\n@keyframes rotate-left {\n  from {\n    transform: rotate(360deg); }\n  to {\n    transform: rotate(0deg); } }\n\n@-webkit-keyframes fadeOut {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@-moz-keyframes fadeOut {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@-o-keyframes fadeOut {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fadeOut {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@-webkit-keyframes fadeIn {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@-moz-keyframes fadeIn {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@-o-keyframes fadeIn {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fadeIn {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.spinner {\n  margin: auto;\n  box-sizing: content-box;\n  width: 22px;\n  height: 11px;\n  background: white;\n  border-color: black;\n  border-style: solid;\n  border-width: 2px 2px 12px 2px;\n  border-radius: 100%;\n  position: relative; }\n  .spinner:before {\n    content: \"\";\n    position: absolute;\n    top: 50%;\n    left: 0;\n    background: white;\n    border: 4.125px solid white;\n    border-radius: 100%;\n    width: 2.75px;\n    height: 2.75px; }\n  .spinner:after {\n    content: \"\";\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    background: black;\n    border: 4.125px solid black;\n    border-radius: 100%;\n    width: 2.75px;\n    height: 2.75px; }\n\n.rotate.clockwise {\n  -webkit-animation: rotate-right 1.25s linear infinite;\n  -ms-animation: rotate-right 1.25s linear infinite;\n  -moz-animation: rotate-right 1.25s linear infinite;\n  -o-animation: rotate-right 1.25s linear infinite;\n  animation: rotate-right 1.25s linear infinite; }\n\n.rotate.c-clockwise {\n  -webkit-animation: rotate-left 1.25s linear infinite;\n  -ms-animation: rotate-left 1.25s linear infinite;\n  -moz-animation: rotate-left 1.25s linear infinite;\n  -o-animation: rotate-left 1.25s linear infinite;\n  animation: rotate-left 1.25s linear infinite; }\n\n.tablet-only {\n  display: none; }\n\n@media screen and (max-width: 320px) {\n  .phone-only {\n    display: block; } }\n\n@media screen and (max-width: 740px) {\n  .tablet-only {\n    display: block; } }\n", ""]);
+
+	// exports
+
 
 /***/ },
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(8);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./forms.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./forms.sass");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".input {\n  width: 100%;\n  height: 40px;\n  padding: 5px 20px;\n  font-size: 14px;\n  outline: none;\n  user-select: none;\n  border: solid black 1px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 4px #999 inset; }\n  .input::-webkit-input-placeholder {\n    color: black;\n    font-weight: 400; }\n  .input:-moz-placeholder {\n    color: black;\n    font-weight: 400; }\n  .input::-moz-placeholder {\n    color: black;\n    font-weight: 400; }\n  .input:-ms-input-placeholder {\n    color: black;\n    font-weight: 400; }\n  .input:focus {\n    box-shadow: 0px 0px 4px #000 inset; }\n  .input.error {\n    border: solid red 1px;\n    box-shadow: 0px 0px 4px red inset; }\n    .input.error:focus {\n      box-shadow: 0px 0px 4px red inset; }\n\n.btn {\n  height: 40px;\n  padding: 10px 10px 10px 10px;\n  background: white;\n  color: black;\n  border: 0;\n  border: solid black 1px;\n  border-radius: 5px;\n  -webkit-touch-callout: none;\n  -ms-touch-callout: none;\n  -moz-touch-callout: none;\n  -o-touch-callout: none;\n  touch-callout: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  -moz-user-select: none;\n  -o-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  outline: none;\n  box-shadow: 0px 0px 4px #999;\n  transition: background 0.1s; }\n  .btn:hover {\n    box-shadow: 0px 0px 4px #000; }\n  .btn:active {\n    background: #EEE;\n    transition: transform 0s; }\n\n.select {\n  height: 40px;\n  width: 100%;\n  padding: 8px 20px 10px 10px;\n  background: white;\n  color: black;\n  border: 0;\n  border: solid black 1px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 4px #999;\n  cursor: pointer;\n  font-size: 14px;\n  outline: none;\n  -webkit-touch-callout: none;\n  -ms-touch-callout: none;\n  -moz-touch-callout: none;\n  -o-touch-callout: none;\n  touch-callout: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n  -moz-user-select: none;\n  -o-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -ms-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  background-image: url(\"/img/arrow-down.png\");\n  background-repeat: no-repeat;\n  background-position: 93% center;\n  background-size: 10px; }\n\n.textarea {\n  width: 100%;\n  outline: none;\n  border: solid black 1px;\n  border-radius: 5px;\n  padding: 10px 20px;\n  font-size: 14px;\n  resize: none;\n  -webkit-appearance: none;\n  -ms-appearance: none;\n  -moz-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  box-shadow: 0px 0px 4px #999 inset; }\n  .textarea::-webkit-input-placeholder {\n    color: black;\n    font-weight: 400; }\n  .textarea:-moz-placeholder {\n    color: black;\n    font-weight: 400; }\n  .textarea::-moz-placeholder {\n    color: black;\n    font-weight: 400; }\n  .textarea:-ms-input-placeholder {\n    color: black;\n    font-weight: 400; }\n  .textarea:focus {\n    box-shadow: 0px 0px 4px #000 inset; }\n\n.checkbox {\n  display: none; }\n\n.radio {\n  display: none; }\n\n.checked-box, .unchecked-box, .checked-radio, .unchecked-radio {\n  vertical-align: top;\n  width: 20px;\n  height: 20px;\n  border: solid black 1px; }\n\n.unchecked-box, .unchecked-radio {\n  background: white; }\n\n.checked-box, .checked-radio {\n  background: black; }\n\n.unchecked-box, .checked-box {\n  border-radius: 2px; }\n\n.unchecked-radio, .checked-radio {\n  border-radius: 10px; }\n\n.label {\n  cursor: pointer;\n  padding: 10px;\n  line-height: 20px; }\n\ninput.checkbox {\n  cursor: pointer; }\n\ninput.checkbox + label .checked-box {\n  display: none; }\n\ninput.checkbox + label .unchecked-box {\n  display: inline-block; }\n\ninput.checkbox:checked + label .checked-box {\n  display: inline-block; }\n\ninput.checkbox:checked + label .unchecked-box {\n  display: none; }\n\ninput.radio {\n  cursor: pointer; }\n\ninput.radio + label .checked-radio {\n  display: none; }\n\ninput.radio + label .unchecked-radio {\n  display: inline-block; }\n\ninput.radio:checked + label .checked-radio {\n  display: inline-block; }\n\ninput.radio:checked + label .unchecked-radio {\n  display: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(10);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./components.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./components.sass");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".style-item {\n  display: inline-block;\n  vertical-align: top;\n  margin: 10px; }\n\n.container {\n  display: inline-block;\n  vertical-align: top;\n  padding: 10px;\n  border: solid black 1px;\n  border-radius: 5px;\n  box-shadow: 2px 2px 4px #999; }\n\n.arrow {\n  display: inline-block;\n  vertical-align: top; }\n  .arrow.up {\n    width: 0;\n    height: 0;\n    border-left: 25px solid transparent;\n    border-right: 25px solid transparent;\n    border-bottom: 50px solid black; }\n  .arrow.right {\n    width: 0;\n    height: 0;\n    border-top: 25px solid transparent;\n    border-left: 50px solid black;\n    border-bottom: 25px solid transparent; }\n  .arrow.down {\n    width: 0;\n    height: 0;\n    border-left: 25px solid transparent;\n    border-right: 25px solid transparent;\n    border-top: 50px solid black; }\n  .arrow.left {\n    width: 0;\n    height: 0;\n    border-top: 25px solid transparent;\n    border-right: 50px solid black;\n    border-bottom: 25px solid transparent; }\n\n.border-arrow.up {\n  position: relative; }\n  .border-arrow.up:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.up:after {\n    width: 0;\n    height: 0;\n    border-left: 5px solid transparent;\n    border-right: 5px solid transparent;\n    border-bottom: 10px solid black;\n    left: 50%;\n    margin-left: -5px;\n    top: -10px; }\n\n.border-arrow.right {\n  position: relative; }\n  .border-arrow.right:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.right:after {\n    width: 0;\n    height: 0;\n    border-top: 5px solid transparent;\n    border-left: 10px solid black;\n    border-bottom: 5px solid transparent;\n    top: 50%;\n    margin-top: -5px;\n    right: -10px; }\n\n.border-arrow.down {\n  position: relative; }\n  .border-arrow.down:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.down:after {\n    width: 0;\n    height: 0;\n    border-left: 5px solid transparent;\n    border-right: 5px solid transparent;\n    border-top: 10px solid black;\n    left: 50%;\n    margin-left: -5px;\n    bottom: -10px; }\n\n.border-arrow.left {\n  position: relative; }\n  .border-arrow.left:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.left:after {\n    width: 0;\n    height: 0;\n    border-top: 5px solid transparent;\n    border-right: 10px solid black;\n    border-bottom: 5px solid transparent;\n    top: 50%;\n    margin-top: -5px;\n    left: -10px; }\n\n.border-arrow.big.up {\n  position: relative; }\n  .border-arrow.big.up:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.big.up:after {\n    width: 0;\n    height: 0;\n    border-left: 10px solid transparent;\n    border-right: 10px solid transparent;\n    border-bottom: 20px solid black;\n    left: 50%;\n    margin-left: -10px;\n    top: -20px; }\n\n.border-arrow.big.right {\n  position: relative; }\n  .border-arrow.big.right:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.big.right:after {\n    width: 0;\n    height: 0;\n    border-top: 10px solid transparent;\n    border-left: 20px solid black;\n    border-bottom: 10px solid transparent;\n    top: 50%;\n    margin-top: -10px;\n    right: -20px; }\n\n.border-arrow.big.down {\n  position: relative; }\n  .border-arrow.big.down:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.big.down:after {\n    width: 0;\n    height: 0;\n    border-left: 10px solid transparent;\n    border-right: 10px solid transparent;\n    border-top: 20px solid black;\n    left: 50%;\n    margin-left: -10px;\n    bottom: -20px; }\n\n.border-arrow.big.left {\n  position: relative; }\n  .border-arrow.big.left:after {\n    content: '';\n    position: absolute; }\n  .border-arrow.big.left:after {\n    width: 0;\n    height: 0;\n    border-top: 10px solid transparent;\n    border-right: 20px solid black;\n    border-bottom: 10px solid transparent;\n    top: 50%;\n    margin-top: -10px;\n    left: -20px; }\n\n.border-arrow.up.offset:after {\n  margin-left: 20px; }\n\ntable.table {\n  width: 100%; }\n  table.table td {\n    border: solid black 1px;\n    height: 50px;\n    vertical-align: middle;\n    padding: 20px 0; }\n\n.section {\n  overflow: hidden; }\n\n.anchor-link, a.anchor-link {\n  text-decoration: none;\n  color: black;\n  text-align: left;\n  display: block; }\n  .anchor-link .anchor-tip, a.anchor-link .anchor-tip {\n    display: none; }\n  .anchor-link .text:hover .anchor-tip, a.anchor-link .text:hover .anchor-tip {\n    display: inline; }\n\n.drop-head {\n  border-bottom: solid black 5px;\n  text-align: left;\n  padding: 5px 15px;\n  cursor: pointer; }\n  .drop-head .text {\n    font-size: 24px; }\n  .drop-head.active {\n    border-bottom: solid black 3px;\n    box-shadow: 0px 0px 4px #000; }\n\n.component-wrap {\n  position: relative;\n  text-align: left; }\n  .component-wrap .item-name {\n    font-size: 16px;\n    font-weight: 500; }\n  .component-wrap .toggle-code {\n    position: absolute;\n    top: 0;\n    right: 0; }\n\n.drop-content {\n  padding: 15px 15px;\n  text-align: left; }\n\n.item-wrap {\n  padding: 0;\n  text-align: center; }\n  .item-wrap.left-50.l {\n    padding: 10px 10px 0 0; }\n  .item-wrap.left-50.r {\n    padding: 10px 0 0 10px; }\n\n@media screen and (max-width: 320px) {\n  .item-wrap.left-50 {\n    width: 100%;\n    padding: 0; } }\n\n@media screen and (max-width: 740px) {\n  .item-wrap.left-50 {\n    width: 100%;\n    padding: 0; }\n    .item-wrap.left-50.l {\n      padding: 0; }\n    .item-wrap.left-50.r {\n      padding: 0; } }\n\n.arrow-drop {\n  position: relative;\n  top: 5px;\n  right: 5px; }\n  .arrow-drop.up {\n    width: 0;\n    height: 0;\n    border-left: 10px solid transparent;\n    border-right: 10px solid transparent;\n    border-bottom: 20px solid black; }\n  .arrow-drop.right {\n    width: 0;\n    height: 0;\n    border-top: 10px solid transparent;\n    border-left: 20px solid black;\n    border-bottom: 10px solid transparent; }\n  .arrow-drop.down {\n    width: 0;\n    height: 0;\n    border-left: 10px solid transparent;\n    border-right: 10px solid transparent;\n    border-top: 20px solid black; }\n  .arrow-drop.left {\n    width: 0;\n    height: 0;\n    border-top: 10px solid transparent;\n    border-right: 20px solid black;\n    border-bottom: 10px solid transparent; }\n", ""]);
+
+	// exports
+
+
+/***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(12);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./layout.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./layout.sass");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".layout-header {\n  padding: 20px 0;\n  background-color: black;\n  color: white; }\n\n.layout-content {\n  max-width: 960px;\n  margin: 10px auto 10px;\n  background: white;\n  border: none; }\n  .layout-content .head {\n    padding: 10px; }\n  .layout-content .content {\n    padding: 10px; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
@@ -974,7 +1425,7 @@
 	}());
 
 /***/ },
-/* 12 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global, _) {/**
@@ -13329,10 +13780,10 @@
 	    root._ = _;
 	  }
 	}.call(this));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module), (function() { return this; }()), __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)(module), (function() { return this; }()), __webpack_require__(19)))
 
 /***/ },
-/* 13 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -13348,7 +13799,7 @@
 
 
 /***/ },
-/* 14 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

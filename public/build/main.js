@@ -5,29 +5,22 @@ webpackJsonp([1],[
 	/*** CSS ***/
 	// common
 	__webpack_require__(1);
-	__webpack_require__(3);
-	__webpack_require__(4);
 	__webpack_require__(5);
-	__webpack_require__(6);
+	__webpack_require__(7);
+	__webpack_require__(9);
+	__webpack_require__(11);
 	// page specific
-	__webpack_require__(15);
+	__webpack_require__(22);
 
 	/*** JS ***/
-	// global
-	var templates = __webpack_require__(16);
-	console.log(
-	  templates("test")({
-	    str: "Goodbye Grunt!"
-	  })
-	)
-
-	// require('script!compiled_templates.js');
 	// common
-	var FastClick = __webpack_require__(11);
-	var _ = __webpack_require__(12);
-	var $ = __webpack_require__(14);
+	var FastClick = __webpack_require__(18);
+	var _ = __webpack_require__(19);
+	var $ = __webpack_require__(21);
+	var templates = __webpack_require__(24);
+
 	// page specific
-	var MainPage = __webpack_require__(19);
+	var MainPage = __webpack_require__(28);
 
 	$(document).ready(function(e){
 	  console.log('main.js loaded: document ready');
@@ -58,25 +51,67 @@ webpackJsonp([1],[
 /* 12 */,
 /* 13 */,
 /* 14 */,
-/* 15 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 16 */
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = function( name ){
-	  return __webpack_require__(17)("./"+name+".tmpl.html")
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(23);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./main.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js?indentedSyntax!./main.sass");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
 	}
 
 /***/ },
-/* 17 */
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body {\n  text-align: center; }\n\nhtml {\n  background-color: #ddd; }\n\n#main {\n  background-color: #ddd; }\n  #main .title {\n    font-size: 26px; }\n  #main .text1 {\n    font-size: 18px; }\n  #main .yinyang {\n    background-color: white;\n    border-radius: 50px; }\n\n.layout-content {\n  margin-top: 0; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function( name ){
+	  return __webpack_require__(25)("./"+name+".tmpl.html")
+	}
+
+/***/ },
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./test.tmpl.html": 18
+		"./dir1/dir_test.tmpl.html": 26,
+		"./test.tmpl.html": 27
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -89,11 +124,27 @@ webpackJsonp([1],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 17;
+	webpackContext.id = 25;
 
 
 /***/ },
-/* 18 */
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = function (obj) {
+	obj || (obj = {});
+	var __t, __p = '';
+	with (obj) {
+	__p += '<div> dir1: ' +
+	((__t = ( str )) == null ? '' : __t) +
+	' </div>';
+
+	}
+	return __p
+	}
+
+/***/ },
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = function (obj) {
@@ -109,11 +160,11 @@ webpackJsonp([1],[
 	}
 
 /***/ },
-/* 19 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(12);
-	var $ = __webpack_require__(14);
+	var _ = __webpack_require__(19);
+	var $ = __webpack_require__(21);
 
 	var MainPage = function( args ){
 	  _.extend( this, args );

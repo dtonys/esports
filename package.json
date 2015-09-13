@@ -18,7 +18,8 @@
     "morgan": "^1.6.1",
     "multer": "^1.0.3",
     "serve-favicon": "^2.3.0",
-    "style-loader": "^0.12.3"
+    "style-loader": "^0.12.3",
+    "webpack": "^1.12.1"
   },
   "devDependencies": {
     "autoprefixer": "^5.2.0",
@@ -38,17 +39,13 @@
     "sass-loader": "^2.0.1",
     "script-loader": "^0.6.1",
     "style-loader": "^0.12.3",
-    "webpack": "^1.12.1"
+    "webpack": "^1.12.1",
+    "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
-    "esvalidate": "(find public/js -type f -name '*.js'; find *.js) | xargs esvalidate --format=sublime",
-    "autoprefixer": "find public/css -type f -name '*.css' | xargs postcss --use autoprefixer -b 'last 2 versions' -d public/css/pages",
-    "livereload": "livereload public/css -p 9090 -i 200 &",
-    "sass:watch": "sass --watch stylesheets:public/css &",
-    "livereload:stop": "pgrep -f 'livereload public/css -p 9090 -i 200' | xargs kill",
-    "sass:watch:stop": "pgrep -f 'sass --watch stylesheets:public/css' | xargs kill",
-    "watch:stop": "npm run livereload:stop && npm run sass:watch:stop",
-    "watch": "npm run livereload && npm run sass:watch",
-    "start": "nodemon --watch app.js app.js"
+    "build:production": "webpack --config webpack.production.config.js",
+    "build:": "webpack",
+    "start:production": "NODE_ENV=production nodemon --watch app.js app.js",
+    "start": "NODE_ENV=development nodemon --watch app.js app.js"
   }
 }

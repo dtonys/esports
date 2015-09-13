@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- use minified assets if specified -->
-    <% var min = req.query.minified ? '.min' : '' %>
+    <% var min = (process.env.NODE_ENV === 'production' || req.query.minified) ? '.min' : '' %>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/build/common<%= min %>.css" >
-    <link rel="stylesheet" href="/build/main<%= min %>.css" >    
+    <!-- Include minifed css in head in production -->
+    <% if( process.env.NODE_ENV === 'production' ){ %>
+      <link rel="stylesheet" href="/build/common<%= min %>.css" >
+      <link rel="stylesheet" href="/build/main<%= min %>.css" >       
+    <% } %>
   </head>
   <body>
     <div id="main">
       <div class="layout-header" >
-        <div class="title"> Black and White </div>
+        <div class="title"> Black and White <%= process.env.NODE_ENV %> </div>
         <img class="yinyang" width="50" height="50" src="/img/yinyang.png" />
         <div class="text1" > Simple, extensible UI framework </div>
       </div>

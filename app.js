@@ -1,7 +1,6 @@
 var cons = require('consolidate');
 var ejs = require('ejs');
 var _ = require('lodash');
-var he = require('he');
 
 var bodyParser = require('body-parser');          // todo: test POST
 var methodOverride = require('method-override');  // todo: test PUT, DELETE
@@ -20,7 +19,6 @@ var app = express();
 var util = require('./util.js');
 
 _.extend( app.locals, util );                             // give views access to utils
-app.locals.he = he;
 
 app.engine('ejs', cons.ejs);                              // match view engine to file extension
 

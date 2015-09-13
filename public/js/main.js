@@ -9,19 +9,12 @@ require('layout/layout.sass');
 require('main.sass');
 
 /*** JS ***/
-// global
-var templates = require('templates.js');
-console.log(
-  templates("test")({
-    str: "Goodbye Grunt!"
-  })
-)
-
-// require('script!compiled_templates.js');
 // common
 var FastClick = require('fastclick.js');
 var _ = require('lodash.js');
 var $ = require('jquery.js');
+var templates = require('templates.js');
+
 // page specific
 var MainPage = require('MainPage.js');
 

@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         test: /\.sass$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap&indentedSyntax'),
+        loader: 'style!css!sass?indentedSyntax'
       }
     ]
   },
@@ -40,7 +40,6 @@ module.exports = {
   },
   plugins: [
     new CommonsChunkPlugin({ name: "common" }),
-    new ExtractTextPlugin('[name].css'),
     new DefinePlugin({
       PRODUCTION: false,
       DEVELOPMENT: true
