@@ -16,6 +16,7 @@ var uploads = multer({ dest: 'public/uploads' }); // todo: test upload files
 var express = require('express');
 
 var app = express();
+
 var util = require('./util.js');
 
 _.extend( app.locals, util );                             // give views access to utils
@@ -25,7 +26,6 @@ app.engine('ejs', cons.ejs);                              // match view engine t
 app.set('views', __dirname + '/views');                   // set views dir
 app.set('view engine', 'ejs');                            // set template engine
 
-app.use(cors());                                          // allow cross origin requests
 app.use(favicon(__dirname + '/public/favicon.ico'));      // serve favicon
 app.use(express.static(__dirname + '/public'));           // serve static assets
 app.use(bodyParser.json());                               // body parser, for POST request

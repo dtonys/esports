@@ -4,9 +4,11 @@
     <title> FE Boilerplate | Components </title>
     <!-- For mobile responsive sites only -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- CSS -->
-    <link rel="stylesheet" href="/build/common.css" >
-    <link rel="stylesheet" href="/build/components.css" > 
+    <!-- Include minifed css in head in production -->
+    <% if( process.env.NODE_ENV === 'production' || req.query.minified ){ %>
+      <link rel="stylesheet" href="/build/common<%= min %>.css" >
+      <link rel="stylesheet" href="/build/components<%= min %>.css" >       
+    <% } %>
   </head>
   <body>
 
@@ -262,7 +264,13 @@
     </div>
 
     <!-- JS -->
-    <script src="/build/common.js"></script>
-    <script src="/build/main.js"></script>
+    <% if( process.env.NODE_ENV === 'production' || req.query.minified ){ %>
+      <script src="/build/common<%= min %>.js"></script>
+      <script src="/build/main<%= min %>.js"></script>      
+    <% } else { %>
+      <script src="http://localhost:8080/webpack-dev-server.js"></script>
+      <script src="http://localhost:8080/build/common.js"></script>
+      <script src="http://localhost:8080/build/main.js"></script>
+    <% } %>
   </body>
 </html>

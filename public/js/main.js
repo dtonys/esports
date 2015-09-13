@@ -6,7 +6,7 @@ require('components/forms.sass');
 require('components/components.sass');
 require('layout/layout.sass');
 // page specific
-require('main.sass');
+require('pages/main.sass');
 
 /*** JS ***/
 // common

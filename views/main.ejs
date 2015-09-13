@@ -9,7 +9,7 @@
     <% var min = (process.env.NODE_ENV === 'production' || req.query.minified) ? '.min' : '' %>
 
     <!-- Include minifed css in head in production -->
-    <% if( process.env.NODE_ENV === 'production' ){ %>
+    <% if( process.env.NODE_ENV === 'production' || req.query.minified ){ %>
       <link rel="stylesheet" href="/build/common<%= min %>.css" >
       <link rel="stylesheet" href="/build/main<%= min %>.css" >       
     <% } %>
@@ -31,7 +31,13 @@
       </div>
     </div>
     <!-- JS -->
-    <script src="/build/common<%= min %>.js"></script>
-    <script src="/build/main<%= min %>.js"></script>
+    <% if( process.env.NODE_ENV === 'production' || req.query.minified ){ %>
+      <script src="/build/common<%= min %>.js"></script>
+      <script src="/build/main<%= min %>.js"></script>      
+    <% } else { %>
+      <script src="http://localhost:8080/webpack-dev-server.js"></script>
+      <script src="http://localhost:8080/build/common.js"></script>
+      <script src="http://localhost:8080/build/main.js"></script>
+    <% } %>
   </body>
 </html>
