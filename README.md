@@ -1,10 +1,8 @@
 Front End Boilerplate optimized for simplicity + fast development
 
-npm as build tool ( http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  )
-
 opinionated CSS structure ( http://www.sitepoint.com/architecture-sass-project/  )
 
-Uses webpack + npm to handle everything
+webpack + npm
 
 ### Run
 
@@ -14,6 +12,15 @@ Start the server
 
 \> npm run start
 
-In separate terminal, Start watch tasks for compiling assets
+Start watch tasks for generating assets, builds assets on save, with webpack hot-loading enabled
 
 \> npm run watch
+
+
+Start the server in production mode
+
+\> npm run start:production
+
+Build assets once, minified
+
+\> npm run start:production
