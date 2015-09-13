@@ -6,7 +6,7 @@ webpack + npm
 
 ### Run
 
-#### Main Commands
+#### Development
 
 Start the server
 
@@ -16,11 +16,12 @@ Start watch tasks for generating assets, builds assets on save, with webpack hot
 
 \> npm run watch
 
+#### Production
 
 Start the server in production mode
 
 \> npm run start:production
 
-Build assets once, minified
+Build assets once, minified + saved to disk @ /public/build
 
-\> npm run start:production
+\> npm run build:production
