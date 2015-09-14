@@ -17,8 +17,15 @@ var express = require('express');
 
 var app = express();
 
-var util = require('./BE_util.js');
-_.extend( app.locals, util );                             // give views access to utils
+var util = require('./backend/BE_util.js');
+var templates = require('./backend/templates.js')({
+  path: 'public/templates/',
+  ext: '.tmpl.html'
+});
+                                                          // give functionality to views
+_.extend( app.locals, util );                             // access to utils
+app.locals.templates = templates;                         // access to lodash templates
+
 
 app.engine('ejs', cons.ejs);                              // match view engine to file extension
 

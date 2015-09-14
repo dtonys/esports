@@ -1,4 +1,4 @@
-var util = require('./shared_util.js');
+var util = require('../shared_util.js');
 util.backend = function(){
   console.log('backend util');
 };

@@ -2,4 +2,6 @@ node_modules/
 .sass-cache/
 public/css/*
 !public/css/.gitkeep
+public/build/*
+!public/build/.gitkeep
 npm-debug.log

@@ -1,10 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var DefinePlugin = webpack.DefinePlugin;
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
   resolveLoader: {
@@ -26,17 +26,17 @@ module.exports = {
       },
       {
         test: /\.sass$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap&indentedSyntax'),
+        loader: ExtractTextPlugin.extract('css!autoprefixer-loader?browsers=last 2 versions!sass?indentedSyntax'),
       }
     ]
   },
   resolve: {
-    modulesDirectories: [
-      'stylesheets',
-      'stylesheets/pages',
-      'public',
-      'public/js',
-      'public/js/vendor'
+    root: [
+      __dirname+'/',
+      __dirname+'/public',
+      __dirname+'/public/js',
+      __dirname+'/public/js/vendor',
+      __dirname+'/stylesheets'
     ]
   },
   plugins: [
