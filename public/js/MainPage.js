@@ -1,5 +1,5 @@
-var _ = require('lodash.js');
-var $ = require('jquery.js');
+var _ = require('lodash');
+var $ = require('jquery');
 
 var MainPage = function( args ){
   _.extend( this, args );

@@ -10,10 +10,10 @@ require('pages/components.sass');
 
 /*** JS ***/
 // common
-var FastClick = require('fastclick.js');
-var _ = require('lodash.js');
-var $ = require('jquery.js');
-var templates = require('templates.js');
+var FastClick = require('fastclick');
+var _ = require('lodash');
+var $ = require('jquery');
+var templates = require('templates');
 
 $(document).ready(function(e){
   console.log('components.js loaded: document ready');

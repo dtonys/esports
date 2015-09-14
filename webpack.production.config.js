@@ -31,12 +31,13 @@ module.exports = {
     ]
   },
   resolve: {
-    root: [
-      __dirname+'/',
-      __dirname+'/public',
-      __dirname+'/public/js',
-      __dirname+'/public/js/vendor',
-      __dirname+'/stylesheets'
+    modulesDirectories: [
+      "web_modules",
+      "public",
+      "public/js",
+      "public/js/vendor",
+      "stylesheets",
+      "node_modules"
     ]
   },
   plugins: [
@@ -52,7 +53,7 @@ module.exports = {
       DEVELOPMENT: false
     }),
     new webpack.ProvidePlugin({
-      _: "lodash.js"
+      _: "lodash"
     })
   ]
 }

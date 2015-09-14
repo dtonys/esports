@@ -12,7 +12,9 @@
     "ejs": "^2.3.3",
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
+    "fastclick": "^1.0.6",
     "glob": "^5.0.14",
+    "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
@@ -43,7 +45,7 @@
   "scripts": {
     "build:production": "webpack --config webpack.production.config.js",
     "start:production": "NODE_ENV=production nodemon --watch app.js app.js",
-    "watch": "webpack-dev-server --content-base ./public --hot --progress --colors",
+    "watch": "webpack-dev-server --content-base --hot --progress --colors",
     "start": "NODE_ENV=development nodemon --watch app.js app.js"
   }
 }

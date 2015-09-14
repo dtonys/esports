@@ -10,16 +10,16 @@ require('pages/main.sass');
 
 /*** JS ***/
 // common
-var FastClick = require('fastclick.js');
-var _ = require('lodash.js');
-var $ = require('jquery.js');
-var util = require('FE_util.js');
-var templates = require('templates.js');
+var FastClick = require('fastclick');
+var _ = require('lodash');
+var $ = require('jquery');
+var util = require('FE_util');
+var templates = require('templates');
 
 util.frontend();
 
 // page specific
-var MainPage = require('MainPage.js');
+var MainPage = require('MainPage');
 
 $(document).ready(function(e){
   console.log('main.js loaded: document ready');
