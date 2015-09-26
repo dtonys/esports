@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');          // todo: test POST
 var methodOverride = require('method-override');  // todo: test PUT, DELETE
 var multer = require('multer');                   // todo: test multipart POST
 var cookieParser = require('cookie-parser');      // check req.cookies
-var morgan = require('morgan');   
+var morgan = require('morgan');
 var favicon = require('serve-favicon');
 var compression = require('compression');
 var errorhandler = require('errorhandler');
@@ -14,8 +14,12 @@ var cors = require('cors');
 
 var uploads = multer({ dest: 'public/uploads' }); // todo: test upload files
 var express = require('express');
+var httpProxy = require('http-proxy');
 
+var proxy = httpProxy.createProxyServer();
 var app = express();
+
+var isProduction = process.env.NODE_ENV === 'production';
 
 var util = require('./backend/BE_util.js');
 var templates = require('./backend/templates.js')({
@@ -42,6 +46,18 @@ app.use(morgan('dev'));                                   // log requests
 app.use(compression());
 app.use(errorhandler());
 
+
+if (!isProduction) {
+  // start webpack-dev-server
+  require('./backend/webpack_server.js')();
+  // proxy static asset requests to it
+  app.all('/build/*', function (req, res) {
+    proxy.web(req, res, {
+      target: 'http://localhost:8080'
+    });
+  });
+}
+
 // expose req obj to view
 app.use( function( req, res, next ){
   res.locals.req = req;
@@ -64,6 +80,6 @@ app.post('/post', function( req, res ){
   res.json({ result: true });
 })
 
-app.listen(3002, function(){
+app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });

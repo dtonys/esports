@@ -4,7 +4,6 @@ opinionated CSS structure ( http://www.sitepoint.com/architecture-sass-project/ 
 
 webpack + npm
 
-### Run
 
 #### Development
 
@@ -12,16 +11,19 @@ Start the server
 
 \> npm run start
 
-Start watch tasks for generating assets, builds assets on save, with webpack hot-loading enabled
+Starts Express server @ port 3000 via nodemon
+Starts webpack-dev-server @ port 8080 with hot-reloading enabled
+Express server proxies static asset requests @ /build/*  to webpack-dev-server
 
-\> npm run watch
 
 #### Production
+
+Build minified assets, saved @ /public/build
+
+\> npm run build:production
 
 Start the server in production mode
 
 \> npm run start:production
 
-Build assets once, minified + saved to disk @ /public/build
 
-\> npm run build:production
