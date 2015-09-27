@@ -12,7 +12,9 @@ Start the server
 \> npm run start
 
 Starts Express server @ port 3000 via nodemon
+
 Starts webpack-dev-server @ port 8080 with hot-reloading enabled
+
 Express server proxies static asset requests @ /build/*  to webpack-dev-server
 
 
