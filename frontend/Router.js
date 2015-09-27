@@ -4,6 +4,7 @@ import qs from 'qs';
 import _ from 'lodash';
 import util from 'FE_util.js';
 
+// all routes must be explicitely listed here
 var routeMap = {
   '/': {
     asyncRequire: ( cb ) => {
@@ -20,12 +21,18 @@ var routeMap = {
       require.ensure([], () => cb(require('components/Matches.js')) )
     }
   },
+  '/matches/:id': {
+    asyncRequire: ( cb ) => {
+      require.ensure([], () => cb(require('components/Matches.js')) )
+    }
+  },
   '*': {
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/NotFound.js')) )
     }
   }
 };
+
 class Router extends React.Component{
   constructor( props ){
     super(props);
@@ -40,21 +47,27 @@ class Router extends React.Component{
     this.setupRoutes();
   }
   setupRoutes(){
+    page('*', function( ctx, next ){
+      console.log(' route change >> ', ctx.path);
+      console.log(' ctx >> ', ctx);
+      ctx.queryparams = qs.parse(ctx.querystring);
+      next();
+    });
     for( var url in routeMap ){
       var routeData = routeMap[url];
-      page( url, this.getData, this.setPage )
+      page( url, this.getData.bind(this, routeData), this.setPage );
     };
     page.start();
   }
-  getData(ctx, next ){
-    routeMap[ctx.path].asyncRequire( ( Component ) => {   // get dependencies async via webpack
+  getData(routeData, ctx, next ){
+    routeData.asyncRequire( ( Component ) => {   // get dependencies async via webpack
       ctx.Component = Component;
       clearTimeout( this.state.timeout );
+      console.log(' get data ', ctx.pathname );
       var timeout = setTimeout( () => {                   // get data via API call
         this.setState({ loading: false });
         next();
-      }, 1000);
-
+      }, 50);
       this.setState({
         loading: true,
         timeout: timeout
@@ -64,12 +77,11 @@ class Router extends React.Component{
   setPage( ctx, next ){
     var Component = ctx.Component;
     this.setState({
-      component: <Component params={ctx.params} querystring={ ctx.querystring } />
-    })
+      component: <Component route_ctx={ctx} />
+    });
   }
   render(){
     var loading = this.state.loading ? <div>Loading</div> : '';
-
     return (
       <div>
         { this.state.component }
