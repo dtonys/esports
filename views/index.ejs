@@ -15,20 +15,7 @@
     <% } %>
   </head>
   <body>
-    <div id="main">
-      <div class="layout-header" >
-        <div class="title"> Black and White </div>
-        <img class="yinyang" width="50" height="50" src="/img/yinyang.png" />
-        <div class="text1" > Simple, extensible UI framework </div>
-      </div>
-      <div class="layout-content" >
-        <% ['form', 'arrow', 'spinner', 'table'].forEach( function( item ){ %>
-          <%- include('./section', {
-            item: item,
-            drop_content: './'+item+'_content'
-          }) %>
-        <% })%>
-      </div>
+    <div id="app">
     </div>
     <!-- JS -->
     <% if( process.env.NODE_ENV === 'production' || req.query.minified ){ %>

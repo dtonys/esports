@@ -21,15 +21,7 @@ var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
 
-var util = require('./backend/BE_util.js');
-var templates = require('./backend/templates.js')({
-  path: 'public/templates/',
-  ext: '.tmpl.html'
-});
-                                                          // give functionality to views
-_.extend( app.locals, util );                             // access to utils
-app.locals.templates = templates;                         // access to lodash templates
-
+_.extend( app.locals, require('./backend/BE_util.js') );  // give views access to utils
 
 app.engine('ejs', cons.ejs);                              // match view engine to file extension
 
@@ -66,36 +58,46 @@ app.use( function( req, res, next ){
 
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'Index',
+    title: 'Index Page',
     entry_js: 'index'
   });
 });
 
-app.get('/main', function(req, res){
-  res.render('main', {
-    title: 'Black and White',
-    entry_js: 'main'
+app.get('/profile', function(req, res){
+  res.render('index', {
+    title: 'Profile Page',
+    // entry_js: 'profile'
+    entry_js: 'index'
   });
 });
 
-app.get('/components', function(req, res){
-  res.render('components', {
-    title: 'Components',
-    entry_js: 'components'
+app.get('/matches', function(req, res){
+  res.render('index', {
+    title: 'Matches Page',
+    // entry_js: 'matches'
+    entry_js: 'index'
   });
 });
 
-app.get('/react_page', function(req, res){
-  res.render('react_page', {
-    title: 'React Component',
-    entry_js: 'react_page'
+app.get('/match/:id', function(req, res){
+  res.render('index', {
+    title: 'Match ' + req.params.id,
+    // entry_js: 'match'
+    entry_js: 'index'
   });
 });
 
 app.post('/post', function( req, res ){
   console.log( req.body );
   res.json({ result: true });
-})
+});
+
+app.get('*', function(req, res){
+  res.render('index', {
+    title: 'Page Not Found',
+    entry_js: 'index'
+  });
+});
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);

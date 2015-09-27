@@ -23,10 +23,7 @@ var config = {
     publicPath: "/build/"                         // url to get static assets (set by express.static)
   },                                              // used when webpack loads assets async
   entry: {
-    'index': ['./frontend/index.js'],
-    'main': ['./frontend/main.js'],
-    'components': ['./frontend/components.js'],
-    'react_page': ['./frontend/react_page.js']
+    'index': ['./frontend/index.js']
   },
   module: {
     noParse: [],
