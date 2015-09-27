@@ -17,7 +17,11 @@ config.module.loaders.push(
   // compile + process sass
   {
     test: /\.sass$/,
-    loader: ExtractTextPlugin.extract('css!autoprefixer-loader?browsers=last 2 versions!sass?indentedSyntax'),
+    loader: ExtractTextPlugin.extract(
+      'css',
+      'autoprefixer-loader?browsers=last 2 versions',
+      'sass?indentedSyntax'
+    ),
   }
 );
 config.plugins.push(

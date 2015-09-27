@@ -19,6 +19,7 @@
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
     "multer": "^1.0.3",
+    "page": "^1.6.3",
     "react": "^0.13.3",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.12.3",

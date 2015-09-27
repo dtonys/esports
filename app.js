@@ -65,20 +65,30 @@ app.use( function( req, res, next ){
 });
 
 app.get('/', function(req, res){
+  res.render('index', {
+    title: 'Index',
+    entry_js: 'index'
+  });
+});
+
+app.get('/main', function(req, res){
   res.render('main', {
-    title: "Black and White"
+    title: 'Black and White',
+    entry_js: 'main'
   });
 });
 
 app.get('/components', function(req, res){
   res.render('components', {
-    title: "Components"
+    title: 'Components',
+    entry_js: 'components'
   });
 });
 
 app.get('/react_page', function(req, res){
   res.render('react_page', {
-    title: "React Component"
+    title: 'React Component',
+    entry_js: 'react_page'
   });
 });
 

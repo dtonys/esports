@@ -3,37 +3,48 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+
+// full paths
+var NODE_MODULES_PATH = path.resolve(__dirname, 'node_modules');
+var PUBLIC_BUILD_PATH = path.resolve(__dirname, 'public/build');
+var FRONTEND_PATH = path.resolve(__dirname, 'frontend');
 
 var config = {
   addVendor: function( name, path ){
     this.resolve.alias[name] = path;
     this.module.noParse.push(new RegExp(path));
   },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
+  resolveLoader: {                                // path to look for loaders
+    root: NODE_MODULES_PATH
   },
   output: {
-    path: __dirname+'/public/build',
-    publicPath: "/build/"
-  },
+    path: PUBLIC_BUILD_PATH,                      // compiled assets will be sent here
+    publicPath: "/build/"                         // url to get static assets (set by express.static)
+  },                                              // used when webpack loads assets async
   entry: {
-    'main': ['./public/js/main.js'],
-    'components': ['./public/js/components.js'],
-    'react_page': ['./public/js/react_page.js']
+    'index': ['./frontend/index.js'],
+    'main': ['./frontend/main.js'],
+    'components': ['./frontend/components.js'],
+    'react_page': ['./frontend/react_page.js']
   },
   module: {
     noParse: [],
     loaders: [
       {
         test: /\.css$/,
-        loader: 'style!css'
+        loaders: [
+          'style',
+          'css'
+        ]
       },
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
-        include: [ path.resolve( __dirname, 'public' ) ]
+        loaders: [
+          'react-hot',
+          'babel'
+        ],
+        include: [ FRONTEND_PATH ]
       },
       // expose react global for dev tools
       {
@@ -46,9 +57,8 @@ var config = {
     alias: {},
     modulesDirectories: [
       "web_modules",
-      "public",
-      "public/js",
-      "public/js/vendor",
+      "frontend",
+      "frontend/vendor",
       "stylesheets",
       "node_modules"
     ]

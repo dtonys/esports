@@ -27,7 +27,11 @@ config.output.filename = '[name].js';
 config.module.loaders.push(
   {
     test: /\.sass$/,
-    loader: 'style!css!sass?indentedSyntax'
+    loaders: [
+      'style',
+      'css',
+      'sass?indentedSyntax'
+    ]
   }
 );
 config.plugins.push(
