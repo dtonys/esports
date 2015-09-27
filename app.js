@@ -65,14 +65,21 @@ app.use( function( req, res, next ){
 });
 
 app.get('/', function(req, res){
-  var title = "Black and White";
   res.render('main', {
-    title: title
+    title: "Black and White"
   });
 });
 
 app.get('/components', function(req, res){
-  res.render('components');
+  res.render('components', {
+    title: "Components"
+  });
+});
+
+app.get('/react_page', function(req, res){
+  res.render('react_page', {
+    title: "React Component"
+  });
 });
 
 app.post('/post', function( req, res ){

@@ -7,6 +7,10 @@ var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 var config = {
+  addVendor: function( name, path ){
+    this.resolve.alias[name] = path;
+    this.module.noParse.push(new RegExp(path));
+  },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules')
   },
@@ -16,22 +20,30 @@ var config = {
   },
   entry: {
     'main': ['./public/js/main.js'],
-    'components': ['./public/js/components.js']
+    'components': ['./public/js/components.js'],
+    'react_page': ['./public/js/react_page.js']
   },
   module: {
+    noParse: [],
     loaders: [
       {
         test: /\.css$/,
         loader: 'style!css'
       },
       {
-        test: /\.js$/,
-        loader: 'babel',
+        test: /\.jsx?$/,
+        loaders: ['react-hot', 'babel'],
         include: [ path.resolve( __dirname, 'public' ) ]
+      },
+      // expose react global for dev tools
+      {
+        test: require.resolve("react"),
+        loader: "expose?React"
       }
     ]
   },
   resolve: {
+    alias: {},
     modulesDirectories: [
       "web_modules",
       "public",
@@ -42,11 +54,10 @@ var config = {
     ]
   },
   plugins: [
-    new CommonsChunkPlugin({ name: "common" }),
-    new webpack.ProvidePlugin({
-      _: "lodash"
-    })
+    new CommonsChunkPlugin({ name: "common" })
   ]
 };
+
+config.addVendor( 'jquery', __dirname + '/node_modules/jquery/dist/jquery.min.js' );
 
 module.exports = config;
