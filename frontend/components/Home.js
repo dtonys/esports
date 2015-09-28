@@ -1,14 +1,15 @@
 import page from 'page';
+import 'pages/home.sass';
 
-class Index extends React.Component{
+class Home extends React.Component{
   constructor( props ){
     super( props );
     console.log( props );
   }
   render(){
     return (
-      <div>
-        Index Page
+      <div >
+        Home Page
         <button onClick={ () => page('/') }> Home </button>
         <button onClick={ () => page('/profile') }> Profile </button>
         <button onClick={ () => page('/matches') }> Matches </button>
@@ -16,4 +17,4 @@ class Index extends React.Component{
     )
   }
 };
-export default Index;
+export default Home;

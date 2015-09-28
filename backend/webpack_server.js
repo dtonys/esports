@@ -13,7 +13,7 @@ var runServer = function(){
     publicPath: '/build/',
     hot: true,
     colors: true,
-    quiet: true,
+    quiet: false,
     stats: { colors: true }
   });
   server.listen(8080);

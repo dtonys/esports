@@ -1,20 +1,32 @@
 @import '../helpers/mixins'
 @import '../helpers/variables'
 
-.layout-header
-  padding: 20px 0
-  background-color: green
-  color: white
-.layout-content
-  max-width: 960px
-  margin: 10px auto 10px
-  background: white
-  border: none
+html.fixed-html
+  overflow: hidden
+  height: 100%
 
-  .head
-    padding: 10px
-    // border-bottom: solid black 5px
+.fixed-body
+  padding-top: $fixed_navbar_height
+  height: 100%
 
-  .content
-    padding: 10px
-    // border: solid black 1px
+.fixed-navbar
+  width: 100%
+  height: $fixed_navbar_height
+  position: absolute
+  top: 0
+  left: 0
+
+.fixed-scroll-wrap
+  position: absolute
+  top: $fixed_navbar_height
+  bottom: $fixed_footer_height
+  left: 0
+  right: 0
+  overflow-y: auto
+
+.fixed-footer
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  height: $fixed_footer_height

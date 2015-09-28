@@ -1,9 +1,10 @@
 import page from 'page';
+import 'pages/profile.sass';
 
 class Profile extends React.Component{
   render(){
     return (
-      <div>
+      <div >
         Profile Page
         <button onClick={ () => page('/') }> Home </button>
         <button onClick={ () => page('/profile') }> Profile </button>

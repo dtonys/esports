@@ -1,4 +1,5 @@
 import page from 'page';
+import 'pages/notfound.sass';
 
 class NotFound extends React.Component{
   constructor( props ){

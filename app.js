@@ -66,7 +66,6 @@ app.get('/', function(req, res){
 app.get('/profile', function(req, res){
   res.render('index', {
     title: 'Profile Page',
-    // entry_js: 'profile'
     entry_js: 'index'
   });
 });
@@ -74,7 +73,6 @@ app.get('/profile', function(req, res){
 app.get('/matches', function(req, res){
   res.render('index', {
     title: 'Matches Page',
-    // entry_js: 'matches'
     entry_js: 'index'
   });
 });
@@ -82,7 +80,6 @@ app.get('/matches', function(req, res){
 app.get('/match/:id', function(req, res){
   res.render('index', {
     title: 'Match ' + req.params.id,
-    // entry_js: 'match'
     entry_js: 'index'
   });
 });
@@ -99,6 +96,6 @@ app.get('*', function(req, res){
   });
 });
 
-app.listen(3000, function(){
+app.listen(3001, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
