@@ -100,15 +100,20 @@ code
   &.c-clockwise
     +vendor-prefix(animation, rotate-left 1.25s linear infinite)
 
-.tablet-only
-  display: none
+// default is desktop
+.tablet-only, .phone-only, .phone-tablet
+  display: none !important
 
 @media #{$mobile_phone}
-  .phone-only
-    display: block
+  .phone-only, .phone-tablet
+    display: block !important
+  .tablet-only, .desktop-only, .tablet-desktop
+    display: none !important
 
 @media #{$mobile_tablet}
-  .tablet-only
-    display: block
+  .tablet-only, .phone-tablet, .tablet-desktop
+    display: block !important
+  .phone-only, .desktop-only
+    display: none !important
 
 

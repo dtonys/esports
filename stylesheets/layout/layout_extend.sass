@@ -6,6 +6,51 @@
 .fixed-navbar
   background-color: #f8f8f8
   box-shadow: 0 2px 2px 0 #dbdbdb
-  background-color: $color-primary-0
+  background-color: white
+  border-bottom: solid black 2px
 .fixed-scroll-wrap
   background-color: $color-primary-1
+.navbar-right
+  height: 100%
+  width: 200px
+.navbar-left
+  height: 100%
+  padding: 10px
+.navbar-center
+  position: absolute
+  left: 50%
+  margin-left: -82px
+  height: 100%
+  padding: 10px
+.logo-text
+  display: inline-block
+  vertical-align: top
+  height: 100%
+  font-size: 28px
+  margin-right: 10px
+.logo-icon
+  display: inline-block
+  vertical-align: top
+  height: 100%
+  width: 38px
+  border-radius: 100px
+  background-color: orange
+  color: black
+  font-size: 18px
+  padding-top: 5px
+  border: solid black 2px
+
+.navbar-item
+  border: solid black 1px
+  height: 100%
+  padding-top: 18px
+  &:hover
+    box-shadow: 0px 0px 4px #000
+  &:active
+    background: #EEE
+    transition: transform 0.0s
+
+@media #{$mobile_phone}
+  .navbar-right
+    width: 140px
+@media #{$mobile_tablet}

@@ -4,7 +4,7 @@ import 'pages/matches.sass';
 class Matches extends React.Component{
   render(){
     return (
-      <div >
+      <div>
         Matches Page
         <button onClick={ () => page('/') }> Home </button>
         <button onClick={ () => page('/profile') }> Profile </button>

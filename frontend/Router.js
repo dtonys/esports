@@ -6,29 +6,72 @@ import util from 'FE_util.js';
 
 import Layout from 'components/Layout.js';
 
+var default_guest_redirect = '/login';
+var default_member_redirect = '/';
+var all = {
+  guest: true,
+  member: true
+};
+var guest_only = {
+  guest: true,
+  member: false
+};
+var member_only = {
+  guest: false,
+  member: true
+};
+var admin_only = {
+  guest: false,
+  member: false,
+  admin: true
+};
+// '/profile': {
+//   access:
+//   {
+//     member: true,           // allow loggedin users
+//     guest: '/login'         // redirect to specified url
+//   }
+
 // all routes must be explicitely listed here
 var routeMap = {
   '/': {
+    access: all,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Home.js')) )
     }
   },
+  '/login': {
+    access: all,
+    asyncRequire: ( cb ) => {
+      require.ensure([], () => cb(require('components/Login.js')) )
+    }
+  },
+  '/signup': {
+    access: all,
+    asyncRequire: ( cb ) => {
+      require.ensure([], () => cb(require('components/Signup.js')) )
+    }
+  },
   '/profile': {
+    access: member_only,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Profile.js')) )
     }
   },
   '/matches': {
+    access: all,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Matches.js')) )
     }
   },
   '/matches/:id': {
+    access: all,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Matches.js')) )
     }
   },
   '*': {
+    access: all,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/NotFound.js')) )
     }
@@ -61,6 +104,7 @@ class Router extends React.Component{
     page.start();
   }
   getData(routeData, ctx, next ){
+    if( ctx.pathname === window.location.pathname ) return;
     routeData.asyncRequire( ( Component ) => {   // get dependencies async via webpack
       clearTimeout( this.state.timeout );
       var timeout = setTimeout( () => {                   // get data via API call

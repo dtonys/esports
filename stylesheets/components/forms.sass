@@ -6,7 +6,7 @@
   height: 40px
   padding: 5px 20px
   font-size: $font-size
-  
+
   outline: none
   user-select: none
 
@@ -38,16 +38,14 @@
   +vendor-prefix( user-select, none )
   cursor: pointer
   outline: none
-  
+
   box-shadow: 0px 0px 4px #999
-  // transition: transform 0.1s
   transition: background 0.1s
 
   &:hover
     box-shadow: 0px 0px 4px #000
   &:active
     background: #EEE
-    // transform: scale(0.98)
     transition: transform 0.0s
 
 .select
@@ -111,13 +109,13 @@
 
 .unchecked-radio, .checked-radio
   border-radius: 10px
-  
+
 .label
   cursor: pointer
   padding: 10px
   line-height: 20px
 
-input.checkbox 
+input.checkbox
   cursor: pointer
 
 input.checkbox + label
@@ -140,7 +138,7 @@ input.radio + label
     display: none
   .unchecked-radio
     display: inline-block
-input.radio:checked + label    
+input.radio:checked + label
   .checked-radio
     display: inline-block
   .unchecked-radio
