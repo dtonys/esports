@@ -6,16 +6,16 @@ module.exports = function(app) {
 	var matches = require('../../backend/controllers/matches.server.controller');
 
 	// Bets Routes
-	app.route('/bets')
+	app.route('/api/v1/bets')
 		.get(bets.list)
 		.post(users.requiresLogin, bets.create);
 
-	app.route('/bets/:betId')
+	app.route('/api/v1/bets/:betId')
 		.get(bets.read)
 		//.put(users.requiresLogin, bets.hasAuthorization, bets.update)
 		.delete(users.requiresLogin, bets.hasAuthorization, bets.delete);
 
-	app.route('/matches/:matchId/bets/create')
+	app.route('/api/v1/matches/:matchId/bets/create')
 		.get(users.requiresLogin, matches.read);
 
 	//app.route('/matches/:matchId')

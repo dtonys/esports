@@ -1,5 +1,6 @@
 node_modules/
 .sass-cache/
+.idea/
 public/css/*
 !public/css/.gitkeep
 public/build/*

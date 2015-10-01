@@ -15,10 +15,13 @@ var TransactionSchema = new Schema({
         type:String,
         required: 'Need an address'
     },
+    cryptotype: {
+        type: String,
+        required: 'Need a cryptotype'
+    },
     confirmations: {
         type: Number,
-        min: 0,
-        required: 'Need a confirmation #'
+        min: 0
     },
     balance_change: {
         type: Number,
