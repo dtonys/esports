@@ -3,7 +3,6 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-var webpack_merge = require('webpack-merge');
 
 // var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var DefinePlugin = webpack.DefinePlugin;
