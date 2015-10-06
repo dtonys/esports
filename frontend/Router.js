@@ -1,82 +1,12 @@
 // Router
+import reactMixin from 'react-mixin';
 import page from 'page';
-import qs from 'qs';
+
 import _ from 'lodash';
 import util from 'FE_util.js';
 
 import Layout from 'components/Layout.js';
-
-var default_guest_redirect = '/login';
-var default_member_redirect = '/';
-var all = {
-  guest: true,
-  member: true
-};
-var guest_only = {
-  guest: true,
-  member: false
-};
-var member_only = {
-  guest: false,
-  member: true
-};
-var admin_only = {
-  guest: false,
-  member: false,
-  admin: true
-};
-// '/profile': {
-//   access:
-//   {
-//     member: true,           // allow loggedin users
-//     guest: '/login'         // redirect to specified url
-//   }
-
-// all routes must be explicitely listed here
-var routeMap = {
-  '/': {
-    access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Home.js')) )
-    }
-  },
-  '/login': {
-    access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Login.js')) )
-    }
-  },
-  '/signup': {
-    access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Signup.js')) )
-    }
-  },
-  '/profile': {
-    access: member_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Profile.js')) )
-    }
-  },
-  '/matches': {
-    access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Matches.js')) )
-    }
-  },
-  '/matches/:id': {
-    access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Matches.js')) )
-    }
-  },
-  '*': {
-    access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/NotFound.js')) )
-    }
-  }
-};
+import { routeMap, middlewares, extendCtx } from 'routes.js';
 
 class Router extends React.Component{
   constructor( props ){
@@ -93,30 +23,34 @@ class Router extends React.Component{
     this.setupRoutes();
   }
   setupRoutes(){
-    page('*', function( ctx, next ){
-      ctx.queryparams = qs.parse(ctx.querystring);
-      next();
-    });
+    // put data into router ctx
+    extendCtx({ userType: 'guest' })
+    // apply middlewares
+    page('*', ...middlewares );
+    // apply each route
     for( var url in routeMap ){
-      var routeData = routeMap[url];
-      page( url, this.getData.bind(this, routeData) );
+      page( url, this.getData );
     };
     page.start();
   }
-  getData(routeData, ctx, next ){
-    if( ctx.pathname === window.location.pathname ) return;
-    routeData.asyncRequire( ( Component ) => {   // get dependencies async via webpack
+  getData( ctx, next ){
+    // get Component + its dependencies async via webpack
+    ctx.routeData.asyncRequire( ( Component ) => {
+      // abort previous data fetch
       clearTimeout( this.state.timeout );
-      var timeout = setTimeout( () => {                   // get data via API call
+      // load data for page
+      var timeout = setTimeout( () => {
         this.setState({ loading: false });
       }, 50);
+      // set Component
       ctx.Component = Component;
+      // set loading state
       this.setState({
         loading: true,
         timeout: timeout,
         route_ctx: ctx
       });
-    })
+    });
   }
   render(){
     var loading = this.state.loading ? <div>Loading</div> : null;
