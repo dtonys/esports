@@ -119,8 +119,6 @@ function authFilter( ctx, next ){
     case 'member':
       if( access.member !== true ){
         console.log(' redirect >> ');
-        ctx.state.redirect = true;
-        ctx.save();
         return page.redirect( access.member )
       }
       break;
@@ -128,8 +126,6 @@ function authFilter( ctx, next ){
       if( access.guest !== true ){
         console.log(' redirect >> ', access.guest);
         cookies.set('redirect_to', ctx.path );
-        ctx.state.redirect = true;
-        ctx.save();
         return page.redirect( access.guest )
       }
       break;
@@ -137,8 +133,6 @@ function authFilter( ctx, next ){
       if( access.member !== true &&
           access.admin  !== true ){
         console.log(' redirect >> ');
-        ctx.state.redirect = true;
-        ctx.save();
         return page.redirect( access.admin );
       }
       break;
