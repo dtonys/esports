@@ -2,11 +2,11 @@
 
 var should = require('should'),
 	request = require('supertest'),
-	app = require('../../app.js'),
+	server = require('../../index.js').server,
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Bet = mongoose.model('Bet'),
-	agent = request.agent(app);
+	agent = request.agent(server);
 
 /**
  * Globals
@@ -170,7 +170,7 @@ describe('Bet CRUD tests', function() {
 		// Save the Bet
 		betObj.save(function() {
 			// Request Bets
-			request(app).get('/bets')
+			request(server).get('/bets')
 				.end(function(req, res) {
 					// Set assertion
 					res.body.should.be.an.Array.with.lengthOf(1);
@@ -189,7 +189,7 @@ describe('Bet CRUD tests', function() {
 
 		// Save the Bet
 		betObj.save(function() {
-			request(app).get('/bets/' + betObj._id)
+			request(server).get('/bets/' + betObj._id)
 				.end(function(req, res) {
 					// Set assertion
 					res.body.should.be.an.Object.with.property('name', bet.name);
@@ -247,7 +247,7 @@ describe('Bet CRUD tests', function() {
 		// Save the Bet
 		betObj.save(function() {
 			// Try deleting Bet
-			request(app).delete('/bets/' + betObj._id)
+			request(server).delete('/bets/' + betObj._id)
 			.expect(401)
 			.end(function(betDeleteErr, betDeleteRes) {
 				// Set message assertion

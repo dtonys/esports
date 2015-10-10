@@ -2,11 +2,11 @@
 
 var should = require('should'),
 	request = require('supertest'),
-	app = require('../../app'),
+	server = require('../../index').server,
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Match = mongoose.model('Match'),
-	agent = request.agent(app);
+	agent = request.agent(server);
 
 /**
  * Globals
@@ -170,7 +170,7 @@ describe('Match CRUD tests', function() {
 		// Save the Match
 		matchObj.save(function() {
 			// Request Matches
-			request(app).get('/matches')
+			request(server).get('/matches')
 				.end(function(req, res) {
 					// Set assertion
 					res.body.should.be.an.Array.with.lengthOf(1);
@@ -189,7 +189,7 @@ describe('Match CRUD tests', function() {
 
 		// Save the Match
 		matchObj.save(function() {
-			request(app).get('/matches/' + matchObj._id)
+			request(server).get('/matches/' + matchObj._id)
 				.end(function(req, res) {
 					// Set assertion
 					res.body.should.be.an.Object.with.property('name', match.name);
@@ -247,7 +247,7 @@ describe('Match CRUD tests', function() {
 		// Save the Match
 		matchObj.save(function() {
 			// Try deleting Match
-			request(app).delete('/matches/' + matchObj._id)
+			request(server).delete('/matches/' + matchObj._id)
 			.expect(401)
 			.end(function(matchDeleteErr, matchDeleteRes) {
 				// Set message assertion

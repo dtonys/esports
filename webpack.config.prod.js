@@ -1,20 +1,12 @@
-/**
- * production config
- */
 var path = require('path');
 var webpack = require('webpack');
-
-// var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var DefinePlugin = webpack.DefinePlugin;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+var config = require('./webpack.config.base.js');
 
-var config = require('./webpack.base.config.js');
-
-// minifed output file
+// extend base with prod options
+config.devtool = 'source-map';
 config.output.filename = '[name].min.js';
 config.module.loaders.push(
-  // compile + process sass
   {
     test: /\.sass$/,
     loader: ExtractTextPlugin.extract(
@@ -25,18 +17,14 @@ config.module.loaders.push(
   }
 );
 config.plugins.push(
-  // extract css to file
   new ExtractTextPlugin('[name].min.css'),
-  // minifed
-  new UglifyJsPlugin({
+  new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
     }
   }),
-  // env global
-  new DefinePlugin({
-    PRODUCTION: true,
-    DEVELOPMENT: false
+  new webpack.DefinePlugin({
+    NODE_ENV: JSON.stringify('production')
   })
 );
 

@@ -9,7 +9,7 @@ class Home extends React.Component{
   render(){
     return (
       <div >
-        <button onClick={ () => page('/') }> Home!!! </button>
+        <button onClick={ () => page('/') }> Home! </button>
         <button onClick={ () => page('/profile') }> Profile </button>
         <button onClick={ () => page('/matches') }> Matches </button>
       </div>

@@ -55,6 +55,7 @@
     "expose-loader": "^0.7.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
+    "ngrok": "^0.1.99",
     "node-sass": "^3.2.0",
     "react-hot-loader": "^1.3.0",
     "sass-loader": "^2.0.1",
@@ -62,12 +63,12 @@
     "style-loader": "^0.12.3",
     "webpack": "^1.12.1",
     "webpack-dev-server": "^1.10.1",
-    "ngrok": "^0.1.99"
+    "webpack-hot-middleware": "^2.4.1"
   },
   "scripts": {
-    "build:production": "webpack --config webpack.production.config.js",
-    "start:production": "NODE_ENV=production nodemon --watch app.js app.js",
+    "build:production": "webpack --config webpack.config.production.js",
+    "start:production": "NODE_ENV=production nodemon --watch index.js index.js",
     "watch": "webpack-dev-server --content-base --hot --progress --colors",
-    "start": "NODE_ENV=development nodemon --watch app.js app.js"
+    "start": "NODE_ENV=development nodemon --watch index.js index.js"
   }
 }

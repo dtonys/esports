@@ -1,6 +1,4 @@
-/**
- * base config, read by development & production configs
- */
+// base config, to be extended by development + production specific options
 var path = require('path');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
