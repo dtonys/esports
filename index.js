@@ -7,10 +7,10 @@ var http = require('http');
 var https = require('https');
 var path = require('path');
 
-var bodyParser = require('body-parser');          // todo: test POST
-var methodOverride = require('method-override');  // todo: test PUT, DELETE
-var multer = require('multer');                   // todo: test multipart POST
-var cookieParser = require('cookie-parser');      // check req.cookies
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var multer = require('multer');
+var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var favicon = require('serve-favicon');
 var compression = require('compression');
@@ -30,14 +30,12 @@ var flash = require('connect-flash');
 var httpProxy = require('http-proxy');
 var config = require('./config/config');
 
-//
 var ngrok = require('ngrok');
 var chalk = require('chalk');
 var mongoose = require('mongoose');
 var BlockIo = require('block_io');
 
 var block_io = new BlockIo('c3f9-2390-cd21-204b', 'OMFGblock10', 2);
-//
 
 // main server connection
 var server = exports.server = express();
@@ -46,18 +44,6 @@ var server = exports.server = express();
 config.getGlobbedFiles('./backend/models/**/*.js').forEach(function(modelPath) {
   require(path.resolve(modelPath));
 });
-
-// Setting application local variables
-server.locals.title = config.app.title;
-server.locals.description = config.app.description;
-server.locals.keywords = config.app.keywords;
-server.locals.facebookAppId = config.facebook.clientID;
-
-// defaults for index
-server.locals.entry_js = "index";
-
-// proxy for webpack
-// var proxy = httpProxy.createProxyServer();
 
 // db connection
 var db = mongoose.connect(config.db, function(err) {
@@ -90,12 +76,13 @@ var db = mongoose.connect(config.db, function(err) {
 
 var production = exports.production = (process.env.NODE_ENV === 'production');
 
-_.extend( server.locals, require('./backend/BE_util.js') );  // give views access to utils
+_.extend( server.locals, require('./backend/BE_util.js') );   // give views access to utils
 
-server.engine('ejs', cons.ejs);                              // match view engine to file extension
+server.engine('ejs', cons.ejs);                               // match view engine to file extension
 
-server.set('view engine', 'ejs');                            // set template engine
-server.set('views', __dirname + '/views');                   // set views dir
+server.set('view engine', 'ejs');                             // set template engine
+server.set('views', __dirname + '/views');                    // set views dir
+server.set('view cache', true);                               // set views dir
 
 // Passing the request url to environment locals
 server.use(function(req, res, next) {
@@ -108,10 +95,12 @@ server.use(compression({
   },
   level: 9
 }));
+
+var staticMiddleware = express.static(__dirname + '/public');
 // Showing stack errors
 server.set('showStackError', true);
 server.use(favicon(__dirname + '/public/favicon.ico'));      // serve favicon
-server.use(express.static(__dirname + '/public'));           // serve static assets
+server.use(staticMiddleware);                                // serve static assets
 server.use(bodyParser.json());                               // body parser, for POST request
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(methodOverride());                                // allow PUT and DELETE
@@ -144,16 +133,16 @@ if (!production) {
     publicPath: '/build/'
   }));
   server.use(require('webpack-hot-middleware')(compiler));
-
-  // start webpack-development-server
-  // require('./backend/webpack_server.js');
-  // proxy static asset requests to it
-  // server.all('/build/*', function (req, res) {
-  //   proxy.web(req, res, {
-  //     target: 'http://localhost:8080'
-  //   });
-  // });
 }
+
+// Setting application local variables
+server.locals.title = config.app.title;
+server.locals.description = config.app.description;
+server.locals.keywords = config.app.keywords;
+server.locals.facebookAppId = config.facebook.clientID;
+
+// defaults for index
+server.locals.entry_js = "index";
 
 // expose req obj to view
 server.use( function( req, res, next ){
@@ -166,28 +155,11 @@ config.getGlobbedFiles('./backend/routes/**/*.js').forEach(function(routePath) {
   require(path.resolve(routePath))(server);
 });
 
-server.get('/', function(req, res){
-  res.render('index', { title: 'Index Page' });
-});
-
-server.get('/login', function(req, res){
-  res.render('index', { title: 'Login Page' });
-});
-
-server.get('/signup', function(req, res){
-  res.render('index', { title: 'Signup Page' });
-});
-
-server.post('/post', function( req, res ){
-  console.log( req.body );
-  res.json({ result: true });
-});
-
-server.get('*', function(req, res){
-  res.render('index', {
-    title: 'Page Not Found',
-    entry_js: 'index'
-  });
+// Serve static index page every time
+server.get('*', function(req, res, next){
+  console.log( 'req.url >>> ', req.url );
+  req.url = production ? '/html/prod_index.html' : '/html/dev_index.html';
+  staticMiddleware( req, res, next );
 });
 
 server.use(function(err, req, res, next) {

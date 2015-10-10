@@ -5,7 +5,6 @@ module.exports = function(app) {
 	// Root routing
 	var core = require('../../backend/controllers/core.server.controller');
 	app.route('/')
-		.get(core.index)
 		.post(core.resp);
 
 	/*

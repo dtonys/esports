@@ -6,14 +6,6 @@
 var mongoose = require('mongoose'),
 	User = mongoose.model('User');
 
-
-exports.index = function(req, res) {
-	res.render('index', {
-		user: req.user || null,
-		request: req
-	});
-};
-
 exports.resp = function(req, res) {
 	console.log('recieved from blockio');
 
