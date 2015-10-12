@@ -1,6 +1,7 @@
 import page from 'page';
 import qs from 'qs';
 import cookies from 'cookies-js';
+import { store } from './index.js';
 
 var default_guest_redirect = '/login';
 var default_member_redirect = '/';
@@ -91,10 +92,13 @@ for( var url in routeMap ){
   routeMap[url].matchUrl = url;
 }
 
-function extendCtx( { userType } ){
+function extendCtx(){
   // get user state ( for auth )
   page('*', ( ctx, next ) => {
-    ctx.userType = userType;
+    var current_state = store.getState();
+    ctx.guest = current_state.get('guest');
+    ctx.member = current_state.get('member');
+    ctx.admin = current_state.get('admin');
     ctx.queryparams = qs.parse(ctx.querystring);
     next();
   });
@@ -114,28 +118,26 @@ function logRoute( ctx, next ){
 
 function authFilter( ctx, next ){
   var access = ctx.routeData.access;
-  var userType = ctx.userType;
-  switch( userType ){
-    case 'member':
-      if( access.member !== true ){
-        console.log(' redirect >> ');
-        return page.redirect( access.member )
-      }
-      break;
-    case 'guest':
-      if( access.guest !== true ){
-        console.log(' redirect >> ', access.guest);
-        cookies.set('redirect_to', ctx.path );
-        return page.redirect( access.guest )
-      }
-      break;
-    case 'admin':
-      if( access.member !== true &&
-          access.admin  !== true ){
-        console.log(' redirect >> ');
-        return page.redirect( access.admin );
-      }
-      break;
+  cookies.expire('redirect_to');
+  if( ctx.guest ){
+    if( access.guest !== true ){
+      console.log(' redirect >> ', access.guest);
+      cookies.set('redirect_to', ctx.path );
+      return page.redirect( access.guest )
+    }
+  }
+  if( ctx.admin ){
+    if( access.member !== true &&
+        access.admin  !== true ){
+      console.log(' redirect >> ');
+      return page.redirect( access.admin );
+    }
+  }
+  if( ctx.member ){
+    if( access.member !== true ){
+      console.log(' redirect >> ');
+      return page.redirect( access.member )
+    }
   }
   next();
 };

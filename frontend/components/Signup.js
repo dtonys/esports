@@ -13,7 +13,7 @@ class Signup extends React.Component{
     return (
       <div className="signup-page-container" >
         <div className="generic-form container" >
-          <div className="form-title" > Sign Up!</div>
+          <div className="form-title" > Sign Up</div>
           <div className="margin-10"></div>
           <div className="social-options" >
             <img className="social-option-img" src="/img/facebook.png" />

@@ -7,7 +7,7 @@ class Home extends React.Component{
     console.log( props );
   }
   render(){
-    return (
+  return (
       <div >
         <button onClick={ () => page('/') }> Home! </button>
         <button onClick={ () => page('/profile') }> Profile </button>

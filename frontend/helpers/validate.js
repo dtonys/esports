@@ -9,7 +9,7 @@ var error_map = {
  * validate.run
  * return array of error msg
  */
-function run( str, validationFns ){
+function runValidators( str, validationFns ){
   var errorList = [];
   for( let fn of validationFns ){
     let valid = fn( str );
@@ -60,4 +60,4 @@ for( let key in validators ){
   validators[key].error_message = error_map[key] ? error_map[key]() : 'error';
 }
 
-export { validators, run }
+export { validators, runValidators }

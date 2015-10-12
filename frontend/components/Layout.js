@@ -13,8 +13,9 @@ class Layout extends React.Component{
   render(){
     return (
       <div>
-        <Navbar {...this.props} />
-        <ContentContainer {...this.props} >
+        <Navbar member={ this.props.member }
+                logout={ this.props.logout } />
+        <ContentContainer >
           { this.props.children }
         </ContentContainer >
       </div>
