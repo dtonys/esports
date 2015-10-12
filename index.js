@@ -157,7 +157,6 @@ config.getGlobbedFiles('./backend/routes/**/*.js').forEach(function(routePath) {
 
 // Serve static index page every time
 server.get('*', function(req, res, next){
-  console.log( 'req.url >>> ', req.url );
   req.url = production ? '/html/prod_index.html' : '/html/dev_index.html';
   staticMiddleware( req, res, next );
 });

@@ -37,7 +37,7 @@ var config = {
         test: /\.jsx?$/,
         loaders: [
           'react-hot',
-          'babel'
+          'babel?stage=0'
         ],
         include: [ FRONTEND_PATH ]
       },

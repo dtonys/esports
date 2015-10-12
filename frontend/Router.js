@@ -1,4 +1,6 @@
-// Router
+import {connect} from 'react-redux';
+import * as actions from './actions/action_creators.js'
+
 import reactMixin from 'react-mixin';
 import page from 'page';
 
@@ -60,12 +62,32 @@ class Router extends React.Component{
 
     return (
       <Layout route_ctx={this.state.route_ctx} >
-        { RoutedComponent ? <RoutedComponent route_ctx={this.state.route_ctx} /> : '' }
-        { loading ? <div> Loading... </div> : '' }
+        { RoutedComponent ?
+          <RoutedComponent { ...this.props } route_ctx={this.state.route_ctx} /> :
+          null
+        }
+        { loading ?
+          <div> Loading... </div> :
+          null
+        }
       </Layout>
     )
   }
 };
 
-export default Router;
+// export specific areas of state tree
+var mapStateToProps = function( storeState ){
+  return storeState;
+};
+
+// Creates Parent Container
+// Populates this.props for Parent Container + Router Component
+// this.props.( state obj defined in store )
+// this.props.( actions defined in action_creators )
+var RouterContainer = connect(
+  mapStateToProps,            // subscribe to store update, expose store state
+  actions                     // expose dispatch function, dispatch hooked to action_creators
+)(Router);
+
+export default RouterContainer;
 
