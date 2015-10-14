@@ -70,7 +70,10 @@ var db = mongoose.connect(config.db, function(err) {
     _server = httpsServer;
   }
 
-  server.listen(3001, function(){
+  var port = 3001;
+  try{ port = fs.readFileSync('./port.txt', "utf8" ); } catch(e){ console.log(e) };
+
+  server.listen(port, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, server.settings.env);
   });
 });
