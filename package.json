@@ -44,6 +44,7 @@
     "passport-twitter": "~1.0.2",
     "qs": "^5.1.0",
     "react": "^0.14.0",
+    "react-addons-linked-state-mixin": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-mixin": "^3.0.0",
     "react-redux": "^3.1.0",
@@ -77,7 +78,7 @@
   },
   "scripts": {
     "build:production": "webpack --config webpack.config.prod.js",
-    "start:production": "NODE_ENV=production node index.js",
+    "start:production": "NODE_ENV=production forever start index.js",
     "watch": "webpack-dev-server --content-base --hot --progress --colors",
     "start": "NODE_ENV=development nodemon --watch index.js index.js"
   }
