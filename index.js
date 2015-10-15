@@ -147,6 +147,21 @@ server.locals.facebookAppId = config.facebook.clientID;
 // defaults for index
 server.locals.entry_js = "index";
 
+if( production ){
+var auth = require('basic-auth');
+  // basic auth
+  server.use(function(req, res, next) {
+    var user = auth(req);
+    if (user === undefined || user['name'] !== 'git' || user['pass'] !== 'git_secret') {
+        res.statusCode = 401;
+        res.setHeader('WWW-Authenticate', 'Basic realm="Esports"');
+        res.end('Unauthorized');
+    } else {
+        next();
+    }
+  });
+}
+
 // expose req obj to view
 server.use( function( req, res, next ){
   res.locals.req = req;
