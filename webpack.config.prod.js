@@ -9,15 +9,11 @@ config.output.filename = '[name].min.js';
 config.module.loaders.push(
   {
     test: /\.sass$/,
-    loader: ExtractTextPlugin.extract(
-      'css',
-      'autoprefixer-loader?browsers=last 2 versions',
-      'sass?indentedSyntax'
-    ),
+    loader: ExtractTextPlugin.extract('css!autoprefixer-loader?browsers=last 2 versions!sass?indentedSyntax')
   }
 );
 config.plugins.push(
-  new ExtractTextPlugin('[name].min.css'),
+  new ExtractTextPlugin('[name].min.css', { allChunks: true }),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
