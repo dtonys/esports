@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import * as actions from './actions/action_creators.js'
+import * as actions from './actions/action_creators.js';
 
 import reactMixin from 'react-mixin';
 import page from 'page';
@@ -20,8 +20,8 @@ class Router extends React.Component{
       page_loading: true
     };
     this.page_load_promises = [];
-    this.login_promise = this.props.checkLogin();
     util.bindAll( this, 'setupRoutes', 'getData' );
+    this.login_promise = this.props.checkLogin();
   }
   componentDidMount(){
     this.setupRoutes();

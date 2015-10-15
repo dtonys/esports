@@ -21,23 +21,23 @@ function runValidators( str, validationFns ){
 }
 
 /**
- * validate.validators
+ * validate.validator
  *   return string result if valid
  *   return false if invalid
  */
-var validators = {};
-validators.required = function(str){
+var validator = {};
+validator.required = function(str){
   var valid = !!str;
   return valid ? str : false;
 }
-validators.email = function(str){
+validator.email = function(str){
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var valid = re.test(str);
   return valid ? str : false;
 }
 
 // factory
-validators.max = function(limit){
+validator.max = function(limit){
   function _max( str ){
     var valid = str && str.length && str.length <= limit;
     return valid ? str : false;
@@ -46,7 +46,7 @@ validators.max = function(limit){
   return _max;
 }
 
-validators.min = function(limit){
+validator.min = function(limit){
   function _min( str ){
     var valid = str && str.length && str.length >= limit;
     return valid ? str : false;
@@ -56,8 +56,18 @@ validators.min = function(limit){
 }
 
 // attach error messages
-for( let key in validators ){
-  validators[key].error_message = error_map[key] ? error_map[key]() : 'error';
+for( let key in validator ){
+  validator[key].error_message = error_map[key] ? error_map[key]() : 'error';
 }
 
-export { validators, runValidators }
+function validatorFactory( validators, error_path ){
+  return function( string ){
+    return {
+      validators,
+      error_path,
+      string
+    }
+  }
+};
+
+export { validator, runValidators, validatorFactory }

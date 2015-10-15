@@ -9,7 +9,12 @@ var initialState = fromJS({
     loading: false,
     error_message: null
   },
-  person: {
+  signup: {
+    loading: false,
+    error_message: null
+  },
+  // resp from /api/v1/users/me
+  person_data: {
     _id: null,
     dogecoinBlioAddress: null,
     provider: null,
@@ -24,6 +29,7 @@ var initialState = fromJS({
 function reducer( state = initialState, action )
 {
   switch( action.type ){
+    // LOGIN
     case 'POST_LOGIN':
       console.log('POST_LOGIN');
       var login_state = fromJS({
@@ -42,7 +48,7 @@ function reducer( state = initialState, action )
           loading: false,
           error_message: null
         },
-        person: action.payload
+        person_data: action.payload
       });
       return state.merge( login_state )
     case 'LOGIN_ERROR':
@@ -54,28 +60,78 @@ function reducer( state = initialState, action )
         }
       });
       return state.merge( login_state )
+    case 'CLEAR_LOGIN_ERROR':
+      var login_state = fromJS({
+        login: {
+          error_message: null
+        }
+      });
+      return state.mergeDeep( login_state )
     case 'LOGOUT_SUCCESS':
       var logout_state = fromJS({
         guest: true,
         member: false,
         admin: false,
-        person: {}
+        person_data: {}
       });
       return state.merge( logout_state );
+
+    // SIGNUP
+    case 'POST_SIGNUP':
+      console.log('POST_SIGNUP');
+      var signup_state = fromJS({
+        signup: {
+          loading: true
+        }
+      });
+      return state.merge( signup_state );
+    case 'SIGNUP_ERROR':
+      console.log('SIGNUP_ERROR');
+      var signup_state = fromJS({
+        signup: {
+          loading: false,
+          error_message: action.payload.message
+        }
+      });
+      return state.merge( signup_state )
+    case 'SIGNUP_SUCCESS':
+      console.log('SIGNUP_SUCCESS');
+      var signup_state = fromJS({
+        guest: false,
+        member: true,
+        admin: false,
+        signup: {
+          loading: false,
+          error_message: null
+        },
+        person_data: action.payload
+      });
+      return state.merge( signup_state )
+    case 'CLEAR_SIGNUP_ERROR':
+      console.log('CLEAR_SIGNUP_ERROR');
+      var signup_state = fromJS({
+        signup: {
+          error_message: null
+        }
+      });
+      return state.mergeDeep( signup_state )
+
+    // LOAD PAGE, SET USER TYPE
     case 'SET_GUEST':
       var guest_state = fromJS({
         guest: true,
         member: false,
         admin: false,
-        person: {}
+        person_data: {}
       });
       return state.merge( guest_state );
     case 'SET_MEMBER':
+      debugger;
       var member_state = fromJS({
         guest: false,
         member: true,
         admin: false,
-        person: action.payload
+        person_data: action.payload
       });
       return state.merge( member_state );
   }

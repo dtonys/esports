@@ -7,36 +7,37 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import {connect} from 'react-redux';
 
 import _ from 'lodash';
-import {Map, List, fromJS, toJS} from 'immutable';
+import {toJS} from 'immutable';
 import page from 'page';
 import serialize from 'form-serialize';
 
-import { validators, runValidators } from '../helpers/validate.js';
-import util from 'FE_util.js';
+import { validator, runValidators, validatorFactory } from '../helpers/validate.js';
+import { forms } from '../helpers/forms.js';
 
-var validEmail = {
-  validators: [
-    validators.required,
-    validators.email,
-    validators.max( 100 )
+// var validEmail = validatorFactory(
+//   [
+//     validator.required,
+//     validator.email,
+//     validator.max( 100 )
+//   ],
+//   ['errors','email']
+// );
+var validUserName = validatorFactory(
+  [
+    validator.required,
+    validator.max( 100 )
   ],
-  key_path: ['errors','email']
-};
-var validUsername = {
-  validators: [
-    validators.required,
-    validators.max( 100 )
+  ['errors','username']
+);
+var validPassword = validatorFactory(
+  [
+    validator.required,
+    validator.min( 6 )
   ],
-  key_path: ['errors','username']
-};
-var validPassword = {
-  validators: [
-    validators.required,
-    validators.min( 6 )
-  ],
-  key_path: ['errors','password']
-};
+  ['errors','password']
+);
 
+@reactMixin.decorate(forms)
 @reactMixin.decorate(LinkedStateMixin)
 class Login extends React.Component{
   constructor( props ){
@@ -51,46 +52,28 @@ class Login extends React.Component{
         password: []
       }
     };
+    // page.exit('*', (ctx, next) => {
+    //   alert('leave page');
+    //   this.props.clearLoginError();
+    //   next();
+    // });
   }
   submitForm( e ){
     e.preventDefault();
     // extract form data
     var data = serialize( e.target, { hash: true } );
     // validate
-    var data_valid = this.validateForm( data );
+    // var data_valid = this.validateForm( data );
+    var data_valid = this.validateForm( data, [
+      validUserName( data.username ),
+      validPassword( data.password )
+    ]);
+
     if( data_valid ){
       this.props.executeLogin(data, ( success ) => {
         if( success )this.props.loginRedirect();
       });
     }
-  }
-  validateForm( data = {} ){
-    var form_valid = true;
-    var state = fromJS( this.state );
-    var result;
-
-    result = this.validateInput( validUsername, data.username, state );
-    state = result.update;
-    form_valid = form_valid && result.valid;
-
-    result = this.validateInput( validPassword, data.password, state );
-    state = result.update;
-    form_valid = form_valid && result.valid;
-
-    this.setState( state.toJS() );
-    return form_valid;
-  }
-  validateInputEvt( { validators, key_path }, e ){
-    var str = e.target.value;
-    var state = fromJS( this.state );
-    state = this.validateInput( { validators, key_path }, str, state ).update;
-    this.setState( state.toJS() );
-  }
-  validateInput( { validators, key_path }, str, state ){
-    var errors = runValidators( str, validators);
-    var update = state.setIn( key_path , List(errors) );
-    var valid = !errors.length;
-    return { valid, update }
   }
   render(){
     var usr_err = _.get( this.state, 'errors.username' );

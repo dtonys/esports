@@ -13,9 +13,9 @@ Start the server
 
 Starts Express server @ port 3000 via nodemon
 
-Starts webpack-dev-server @ port 8080 with hot-reloading enabled
+Hot-reload react components based on the following setup:
 
-Express server proxies static asset requests @ /build/*  to webpack-dev-server
+https://github.com/gaearon/react-transform-boilerplate
 
 
 #### Production

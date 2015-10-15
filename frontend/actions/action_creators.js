@@ -4,16 +4,11 @@ var request = agent( superagent, Promise );
 
 // var agent = require('superagent-promise')(require('superagent'), Promise);
 import { store } from '../index.js';
-/**
- * type: 'LOGIN'
- * status
- * status: 'success', error: 'Oops'
- * status: 'error', error: 'Oops'
- */
+
+/*** LOGIN ***/
 function postLogin( payload ){
   return {
-    type: 'POST_LOGIN',
-    payload
+    type: 'POST_LOGIN'
   }
 }
 function loginSuccess( payload ){
@@ -36,6 +31,29 @@ function logoutSuccess(){
   }
 }
 
+/*** SIGNUP ***/
+function postSignup(){
+  return {
+    type: 'POST_SIGNUP'
+  }
+}
+
+function signupError( payload ){
+  return {
+    type: 'SIGNUP_ERROR',
+    error: true,
+    payload
+  }
+}
+
+function signupSuccess( payload ){
+  return {
+    type: 'SIGNUP_SUCCESS',
+    payload
+  }
+}
+
+
 function setMember( payload ){
   return {
     type: 'SET_MEMBER',
@@ -46,6 +64,18 @@ function setMember( payload ){
 function setGuest(){
   return {
     type: 'SET_GUEST'
+  }
+}
+
+export function clearLoginError(){
+  return {
+    type: 'CLEAR_LOGIN_ERROR'
+  }
+}
+
+export function clearSignupError(){
+  return {
+    type: 'CLEAR_SIGNUP_ERROR'
   }
 }
 
@@ -62,6 +92,23 @@ export function executeLogin( login_data, callback ){
         return callback( res.ok );
       })
     dispatch( postLogin( login_data ) );
+    return xhr;
+  }
+}
+
+export function executeSignup( signup_data, callback ){
+  var xhr = null;
+  return function( dispatch ){
+    if( xhr ) xhr.abort();
+    xhr = request
+      .post('/api/v1/auth/signup')
+      .send( signup_data )
+      .end( (err, res) => {
+        if( !res.ok )   dispatch( signupError({ message: res.body.message }) );
+        else            dispatch( signupSuccess( res.body ) );
+        return callback( res.ok );
+      })
+    dispatch( postSignup( signup_data ) );
     return xhr;
   }
 }

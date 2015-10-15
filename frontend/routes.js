@@ -1,6 +1,7 @@
 import page from 'page';
 import qs from 'qs';
 import cookies from 'cookies-js';
+import * as actions from './actions/action_creators.js'
 import { store } from './index.js';
 
 var default_guest_redirect = '/login';
@@ -55,12 +56,20 @@ var routeMap = {
     access: guest_only,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Login.js')) )
+    },
+    exitFn: ( ctx, next ) => {
+      store.dispatch( actions.clearLoginError() );
+      next();
     }
   },
   '/signup': {
     access: guest_only,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Signup.js')) )
+    },
+    exitFn: ( ctx, next ) => {
+      store.dispatch( actions.clearSignupError() );
+      next();
     }
   },
   '/profile': {
@@ -108,6 +117,8 @@ function extendCtx(){
       if( !ctx.routeData ) ctx.routeData = routeData;
       next();
     }.bind(this, routeMap[url]) );
+    // bind exit callback if defined
+    if( routeMap[url].exitFn ) page.exit( url, routeMap[url].exitFn );
   };
 }
 
@@ -149,6 +160,7 @@ function checkAbort( ctx, next ){
   next();
 };
 
+// middleware is run every route call
 var middlewares = [
   checkAbort,
   logRoute,
