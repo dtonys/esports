@@ -86,7 +86,8 @@ class Router extends React.Component{
 
     return (
       <Layout member={this.props.member}
-              logout={::this.logout} >
+              logout={::this.logout}
+              person_data={ this.props.person_data } >
         { RoutedComponent && !loading ?
           <RoutedComponent
             { ...this.props }
@@ -108,7 +109,8 @@ var mapStateToProps = function( storeState ){
     page_loading: storeState.get('page_loading'),
     guest: storeState.get('guest'),
     member: storeState.get('member'),
-    admin: storeState.get('admin')
+    admin: storeState.get('admin'),
+    person_data: storeState.get('person_data').toJS()
   }
 };
 

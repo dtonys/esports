@@ -12,9 +12,10 @@ class Layout extends React.Component{
   }
   render(){
     return (
-      <div>
+      <div id="layout">
         <Navbar member={ this.props.member }
-                logout={ this.props.logout } />
+                logout={ this.props.logout }
+                person_data={ this.props.person_data } />
         <ContentContainer >
           { this.props.children }
         </ContentContainer >

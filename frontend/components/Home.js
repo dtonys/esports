@@ -8,17 +8,28 @@ class Home extends React.Component{
     console.log( props );
   }
   render(){
+    return <div> Home </div>
+  }
+  render1(){
     var person_data = _.get( this.props, 'person_data' );
     return (
       <table className="table">
         <thead>
-          <tr>
-            { Object.keys( person_data ).map( ( key ) => <th>{ key }</th> ) }
+          <tr >
+            {
+              Object.keys( person_data ).map( ( key ) => {
+                return <th key={key} > { key } </th>;
+              })
+            }
           </tr>
         </thead>
         <tbody>
           <tr>
-            { Object.keys( person_data ).map( ( key ) => <td>{ person_data[key] }</td> ) }
+            {
+              Object.keys( person_data ).map( ( key ) => {
+                return <td key={key} > { person_data[key] } </td>;
+              })
+            }
           </tr>
         </tbody>
       </table>

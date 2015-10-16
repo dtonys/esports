@@ -5,7 +5,7 @@
 // layout_extend.sass
 .fixed-navbar
   background-color: #f8f8f8
-  box-shadow: 0 2px 2px 0 #dbdbdb
+  // box-shadow: 0 2px 2px 0 #dbdbdb
   background-color: white
   border-bottom: solid black 2px
 .fixed-scroll-wrap
@@ -49,6 +49,29 @@
   &:active
     background: #EEE
     transition: transform 0.0s
+
+.dropdown
+  height: 100%
+  .dropdown-head, .dropdown-item
+    border: solid black 1px
+    height: 100%
+    padding-top: 18px
+    &:hover
+      box-shadow: 0px 0px 4px #000
+    &:active
+      background: #EEE
+      transition: transform 0.0s
+  .dropdown-head
+    background: none
+    &.open
+      background: #EEE
+  .dropdown-items
+    height: 100%
+  .dropdown-item
+    background: white
+    vertical-align: center
+  .social
+    padding-top: 8px
 
 @media #{$mobile_phone}
   .navbar-right
