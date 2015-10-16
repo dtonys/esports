@@ -13,6 +13,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers/reducer.js';
+import page from 'page';
 // import * as actions from './actions/action_creators.js'
 
 /** create redux store **/
@@ -25,6 +26,7 @@ export var store = createStoreWithMiddleware(reducer)
 
 // expose state to window so we can debug
 window.store = store;
+window.page = page;
 
 /** test dispatch **/
 // store.dispatch( actions.postLogin({}) );

@@ -21,25 +21,16 @@ class Router extends React.Component{
     };
     this.page_load_promises = [];
     util.bindAll( this, 'setupRoutes', 'getData' );
+
+    // get user login state, reload page to get correct auth redirects
     this.login_promise = this.props.checkLogin();
+    this.login_promise.then( () => {
+      window.skip_abort = true;
+      page(window.location.pathname);  // just send user state from BE to solve this properly
+    });
   }
   componentDidMount(){
     this.setupRoutes();
-    // var p1 = new Promise(function( res, rej ){
-    //   setTimeout( () => {
-    //     res('p1');
-    //   }, 1000 );
-    // });
-    // var p2 = new Promise(function( res, rej ){
-    //   setTimeout( () => {
-    //     res('p2');
-    //   }, 5000 );
-    // });
-    // Promise
-    //   .all([p1, p2])
-    //   .then( function( vals ){
-    //     console.log( vals );
-    //   });
   }
   setupRoutes(){
     // put data into router ctx
@@ -76,13 +67,6 @@ class Router extends React.Component{
           page_loading: false
         });
       });
-
-    // ctx.routeData.asyncRequire( ( Component ) => {
-    //   // this.setState({
-    //   //   component: Component
-    //   // });
-    // });
-
 
   }
   loginRedirect(){

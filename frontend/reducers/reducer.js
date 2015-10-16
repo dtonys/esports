@@ -126,7 +126,6 @@ function reducer( state = initialState, action )
       });
       return state.merge( guest_state );
     case 'SET_MEMBER':
-      debugger;
       var member_state = fromJS({
         guest: false,
         member: true,

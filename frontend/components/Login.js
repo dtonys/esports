@@ -14,14 +14,6 @@ import serialize from 'form-serialize';
 import { validator, runValidators, validatorFactory } from '../helpers/validate.js';
 import { forms } from '../helpers/forms.js';
 
-// var validEmail = validatorFactory(
-//   [
-//     validator.required,
-//     validator.email,
-//     validator.max( 100 )
-//   ],
-//   ['errors','email']
-// );
 var validUserName = validatorFactory(
   [
     validator.required,
@@ -52,18 +44,12 @@ class Login extends React.Component{
         password: []
       }
     };
-    // page.exit('*', (ctx, next) => {
-    //   alert('leave page');
-    //   this.props.clearLoginError();
-    //   next();
-    // });
   }
   submitForm( e ){
     e.preventDefault();
     // extract form data
     var data = serialize( e.target, { hash: true } );
     // validate
-    // var data_valid = this.validateForm( data );
     var data_valid = this.validateForm( data, [
       validUserName( data.username ),
       validPassword( data.password )

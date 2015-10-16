@@ -2,7 +2,6 @@ import superagent from 'superagent';
 import agent from 'superagent-promise';
 var request = agent( superagent, Promise );
 
-// var agent = require('superagent-promise')(require('superagent'), Promise);
 import { store } from '../index.js';
 
 /*** LOGIN ***/

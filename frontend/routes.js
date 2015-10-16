@@ -101,7 +101,7 @@ for( var url in routeMap ){
   routeMap[url].matchUrl = url;
 }
 
-function extendCtx(){
+export function extendCtx(){
   // get user state ( for auth )
   page('*', ( ctx, next ) => {
     var current_state = store.getState();
@@ -122,12 +122,12 @@ function extendCtx(){
   };
 }
 
-function logRoute( ctx, next ){
+export function logRoute( ctx, next ){
   console.log( 'route >>', ctx.path );
   next();
 };
 
-function authFilter( ctx, next ){
+export function authFilter( ctx, next ){
   var access = ctx.routeData.access;
   cookies.expire('redirect_to');
   if( ctx.guest ){
@@ -154,7 +154,11 @@ function authFilter( ctx, next ){
 };
 
 //
-function checkAbort( ctx, next ){
+export function checkAbort( ctx, next ){
+  if( window.skip_abort ){
+    window.skip_abort = false;
+    next();
+  }
   if( prevPath === ctx.path ) return;
   prevPath = ctx.path;
   next();
