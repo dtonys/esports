@@ -39,7 +39,6 @@ class Navbar extends React.Component{
     )
   }
   renderLoggedIn(){
-    console.log('renderLoggedIn');
     var open = this.state.dropdown_open ? 'open' : '';
     return (
       <div className="navbar-right f-right" >
@@ -69,7 +68,6 @@ class Navbar extends React.Component{
     )
   }
   renderLoggedOut(){
-    console.log('renderLoggedOut');
     return (
       <div className="navbar-right f-right" >
         <a className="link navbar-item right-50" onClick={ () => page('/login') } > Login </a>
