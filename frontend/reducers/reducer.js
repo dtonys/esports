@@ -2,6 +2,7 @@ import {Map, List, fromJS} from 'immutable';
 import request from 'superagent';
 
 var initialState = fromJS({
+  NODE_ENV: null,
   guest: true,
   member: false,
   admin: false,
@@ -14,7 +15,7 @@ var initialState = fromJS({
     error_message: null
   },
   // resp from /api/v1/users/me
-  person_data: {
+  user: {
     _id: null,
     dogecoinBlioAddress: null,
     provider: null,
@@ -48,7 +49,7 @@ function reducer( state = initialState, action )
           loading: false,
           error_message: null
         },
-        person_data: action.payload
+        user: action.payload
       });
       return state.merge( login_state )
     case 'LOGIN_ERROR':
@@ -72,7 +73,7 @@ function reducer( state = initialState, action )
         guest: true,
         member: false,
         admin: false,
-        person_data: {}
+        user: {}
       });
       return state.merge( logout_state );
 
@@ -104,7 +105,7 @@ function reducer( state = initialState, action )
           loading: false,
           error_message: null
         },
-        person_data: action.payload
+        user: action.payload
       });
       return state.merge( signup_state )
     case 'CLEAR_SIGNUP_ERROR':
@@ -122,7 +123,7 @@ function reducer( state = initialState, action )
         guest: true,
         member: false,
         admin: false,
-        person_data: {}
+        user: {}
       });
       return state.merge( guest_state );
     case 'SET_MEMBER':
@@ -130,9 +131,12 @@ function reducer( state = initialState, action )
         guest: false,
         member: true,
         admin: false,
-        person_data: action.payload
+        user: action.payload
       });
       return state.merge( member_state );
+    case 'SET_SETTINGS':
+      var _state = fromJS( action.payload );
+      return state.merge( _state );
   }
   return state;
 }

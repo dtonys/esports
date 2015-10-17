@@ -21,13 +21,6 @@ class Router extends React.Component{
     };
     this.page_load_promises = [];
     util.bindAll( this, 'setupRoutes', 'getData' );
-
-    // get user login state, reload page to get correct auth redirects
-    this.login_promise = this.props.checkLogin();
-    this.login_promise.then( () => {
-      window.skip_abort = true;
-      page(window.location.pathname);  // just send user state from BE to solve this properly
-    });
   }
   componentDidMount(){
     this.setupRoutes();
@@ -41,7 +34,7 @@ class Router extends React.Component{
     for( var url in routeMap ){
       page( url, this.getData );
     };
-    // // 404
+    // 404
     page.start();
   }
   getData( ctx, next ){
@@ -51,7 +44,6 @@ class Router extends React.Component{
       new Promise(function(res, rej){
         ctx.routeData.asyncRequire( ( Component ) => {
           res(Component);
-          //setTimeout( () => res(Component), 2000 );
         });
       });
 
@@ -59,14 +51,21 @@ class Router extends React.Component{
       page_loading: true
     });
 
-    Promise
-      .all( [this.login_promise, component_promise] )
-      .then( values => {
-        this.setState({
-          component: values[1],
-          page_loading: false
-        });
+    component_promise.then( Component => {
+      this.setState({
+        component: Component,
+        page_loading: false
       });
+    });
+
+    // Promise
+    //   .all( [component_promise] )
+    //   .then( values => {
+    //     this.setState({
+    //       component: values[1],
+    //       page_loading: false
+    //     });
+    //   });
 
   }
   loginRedirect(){
@@ -87,7 +86,7 @@ class Router extends React.Component{
     return (
       <Layout member={this.props.member}
               logout={::this.logout}
-              person_data={ this.props.person_data } >
+              user={ this.props.user } >
         { RoutedComponent && !loading ?
           <RoutedComponent
             { ...this.props }
@@ -110,7 +109,7 @@ var mapStateToProps = function( storeState ){
     guest: storeState.get('guest'),
     member: storeState.get('member'),
     admin: storeState.get('admin'),
-    person_data: storeState.get('person_data').toJS()
+    user: storeState.get('user') ? storeState.get('user').toJS() : null
   }
 };
 

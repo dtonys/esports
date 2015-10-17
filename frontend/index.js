@@ -14,7 +14,7 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers/reducer.js';
 import page from 'page';
-// import * as actions from './actions/action_creators.js'
+import * as actions from './actions/action_creators.js'
 
 /** create redux store **/
 // attach middleware
@@ -22,14 +22,17 @@ const createStoreWithMiddleware = applyMiddleware(
   thunk
 )( createStore );
 // attach reducer
-export var store = createStoreWithMiddleware(reducer)
+export var store = createStoreWithMiddleware(reducer);
+
+// load inital server state into store
+store.dispatch( actions.setSettings( window.settings ) );
 
 // expose state to window so we can debug
 window.store = store;
 window.page = page;
 
 /** test dispatch **/
-// store.dispatch( actions.postLogin({}) );
+// store.dispatch( actions.setServerState( window.settings ) );
 // store.dispatch( actions.loginSuccess({}) );
 // store.dispatch( actions.loginError({}) );
 

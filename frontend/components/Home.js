@@ -11,13 +11,13 @@ class Home extends React.Component{
     return <div> Home </div>
   }
   render1(){
-    var person_data = _.get( this.props, 'person_data' );
+    var user = _.get( this.props, 'user' );
     return (
       <table className="table">
         <thead>
           <tr >
             {
-              Object.keys( person_data ).map( ( key ) => {
+              Object.keys( user ).map( ( key ) => {
                 return <th key={key} > { key } </th>;
               })
             }
@@ -26,8 +26,8 @@ class Home extends React.Component{
         <tbody>
           <tr>
             {
-              Object.keys( person_data ).map( ( key ) => {
-                return <td key={key} > { person_data[key] } </td>;
+              Object.keys( user ).map( ( key ) => {
+                return <td key={key} > { user[key] } </td>;
               })
             }
           </tr>
@@ -40,7 +40,7 @@ export default Home;
 
 var mapStateToProps = function( storeState ){
   return {
-    person_data: storeState.get('person_data').toJS()
+    user: storeState.get('user').toJS()
   }
 };
 

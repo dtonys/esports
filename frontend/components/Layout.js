@@ -15,7 +15,7 @@ class Layout extends React.Component{
       <div id="layout">
         <Navbar member={ this.props.member }
                 logout={ this.props.logout }
-                person_data={ this.props.person_data } />
+                user={ this.props.user } />
         <ContentContainer >
           { this.props.children }
         </ContentContainer >

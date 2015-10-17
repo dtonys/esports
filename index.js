@@ -168,9 +168,23 @@ server.use( function( req, res, next ){
   next();
 });
 
+// debug middleware
+// server.use('*', function( req, res, next ){ next(); });
+
 // Globbing routing files
 config.getGlobbedFiles('./backend/routes/**/*.js').forEach(function(routePath) {
   require(path.resolve(routePath))(server);
+});
+
+// pass auth / user data to Client
+server.get('/app_settings.js', function(req, res, next){
+  var _user = JSON.stringify(req.user || null, null, 2);
+  var _NODE_ENV = process.env.NODE_ENV;
+  res.header("Content-Type", "application/javascript");
+  res.render('app_settings', {
+    NODE_ENV: _NODE_ENV,
+    user: _user
+  });
 });
 
 // Serve static index page every time

@@ -78,6 +78,12 @@ var routeMap = {
       require.ensure([], () => cb(require('components/Profile.js')) )
     }
   },
+  '/accounts': {
+    access: member_only,
+    asyncRequire: ( cb ) => {
+      require.ensure([], () => cb(require('components/Accounts.js')) )
+    }
+  },
   '/matches': {
     access: all,
     asyncRequire: ( cb ) => {

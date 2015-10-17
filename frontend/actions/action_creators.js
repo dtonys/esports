@@ -66,6 +66,13 @@ function setGuest(){
   }
 }
 
+export function setSettings( payload ){
+  return {
+    type: 'SET_SETTINGS',
+    payload
+  }
+}
+
 export function clearLoginError(){
   return {
     type: 'CLEAR_LOGIN_ERROR'
