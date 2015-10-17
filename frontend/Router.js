@@ -15,7 +15,6 @@ import { routeMap, middlewares, extendCtx } from 'routes.js';
 class Router extends React.Component{
   constructor( props ){
     super(props);
-    console.log('Router::constructor')
     this.state = {
       component: '',
       page_loading: true
@@ -48,13 +47,11 @@ class Router extends React.Component{
         });
       });
 
-    console.log('Router::getData::page_loading');
     this.setState({
       page_loading: true
     });
 
     component_promise.then( Component => {
-      console.log('Router::getData::component');
       this.setState({
         component: Component,
         page_loading: false
@@ -82,7 +79,6 @@ class Router extends React.Component{
     });
   }
   render(){
-    console.log('Router::Render');
     var loading = this.state.page_loading ?
                     <div className="spinner rotate clockwise absolute" ></div> : null;
     var RoutedComponent = this.state.component || null;

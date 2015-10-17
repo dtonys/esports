@@ -41,7 +41,6 @@ var validPassword = validatorFactory(
 class Signup extends React.Component{
   constructor( props ){
     super( props );
-    console.log( props );
     this.state = {
       email: '',
       username: '',
@@ -70,9 +69,6 @@ class Signup extends React.Component{
     }
   }
   render(){
-    console.log( JSON.stringify(this.state) );
-    console.log( JSON.stringify(this.props.signup) );
-
     var usr_err = _.get( this.state, 'errors.username' );
     var usr_has_err = usr_err && usr_err.length;
 
