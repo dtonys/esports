@@ -133,9 +133,7 @@ export function executeLogout( callback ){
   };
 };
 
-// TODO: replace by setting cookie
-// determine if we are loggedin or not
-export function checkLogin( callback ){
+export function getLoggedInUser( callback ){
   var xhr = null;
   return function( dispatch ){
     xhr = request
@@ -147,22 +145,3 @@ export function checkLogin( callback ){
     return xhr;
   };
 }
-
-// function
-
-// export function getLogout(){
-//   return {
-//     type: 'LOGOUT'
-//   }
-
-// export function logoutSuccess(){
-//   return {
-//     type: 'LOGOUT_SUCCESS'
-//   }
-// }
-
-// export function fetchUser(){
-//   return {
-//     type: 'FETCH_USER'
-//   }
-// }

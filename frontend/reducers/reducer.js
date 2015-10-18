@@ -1,6 +1,8 @@
 import {Map, List, fromJS} from 'immutable';
 import request from 'superagent';
 
+var log = console.log.bind(console, 'reducer ::');
+
 var initialState = fromJS({
   NODE_ENV: null,
   guest: true,
@@ -27,11 +29,8 @@ var initialState = fromJS({
   }
 });
 
-function reducer( state = initialState, action )
-{
-  console.log('action >> ', action.type, action.status, action.payload);
+function login( state, action ){
   switch( action.type ){
-    // LOGIN
     case 'POST_LOGIN':
       var _state = fromJS({
         login: {
@@ -74,8 +73,12 @@ function reducer( state = initialState, action )
         user: {}
       });
       return state.merge( _state );
+  }
+  return state;
+}
 
-    // SIGNUP
+function signup( state, action ){
+  switch( action.type ){
     case 'POST_SIGNUP':
       var _state = fromJS({
         signup: {
@@ -110,8 +113,12 @@ function reducer( state = initialState, action )
         }
       });
       return state.mergeDeep( _state )
+  }
+  return state;
+}
 
-    // LOAD PAGE, SET USER TYPE
+function user( state, action ){
+  switch( action.type ){
     case 'SET_GUEST':
       var _state = fromJS({
         guest: true,
@@ -128,11 +135,48 @@ function reducer( state = initialState, action )
         user: action.payload
       });
       return state.merge( _state );
+  }
+  return state;
+}
+
+function settings( state, action )
+{
+  switch( action.type ){
     case 'SET_SETTINGS':
       var _state = fromJS( action.payload );
+      if( _state.get('user') ){
+        _state = _state
+                  .set('guest', false )
+                  .set('member', true )
+                  .set('admin', false )
+      }
       return state.merge( _state );
   }
   return state;
+}
+
+function reducer(state = initialState, action) {
+  log('action >>', action.type, action.status, action.payload);
+
+  var reducers = [
+    { reducer: login, keyPath: [] },
+    { reducer: signup, keyPath: [] },
+    { reducer: user, keyPath: [] },
+    { reducer: settings, keyPath: [] }
+  ];
+
+  function reducerFn( state, item, index ){
+    var _substate;
+    var { reducer, keyPath } = item;
+    if( !keyPath.length )
+      return reducer( state, action );
+    else{
+      _substate = state.getIn( keyPath );
+      return state.setIn( keyPath, reducer( _substate, action ) );
+    }
+  };
+
+  return reducers.reduce( reducerFn, state);
 }
 
 export default reducer;

@@ -1,2 +1,20 @@
-.pageContainer
-  background-color: blue
+@import '../helpers/mixins'
+@import '../helpers/variables'
+@import '../helpers/colors'
+
+.matches-page-container
+  background-color: white
+  border: solid black 2px
+  max-width: $content_max_width
+  margin: 20px auto
+  text-align: left
+  .header
+    border-bottom: solid black 2px
+    font-size: 30px
+    padding: 10px 10px
+  .match-items
+  .match-item
+    padding: 10px 10px
+    border-bottom: solid black 2px
+    &:last-child
+      border-bottom: none

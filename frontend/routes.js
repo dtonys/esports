@@ -50,7 +50,7 @@ var routeMap = {
   '/': {
     access: member_only,
     asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Home.js')) )
+      require.ensure([], () => cb(require('components/Matches.js')) )
     }
   },
   '/login': {
@@ -110,7 +110,7 @@ for( var url in routeMap ){
     if( routeMap[url].exit )
       routeMap[url].exit.unshift( _exit );
     else
-      routeMap[url] = [_exit];
+      routeMap[url].exit = [_exit];
   })( url );
 }
 
@@ -143,8 +143,7 @@ export function authFilter( ctx, next ){
   cookies.expire('redirect_to');
   if( ctx.guest ){
     if( access.guest !== true ){
-      log('try >> ', ctx.routeData.matchUrl);
-      log('redirect >> ', access.guest);
+      log(`${ctx.routeData.matchUrl} >> redirect >> ${access.guest}`);
       cookies.set('redirect_to', ctx.path );
       return page.redirect( access.guest )
     }
@@ -152,15 +151,13 @@ export function authFilter( ctx, next ){
   if( ctx.admin ){
     if( access.member !== true &&
         access.admin  !== true ){
-      log('try >> ', ctx.routeData.matchUrl);
-      log('redirect >> ');
+      log(`${ctx.routeData.matchUrl} >> redirect >> ${access.admin}`);
       return page.redirect( access.admin );
     }
   }
   if( ctx.member ){
     if( access.member !== true ){
-      log('try >> ', ctx.routeData.matchUrl);
-      log('redirect >> ');
+      log(`${ctx.routeData.matchUrl} >> redirect >> ${access.member}`);
       return page.redirect( access.member )
     }
   }

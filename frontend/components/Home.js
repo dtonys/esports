@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 class Home extends React.Component{
   constructor( props ){
     super( props );
-    console.log( props );
   }
   render(){
     return <div> Home </div>
