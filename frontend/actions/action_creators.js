@@ -4,19 +4,23 @@ var request = agent( superagent, Promise );
 
 import { store } from '../index.js';
 
-/*** LOGIN ***/
-function postLogin( payload ){
+/**
+ * Private
+ */
+
+// Login
+function _postLogin( payload ){
   return {
     type: 'POST_LOGIN'
   }
 }
-function loginSuccess( payload ){
+function _loginSuccess( payload ){
   return {
     type: 'LOGIN_SUCCESS',
     payload
   }
 }
-function loginError( payload ){
+function _loginError( payload ){
   return {
     type: 'LOGIN_ERROR',
     error: true,
@@ -24,20 +28,20 @@ function loginError( payload ){
   }
 }
 
-function logoutSuccess(){
+function _logoutSuccess(){
   return {
     type: 'LOGOUT_SUCCESS'
   }
 }
 
-/*** SIGNUP ***/
-function postSignup(){
+// Signup
+function _postSignup(){
   return {
     type: 'POST_SIGNUP'
   }
 }
 
-function signupError( payload ){
+function _signupError( payload ){
   return {
     type: 'SIGNUP_ERROR',
     error: true,
@@ -45,27 +49,50 @@ function signupError( payload ){
   }
 }
 
-function signupSuccess( payload ){
+function _signupSuccess( payload ){
   return {
     type: 'SIGNUP_SUCCESS',
     payload
   }
 }
 
-
-function setMember( payload ){
+function _setMember( payload ){
   return {
     type: 'SET_MEMBER',
     payload
   }
 }
 
-function setGuest(){
+function _setGuest(){
   return {
     type: 'SET_GUEST'
   }
 }
 
+function _updateMe( payload ){
+  return {
+    type: 'UPDATE_ME',
+    payload
+  }
+}
+
+function _getMatches( payload ){
+  return {
+    type: 'GET_MATCHES_SUCCESS',
+    payload
+  }
+}
+
+function _getMatchDetail( payload ){
+  return {
+    type: 'GET_MATCH_DETAIL_SUCCESS',
+    payload
+  }
+}
+
+/**
+ * Public
+ */
 export function setSettings( payload ){
   return {
     type: 'SET_SETTINGS',
@@ -85,62 +112,48 @@ export function clearSignupState(){
   }
 }
 
-export function getMatches( payload ){
-  return {
-    type: 'GET_MATCHES_SUCCESS',
-    payload
-  }
-}
-
-export function getMatchDetail( payload ){
-  return {
-    type: 'GET_MATCH_DETAIL_SUCCESS',
-    payload
-  }
-}
-
-
-export function executeLogin( login_data ){
+// APIs
+export function postLogin( login_data ){
   var xhr = null;
   return function( dispatch ){
     if( xhr ) xhr.abort();
-    dispatch( postLogin( login_data ) );
+    dispatch( _postLogin( login_data ) );
     xhr = request
       .post('/api/v1/auth/signin')
       .send( login_data )
       .end()
       .then( (res) => {
-        dispatch( loginSuccess( res.body ) );
+        dispatch( _loginSuccess( res.body ) );
       })
       .catch( (res) => {
         var msg = res.body && res.body.message ? res.body.message : 'error';
-        dispatch( loginError({ message: msg }) );
+        dispatch( _loginError({ message: msg }) );
       })
     return xhr;
   }
 }
 
-export function executeSignup( signup_data ){
+export function postSignup( signup_data ){
   var xhr = null;
   return function( dispatch ){
     if( xhr ) xhr.abort();
-    dispatch( postSignup( signup_data ) );
+    dispatch( _postSignup( signup_data ) );
     xhr = request
       .post('/api/v1/auth/signup')
       .send( signup_data )
       .end()
       .then( (res) => {
-        dispatch( loginSuccess( res.body ) );
+        dispatch( _loginSuccess( res.body ) );
       })
       .catch( (res) => {
         var msg = res.body && res.body.message ? res.body.message : 'error';
-        dispatch( signupError({ message: msg }) );
+        dispatch( _signupError({ message: msg }) );
       })
     return xhr;
   }
 }
 
-export function executeLogout(){
+export function getLogout(){
   var xhr = null;
   return function( dispatch ){
     if( xhr ) xhr.abort();
@@ -148,48 +161,76 @@ export function executeLogout(){
       .get('/api/v1/auth/signout')
       .end()
       .then( () => {
-        dispatch( logoutSuccess() );
+        dispatch( _logoutSuccess() );
       });
     return xhr;
   };
 };
 
-export function getLoggedInUser( callback ){
+export function getMe( callback ){
   var xhr = null;
   return function( dispatch ){
     xhr = request
       .get('/api/v1/users/me')
       .end()
       .then( ( res ) => {
-        if( res.body )  dispatch( setMember( res.body ) );
-        else            dispatch( setGuest() );
+        if( res.body )  dispatch( _setMember( res.body ) );
+        else            dispatch( _setGuest() );
       })
     return xhr;
   };
 }
 
-export function fetchMatches( callback ){
+export function putMe( user_data ){
+  var xhr = null;
+  return function( dispatch ){
+    xhr = request
+      .put('/api/v1/users')
+      .send( user_data )
+      .end()
+      .then( ( res ) => {
+        if( res.body )  dispatch( _updateMe( res.body ) );
+      })
+    return xhr;
+  }
+}
+
+export function postMePassword( password_data ){
+  var xhr = null;
+  return function( dispatch ){
+    xhr = request
+      .post('/api/v1/users/password')
+      .send( password_data )
+      .end()
+    return xhr;
+  }
+}
+
+export function getMatches( callback ){
   var xhr = null;
   return function( dispatch ){
     xhr = request
       .get('/api/v1/matches')
       .end()
       .then( ( res ) => {
-        if( res.body ) dispatch( getMatches( res.body ) );
+        if( res.body ) dispatch( _getMatches( res.body ) );
       })
     return xhr;
   };
 };
 
-export function fetchMatchDetail( id,  callback ){
+export function getMatchDetail( id,  callback ){
   var xhr = null;
   return function( dispatch ){
     xhr = request
       .get('/api/v1/matches/'+id)
       .end()
       .then( ( res ) => {
-        if( res.body ) dispatch( getMatchDetail( res.body ) );
+        if( res.body ) dispatch( _getMatchDetail( res.body ) );
       })
     return xhr;
   };
 };
+
+// export function execute(  ){
+// }

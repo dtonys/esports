@@ -1,15 +1,34 @@
-import page from 'page';
 import 'components/forms.sass';
 import 'components/forms_extend.sass';
 import 'pages/profile.sass';
 
+import {connect} from 'react-redux';
+import * as actions from '../actions/action_creators.js';
+
 import reactMixin from 'react-mixin';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
+import _ from 'lodash';
+import {toJS} from 'immutable';
+import page from 'page';
 import serialize from 'form-serialize';
 
 import { validator, runValidators, validatorFactory } from '../helpers/validate.js';
 import { forms } from '../helpers/forms.js';
+
+var validPassword = function( path ){
+  return validatorFactory(
+    [
+      validator.required,
+      validator.min( 6 )
+    ],
+    path
+  );
+}
+
+var validCurrent = validPassword( [ 'errors', 'currentPassword' ] );
+var validNew = validPassword( [ 'errors', 'newPassword' ] );
+var validVerify = validPassword( [ 'errors', 'verifyPassword' ] );
 
 @reactMixin.decorate(forms)
 @reactMixin.decorate(LinkedStateMixin)
@@ -17,10 +36,76 @@ class Profile extends React.Component{
   constructor( props ){
     super( props );
     this.state = {
-      current: '',
-      new: '',
-      verify: ''
+      currentPassword: '',
+      newPassword: '',
+      verifyPassword: '',
+      email: props.user && props.user.email ? props.user.email: '',
+      password: {
+        success: false,
+        error: false
+      },
+      errors: {
+        currentPassword: [],
+        newPassword: [],
+        verifyPassword: []
+      },
+      save_profile_success: false
     };
+  }
+
+  updateProfile( e ){
+    e.preventDefault();
+    var data = serialize( e.target, { hash: true } );
+    // alert( JSON.stringify(data, null, 2) );
+
+    this.props.putMe( data )
+      .then( () => {
+        this.setState({
+          save_profile_success: true
+        });
+      })
+  }
+  updatePassword( e ){
+    e.preventDefault();
+    var data = serialize( e.target, { hash: true } );
+    // alert( JSON.stringify(data, null, 2) );
+
+    // FE Validate
+    var data_valid = this.validateForm( data, [
+      validCurrent(data.currentPassword),
+      validNew(data.newPassword),
+      validVerify(data.verifyPassword)
+    ]);
+    if( !data_valid ) return;
+
+    // FE validate
+    this.props.postMePassword( data )
+      .then( ( res ) => {
+        this.setState({
+          currentPassword: '',
+          newPassword: '',
+          verifyPassword: '',
+          password: {
+            error: false,
+            success: res.body.message
+          }
+        })
+      })
+      .catch( ( res ) => {
+        this.setState({
+          currentPassword: '',
+          newPassword: '',
+          verifyPassword: '',
+          password: {
+            error: res.response.body.message,
+            success: false
+          }
+        })
+      })
+  }
+  submitForm( e ){
+    e.preventDefault();
+    alert('submitForm');
   }
   render(){
     var renderFn = ::this.renderProfile;
@@ -37,54 +122,145 @@ class Profile extends React.Component{
       </div>
     )
   }
-  renderInput( name ){
+  renderInput( { name, type, placeholder } ){
+    type = type || name;
+    placeholder = placeholder || name;
     return (
-    <input  className="input"
-            type="text"
-            placeholder={ name }
-            name={ name }
-            valueLink={this.linkState(name)} />
+      <input  className="input"
+              type={ type }
+              placeholder={ placeholder }
+              name={ name }
+              valueLink={this.linkState(name)} />
     )
-  }
-  submitForm( e ){
-    e.preventDefault();
-    alert('submitForm');
   }
   renderProfile(){
     return (
       <div className="">
-        <form className="generic-form container" onSubmit={ ::this.submitForm }>
+        <form className="generic-form container" onSubmit={ ::this.updateProfile }>
+
           <div className="form-title" > Edit your profile </div>
           <div className="margin-10"></div>
-          { this.renderInput("email") }
+          { this.state.save_profile_success ?
+              <div>
+                <div className="success input"> Profile Saved Successfully </div>
+                <div className="margin-10"></div>
+              </div> :
+              null
+          }
+          { this.renderInput({ name: "email"}) }
           <div className="margin-10"></div>
-          <input type="submit" value="submit" className="action-item submit btn left-100" />
+          <input type="submit" value="submit" className="action-item submit btn" />
         </form>
       </div>
     )
   }
   renderSocial(){
     return (
-      <div className=""> Manage Social </div>
-    )
-  }
-  renderPassword(){
-    return (
       <div className="">
-        <form className="generic-form container" onSubmit={ ::this.submitForm }>
-          <div className="form-title" > Change Password </div>
-          <div className="margin-10"></div>
-          { this.renderInput("current") }
-          <div className="margin-10"></div>
-          { this.renderInput("new") }
-          <div className="margin-10"></div>
-          { this.renderInput("verify") }
-          <div className="margin-10"></div>
-          <input type="submit" value="submit" className="action-item submit btn left-100" />
+        <form className="generic-form container" >
+          <div className="form-title" > Connect other social accounts: </div>
+          <div className="social-options" >
+            <img className="social-option-img" src="/img/facebook.png" />
+            <img className="social-option-img" src="/img/twitter.png" />
+            <img className="social-option-img" src="/img/google.png" />
+            <img className="social-option-img" src="/img/linkedin.png" />
+            <img className="social-option-img" src="/img/github.png" />
+          </div>
         </form>
       </div>
     )
   }
+  renderPassword(){
+    var curr_err = _.get( this.state, 'errors.currentPassword' );
+    var has_curr_err = curr_err && curr_err.length;
 
+    var new_err = _.get( this.state, 'errors.newPassword' );
+    var has_new_err = new_err && new_err.length;
+
+    var verify_err = _.get( this.state, 'errors.verifyPassword' );
+    var has_verify_err = verify_err && verify_err.length;
+
+    return (
+      <div className="">
+        <form className="generic-form container" onSubmit={ ::this.updatePassword }>
+          <div className="form-title" > Change Password </div>
+          { this.state.password.error ?
+              <div>
+                <div className="margin-10"></div>
+                <div className="error input"> { this.state.password.error } </div>
+              </div> :
+              null
+          }
+          { this.state.password.success ?
+              <div>
+                <div className="margin-10"></div>
+                <div className="success input"> { this.state.password.success } </div>
+              </div> :
+              null
+          }
+          <div className="margin-10"></div>
+          {
+            has_curr_err ?
+              <div>
+                <div className="error input"> { curr_err[0] } </div>
+                <div className="margin-10"></div>
+              </div> :
+              null
+          }
+          { this.renderInput({
+              name: "currentPassword",
+              type: "password",
+              placeholder: "Enter current password"
+            })
+          }
+          <div className="margin-10"></div>
+          {
+            has_new_err ?
+              <div>
+                <div className="error input"> { new_err[0] } </div>
+                <div className="margin-10"></div>
+              </div> :
+              null
+          }
+          { this.renderInput({
+              name: "newPassword",
+              type: "password",
+              placeholder: "Enter new password"
+            })
+          }
+          <div className="margin-10"></div>
+          {
+            has_verify_err ?
+              <div>
+                <div className="error input"> { verify_err[0] } </div>
+                <div className="margin-10"></div>
+              </div> :
+              null
+          }
+          { this.renderInput({
+              name: "verifyPassword",
+              type: "password",
+              placeholder: "Confirm new password"
+            })
+          }
+          <div className="margin-10"></div>
+          <input type="submit" value="submit" className="action-item submit btn" />
+        </form>
+      </div>
+    )
+  }
 }
-export default Profile;
+
+// export specific areas of state tree
+var mapStateToProps = function( storeState ){
+  return {
+    user: storeState.get('user') ? storeState.get('user').toJS() : null
+  }
+};
+
+var ProfileContainer = connect(
+  mapStateToProps,            // subscribe to store update, expose store state
+  actions
+)(Profile);
+
+export default ProfileContainer;

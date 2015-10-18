@@ -64,7 +64,7 @@ class Router extends React.Component{
     return page('/');
   }
   logout(){
-    this.props.executeLogout()
+    this.props.getLogout()
               .then( () => {
                 page('/login');
               });

@@ -54,11 +54,10 @@ class Login extends React.Component{
       validUserName( data.username ),
       validPassword( data.password )
     ]);
+    if( !data_valid ) return;
 
-    if( data_valid ){
-      this.props.executeLogin( data )
-                .then( this.props.loginRedirect )
-    }
+    this.props.postLogin( data )
+              .then( this.props.loginRedirect )
   }
   render(){
     var usr_err = _.get( this.state, 'errors.username' );

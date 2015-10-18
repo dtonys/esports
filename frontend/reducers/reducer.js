@@ -122,7 +122,7 @@ function signup( state, action ){
   return state;
 }
 
-function user( state, action ){
+function setUser( state, action ){
   switch( action.type ){
     case 'SET_GUEST':
       var _state = fromJS({
@@ -142,6 +142,14 @@ function user( state, action ){
       return state.merge( _state );
   }
   return state;
+}
+
+function me( substate, action ){
+  switch( action.type ){
+    case 'UPDATE_ME':
+      return fromJS( action.payload );
+  }
+  return substate;
 }
 
 // TODO: read roles from data, deal with admin
@@ -200,10 +208,11 @@ function reducer(state = initialState, action) {
   var reducers = [
     { reducer: login, keyPath: [] },
     { reducer: signup, keyPath: [] },
-    { reducer: user, keyPath: [] },
+    { reducer: setUser, keyPath: [] },
     { reducer: settings, keyPath: [] },
     { reducer: matches, keyPath: ['matches'] },
-    { reducer: match, keyPath: ['matchDetail'] }
+    { reducer: match, keyPath: ['matchDetail'] },
+    { reducer: me, keyPath: ['user'] }
   ];
 
   function reducerFn( state, item, index ){

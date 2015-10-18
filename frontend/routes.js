@@ -55,7 +55,7 @@ var routeMap = {
       });
     },
     getData: function(){
-      return store.dispatch( actions.fetchMatches() );
+      return store.dispatch( actions.getMatches() );
     },
   },
   '/login': {
@@ -142,7 +142,7 @@ var routeMap = {
       });
     },
     getData: function( params ){
-      return store.dispatch( actions.fetchMatchDetail( params.id ) );
+      return store.dispatch( actions.getMatchDetail( params.id ) );
     }
   },
   // NotFound
@@ -158,9 +158,10 @@ var routeMap = {
     },
   }
 };
-// add matchUrl and default exit function
 for( var url in routeMap ){
+  // add matchUrl
   routeMap[url].matchUrl = url;
+  // default exit function
   (function( _url ){
     var _exit = ()=>{ log('exit >> '+routeMap[_url].matchUrl) };
     if( routeMap[url].exit )

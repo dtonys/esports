@@ -31,19 +31,18 @@ forms.validateString = function( { validators = [], error_path }, str, state ){
 //  }
 // ]
 forms.validateForm = function( form_data, inputArray ){
-    var form_valid = true;
-    var state = fromJS( this.state );
-    var result;
+  var form_valid = true;
+  var state = fromJS( this.state );
+  var result;
 
-    inputArray.forEach( ({validators, error_path, string}) => {
-      result = this.validateString( {validators, error_path}, string, state );
-      state = result.update;
-      form_valid = form_valid && result.valid;
-    });
-
-    // show errors if any
-    this.setState( state.toJS() );
-    return form_valid;
+  inputArray.forEach( ({validators, error_path, string}) => {
+    result = this.validateString( {validators, error_path}, string, state );
+    state = result.update;
+    form_valid = form_valid && result.valid;
+  });
+  // show errors if any
+  this.setState( state.toJS() );
+  return form_valid;
 };
 
 export { forms };

@@ -63,7 +63,7 @@ class Signup extends React.Component{
       validPassword( data.password )
     ]);
     if( data_valid ){
-      this.props.executeSignup( data )
+      this.props.postSignup( data )
                 .then( this.props.loginRedirect )
     }
   }
