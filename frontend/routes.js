@@ -98,6 +98,17 @@ var routeMap = {
       return Promise.resolve(null);
     }
   },
+  '/profile/:section': {
+    access: member_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Profile.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
+    }
+  },
   // Accounts
   '/accounts': {
     access: member_only,
@@ -211,14 +222,17 @@ export function authFilter( ctx, next ){
 
 // abort route if our url is not changing
 export function checkAbort( ctx, next ){
-  if( prevPath === ctx.path ) return;
+  if( prevPath === ctx.path ){
+    log( 'abort >>', ctx.path );
+    return;
+  }
   prevPath = ctx.path;
   next();
 };
 
 // call exit function before changing to route
 export function doExit( ctx, next ){
-  if( prevMatchUrl === ctx.routeData.matchUrl ) return;
+  if( prevMatchUrl === ctx.routeData.matchUrl ) return next();
   if( routeMap[prevMatchUrl] )
     routeMap[prevMatchUrl].exit.forEach( exit_fn => exit_fn() );
   prevMatchUrl = ctx.routeData.matchUrl;

@@ -53,8 +53,12 @@ class Navbar extends React.Component{
                 Edit Profile
               </div>
               <div  className="link dropdown-item social"
-                    onClick={ () => { this.closeDropDown(); page('/accounts'); } } >
+                    onClick={ () => { this.closeDropDown(); page('/profile/accounts'); } } >
                 Social Accounts
+              </div>
+              <div  className="link dropdown-item social"
+                    onClick={ () => { this.closeDropDown(); page('/profile/password'); } } >
+                Change Password
               </div>
               <div  className="link dropdown-item logout"
                     onClick={ () => { this.closeDropDown(); this.props.logout(); } } >
