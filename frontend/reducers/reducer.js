@@ -59,7 +59,7 @@ function reducer( state = initialState, action )
         }
       });
       return state.merge( _state )
-    case 'CLEAR_LOGIN_ERROR':
+    case 'CLEAR_LOGIN_STATE':
       var _state = fromJS({
         login: {
           error_message: null
@@ -103,7 +103,7 @@ function reducer( state = initialState, action )
         user: action.payload
       });
       return state.merge( _state )
-    case 'CLEAR_SIGNUP_ERROR':
+    case 'CLEAR_SIGNUP_STATE':
       var _state = fromJS({
         signup: {
           error_message: null

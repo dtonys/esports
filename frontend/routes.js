@@ -8,6 +8,8 @@ var default_guest_redirect = '/login';
 var default_member_redirect = '/';
 var default_admin_redirect = '/';
 
+var log = console.log.bind(console, 'router ::');
+
 /**
   * test:
   * route works page -> /login => Login
@@ -17,8 +19,6 @@ var default_admin_redirect = '/';
   * admin hits not allowed page -> /login => /
   * test redirect to for guest work -> /profile => /login => /profile
   */
-
-cookies.set('foo', 'bar');
 
 var all = {
   guest: true,
@@ -42,6 +42,7 @@ var admin_only = {
 };
 
 var prevPath = null;
+var prevMatchUrl = null;
 
 // assume we should match only one route per pass
 // webpack doesn't seem to work properly when variable passed into require
@@ -57,20 +58,18 @@ var routeMap = {
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Login.js')) )
     },
-    exitFn: ( ctx, next ) => {
-      store.dispatch( actions.clearLoginError() );
-      next();
-    }
+    exit: [
+      () => { store.dispatch( actions.clearLoginState() ) }
+    ]
   },
   '/signup': {
     access: guest_only,
     asyncRequire: ( cb ) => {
       require.ensure([], () => cb(require('components/Signup.js')) )
     },
-    exitFn: ( ctx, next ) => {
-      store.dispatch( actions.clearSignupError() );
-      next();
-    }
+    exit: [
+      () => { store.dispatch( actions.clearSignupState() ) }
+    ]
   },
   '/profile': {
     access: member_only,
@@ -103,8 +102,16 @@ var routeMap = {
     }
   }
 };
+// add matchUrl and default exit function
 for( var url in routeMap ){
   routeMap[url].matchUrl = url;
+  (function( _url ){
+    var _exit = ()=>{ log('exit >> '+routeMap[_url].matchUrl) };
+    if( routeMap[url].exit )
+      routeMap[url].exit.unshift( _exit );
+    else
+      routeMap[url] = [_exit];
+  })( url );
 }
 
 export function extendCtx(){
@@ -122,14 +129,12 @@ export function extendCtx(){
     page( url, function( routeData, ctx, next ){
       if( !ctx.routeData ) ctx.routeData = routeData;
       next();
-    }.bind(this, routeMap[url]) );
-    // bind exit callback if defined
-    if( routeMap[url].exitFn ) page.exit( url, routeMap[url].exitFn );
+    }.bind(this, routeMap[url]) );;
   };
 }
 
 export function logRoute( ctx, next ){
-  console.log( 'route >>', ctx.path );
+  log( 'route >>', ctx.path );
   next();
 };
 
@@ -138,7 +143,8 @@ export function authFilter( ctx, next ){
   cookies.expire('redirect_to');
   if( ctx.guest ){
     if( access.guest !== true ){
-      console.log(' redirect >> ', access.guest);
+      log('try >> ', ctx.routeData.matchUrl);
+      log('redirect >> ', access.guest);
       cookies.set('redirect_to', ctx.path );
       return page.redirect( access.guest )
     }
@@ -146,35 +152,43 @@ export function authFilter( ctx, next ){
   if( ctx.admin ){
     if( access.member !== true &&
         access.admin  !== true ){
-      console.log(' redirect >> ');
+      log('try >> ', ctx.routeData.matchUrl);
+      log('redirect >> ');
       return page.redirect( access.admin );
     }
   }
   if( ctx.member ){
     if( access.member !== true ){
-      console.log(' redirect >> ');
+      log('try >> ', ctx.routeData.matchUrl);
+      log('redirect >> ');
       return page.redirect( access.member )
     }
   }
   next();
 };
 
-//
+// abort route if our url is not changing
 export function checkAbort( ctx, next ){
-  if( window.skip_abort ){
-    window.skip_abort = false;
-    next();
-  }
   if( prevPath === ctx.path ) return;
   prevPath = ctx.path;
   next();
 };
 
-// middleware is run every route call
+// call exit function before changing to route
+export function doExit( ctx, next ){
+  if( prevMatchUrl === ctx.routeData.matchUrl ) return;
+  if( routeMap[prevMatchUrl] )
+    routeMap[prevMatchUrl].exit.forEach( exit_fn => exit_fn() );
+  prevMatchUrl = ctx.routeData.matchUrl;
+  next();
+}
+// middlewares are run every route call.
 var middlewares = [
   checkAbort,
-  logRoute,
-  authFilter
+  authFilter,
+  // middlewares beyond this line should not abort / redirect
+  doExit,
+  logRoute
 ];
 
 export { routeMap, middlewares, extendCtx };

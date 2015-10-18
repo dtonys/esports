@@ -73,15 +73,15 @@ export function setSettings( payload ){
   }
 }
 
-export function clearLoginError(){
+export function clearLoginState(){
   return {
-    type: 'CLEAR_LOGIN_ERROR'
+    type: 'CLEAR_LOGIN_STATE'
   }
 }
 
-export function clearSignupError(){
+export function clearSignupState(){
   return {
-    type: 'CLEAR_SIGNUP_ERROR'
+    type: 'CLEAR_SIGNUP_STATE'
   }
 }
 
