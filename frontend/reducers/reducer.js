@@ -194,6 +194,15 @@ function match( substate, action )
   return substate;
 }
 
+function mybets(substate, action)
+{
+  switch (action.type){
+    case 'GET_MY_BETS_SUCCESS':
+      var _substate = fromJS(action.payload);
+      return _substate;
+  }
+}
+
 function reducer(state = initialState, action) {
   log('action >>', action.type, action.status, action.payload);
 
@@ -203,7 +212,8 @@ function reducer(state = initialState, action) {
     { reducer: user, keyPath: [] },
     { reducer: settings, keyPath: [] },
     { reducer: matches, keyPath: ['matches'] },
-    { reducer: match, keyPath: ['matchDetail'] }
+    { reducer: match, keyPath: ['matchDetail'] },
+    { reducer: mybets, keyPath: ['myBets'] }
   ];
 
   function reducerFn( state, item, index ){

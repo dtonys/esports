@@ -99,6 +99,13 @@ export function getMatchDetail( payload ){
   }
 }
 
+export function getMyBets(payload) {
+  return {
+    type: 'GET_MY_BETS_SUCCESS',
+    payload
+  }
+};
+
 
 export function executeLogin( login_data ){
   var xhr = null;
@@ -115,7 +122,7 @@ export function executeLogin( login_data ){
       .catch( (res) => {
         var msg = res.body && res.body.message ? res.body.message : 'error';
         dispatch( loginError({ message: msg }) );
-      })
+      });
     return xhr;
   }
 }
@@ -135,7 +142,7 @@ export function executeSignup( signup_data ){
       .catch( (res) => {
         var msg = res.body && res.body.message ? res.body.message : 'error';
         dispatch( signupError({ message: msg }) );
-      })
+      });
     return xhr;
   }
 }
@@ -163,7 +170,7 @@ export function getLoggedInUser( callback ){
       .then( ( res ) => {
         if( res.body )  dispatch( setMember( res.body ) );
         else            dispatch( setGuest() );
-      })
+      });
     return xhr;
   };
 }
@@ -176,7 +183,7 @@ export function fetchMatches( callback ){
       .end()
       .then( ( res ) => {
         if( res.body ) dispatch( getMatches( res.body ) );
-      })
+      });
     return xhr;
   };
 };
@@ -189,7 +196,20 @@ export function fetchMatchDetail( id,  callback ){
       .end()
       .then( ( res ) => {
         if( res.body ) dispatch( getMatchDetail( res.body ) );
-      })
+      });
+    return xhr;
+  };
+};
+
+export function fetchMyBets(callback) {
+  var xhr = null;
+  return function (dispatch) {
+    xhr = request
+      .get('/api/v1/bets')
+      .end()
+      .then( (res) => {
+        if (res.body) dispatch( getMyBets(res.body));
+      });
     return xhr;
   };
 };
