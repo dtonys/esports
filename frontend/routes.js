@@ -72,6 +72,14 @@ var routeMap = {
       () => { store.dispatch( actions.clearLoginState() ) }
     ]
   },
+  '/password/reset': {
+    access: guest_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/ResetPassword.js')) )
+      });
+    }
+  },
   '/signup': {
     access: guest_only,
     getComponent: () => {
