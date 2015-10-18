@@ -17,7 +17,8 @@ class Router extends React.Component{
     super(props);
     this.state = {
       component: '',
-      page_loading: true
+      page_loading: true,
+      params: {}
     };
     this.page_load_promises = [];
     util.bindAll( this, 'setupRoutes', 'getData' );
@@ -40,7 +41,7 @@ class Router extends React.Component{
   getData( ctx, next ){
     var component_promise = ctx.routeData.getComponent();
     var data_promise = ctx.routeData.getData ?
-                        ctx.routeData.getData :
+                        ctx.routeData.getData( ctx.params ) :
                         Promise.resolve(null);
 
     this.setState({
@@ -52,7 +53,8 @@ class Router extends React.Component{
       .then( values => {
         this.setState({
           component: values[0],
-          page_loading: false
+          page_loading: false,
+          params: ctx.params
         });
       });
   }
@@ -79,6 +81,7 @@ class Router extends React.Component{
         { RoutedComponent && !loading ?
           <RoutedComponent
             { ...this.props }
+            params={ this.state.params }
             loginRedirect={::this.loginRedirect} /> :
           null
         }

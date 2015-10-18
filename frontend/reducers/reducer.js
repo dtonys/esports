@@ -26,6 +26,11 @@ var initialState = fromJS({
     created: null,
     roles: [],
     email: null
+  },
+  matches: [],
+  matchDetail: {
+    bets: [],
+    match: {}
   }
 });
 
@@ -169,6 +174,26 @@ function settings( state, action )
   return state;
 }
 
+function matches( substate, action )
+{
+  switch( action.type ){
+    case 'GET_MATCHES_SUCCESS':
+      var _substate = fromJS( action.payload );
+      return _substate;
+  }
+  return substate;
+}
+
+function match( substate, action )
+{
+  switch( action.type ){
+    case 'GET_MATCH_DETAIL_SUCCESS':
+      var _substate = fromJS( action.payload );
+      return _substate;
+  }
+  return substate;
+}
+
 function reducer(state = initialState, action) {
   log('action >>', action.type, action.status, action.payload);
 
@@ -176,7 +201,9 @@ function reducer(state = initialState, action) {
     { reducer: login, keyPath: [] },
     { reducer: signup, keyPath: [] },
     { reducer: user, keyPath: [] },
-    { reducer: settings, keyPath: [] }
+    { reducer: settings, keyPath: [] },
+    { reducer: matches, keyPath: ['matches'] },
+    { reducer: match, keyPath: ['matchDetail'] }
   ];
 
   function reducerFn( state, item, index ){

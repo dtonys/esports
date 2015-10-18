@@ -53,7 +53,10 @@ var routeMap = {
       return new Promise( (res, rej) => {
         require.ensure([], () => res(require('components/Matches.js')) )
       });
-    }
+    },
+    getData: function(){
+      return store.dispatch( actions.fetchMatches() );
+    },
   },
   '/login': {
     access: guest_only,
@@ -124,11 +127,11 @@ var routeMap = {
     access: member_only,
     getComponent: () => {
       return new Promise( (res, rej) => {
-        require.ensure([], () => res(require('components/Matches.js')) )
+        require.ensure([], () => res(require('components/MatchDetail.js')) )
       });
     },
-    getData: function(){
-      return Promise.resolve(null);
+    getData: function( params ){
+      return store.dispatch( actions.fetchMatchDetail( params.id ) );
     }
   },
   // NotFound

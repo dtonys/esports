@@ -85,6 +85,21 @@ export function clearSignupState(){
   }
 }
 
+export function getMatches( payload ){
+  return {
+    type: 'GET_MATCHES_SUCCESS',
+    payload
+  }
+}
+
+export function getMatchDetail( payload ){
+  return {
+    type: 'GET_MATCH_DETAIL_SUCCESS',
+    payload
+  }
+}
+
+
 export function executeLogin( login_data ){
   var xhr = null;
   return function( dispatch ){
@@ -153,6 +168,28 @@ export function getLoggedInUser( callback ){
   };
 }
 
-export function getMatches( callback ){
+export function fetchMatches( callback ){
+  var xhr = null;
+  return function( dispatch ){
+    xhr = request
+      .get('/api/v1/matches')
+      .end()
+      .then( ( res ) => {
+        if( res.body ) dispatch( getMatches( res.body ) );
+      })
+    return xhr;
+  };
+};
 
+export function fetchMatchDetail( id,  callback ){
+  var xhr = null;
+  return function( dispatch ){
+    xhr = request
+      .get('/api/v1/matches/'+id)
+      .end()
+      .then( ( res ) => {
+        if( res.body ) dispatch( getMatchDetail( res.body ) );
+      })
+    return xhr;
+  };
 };
