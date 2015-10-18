@@ -24,11 +24,19 @@ var validPassword = function( path ){
     ],
     path
   );
-}
-
+};
 var validCurrent = validPassword( [ 'errors', 'currentPassword' ] );
 var validNew = validPassword( [ 'errors', 'newPassword' ] );
 var validVerify = validPassword( [ 'errors', 'verifyPassword' ] );
+
+var validEmail = validatorFactory(
+  [
+    validator.required,
+    validator.email,
+    validator.max( 100 )
+  ],
+  ['errors','email']
+);
 
 @reactMixin.decorate(forms)
 @reactMixin.decorate(LinkedStateMixin)
@@ -47,7 +55,8 @@ class Profile extends React.Component{
       errors: {
         currentPassword: [],
         newPassword: [],
-        verifyPassword: []
+        verifyPassword: [],
+        email: []
       },
       save_profile_success: false
     };
@@ -57,6 +66,11 @@ class Profile extends React.Component{
     e.preventDefault();
     var data = serialize( e.target, { hash: true } );
     // alert( JSON.stringify(data, null, 2) );
+
+    var data_valid = this.validateForm( data, [
+      validEmail(data.email)
+    ]);
+    if( !data_valid ) return;
 
     this.props.putMe( data )
       .then( () => {
@@ -123,7 +137,7 @@ class Profile extends React.Component{
     )
   }
   renderInput( { name, type, placeholder } ){
-    type = type || name;
+    type = type || 'text';
     placeholder = placeholder || name;
     return (
       <input  className="input"
@@ -134,9 +148,13 @@ class Profile extends React.Component{
     )
   }
   renderProfile(){
+    var email_err = _.get( this.state, 'errors.email' );
+    var has_email_err = email_err && email_err.length;
+
     return (
       <div className="">
-        <form className="generic-form container" onSubmit={ ::this.updateProfile }>
+        <form className="generic-form container clearfix"
+              onSubmit={ ::this.updateProfile } >
 
           <div className="form-title" > Edit your profile </div>
           <div className="margin-10"></div>
@@ -147,17 +165,26 @@ class Profile extends React.Component{
               </div> :
               null
           }
-          { this.renderInput({ name: "email"}) }
+          {
+            has_email_err ?
+              <div>
+                <div className="error input"> { email_err[0] } </div>
+                <div className="margin-10"></div>
+              </div> :
+              null
+          }
+          { this.renderInput({ name: "email", type: "email"}) }
           <div className="margin-10"></div>
-          <input type="submit" value="submit" className="action-item submit btn" />
+          <input type="submit" value="submit" className="action-item submit btn left-100" />
         </form>
       </div>
     )
   }
   renderSocial(){
+    // TODO: social
     return (
       <div className="">
-        <form className="generic-form container" >
+        <form className="generic-form container clearfix" >
           <div className="form-title" > Connect other social accounts: </div>
           <div className="social-options" >
             <img className="social-option-img" src="/img/facebook.png" />
@@ -180,14 +207,17 @@ class Profile extends React.Component{
     var verify_err = _.get( this.state, 'errors.verifyPassword' );
     var has_verify_err = verify_err && verify_err.length;
 
+    var server_error = _.get( this.state, 'password.error' );
+
     return (
       <div className="">
-        <form className="generic-form container" onSubmit={ ::this.updatePassword }>
+        <form className="generic-form container clearfix"
+              onSubmit={ ::this.updatePassword } >
           <div className="form-title" > Change Password </div>
-          { this.state.password.error ?
+          { server_error ?
               <div>
                 <div className="margin-10"></div>
-                <div className="error input"> { this.state.password.error } </div>
+                <div className="error input"> { server_error } </div>
               </div> :
               null
           }
@@ -244,7 +274,7 @@ class Profile extends React.Component{
             })
           }
           <div className="margin-10"></div>
-          <input type="submit" value="submit" className="action-item submit btn" />
+          <input type="submit" value="submit" className="action-item submit btn left-100" />
         </form>
       </div>
     )

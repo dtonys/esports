@@ -111,7 +111,7 @@ class Login extends React.Component{
                   // onBlur={ this.validateInputEvt.bind( this, validPassword ) }
                   valueLink={this.linkState('password')} />
           <div className="margin-10"></div>
-          <div className="action-items">
+          <div className="action-items clearfix">
             <input type="submit" value="submit" className="action-item submit btn left-50" />
             <div className="action-item link left-50"
               onClick={ () => page('/') }>
