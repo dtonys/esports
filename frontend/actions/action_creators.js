@@ -85,49 +85,55 @@ export function clearSignupState(){
   }
 }
 
-export function executeLogin( login_data, callback ){
+export function executeLogin( login_data ){
   var xhr = null;
   return function( dispatch ){
     if( xhr ) xhr.abort();
+    dispatch( postLogin( login_data ) );
     xhr = request
       .post('/api/v1/auth/signin')
       .send( login_data )
-      .end( (err, res) => {
-        if( !res.ok )   dispatch( loginError({ message: res.body.message }) );
-        else            dispatch( loginSuccess( res.body ) );
-        return callback( res.ok );
+      .end()
+      .then( (res) => {
+        dispatch( loginSuccess( res.body ) );
       })
-    dispatch( postLogin( login_data ) );
+      .catch( (res) => {
+        var msg = res.body && res.body.message ? res.body.message : 'error';
+        dispatch( loginError({ message: msg }) );
+      })
     return xhr;
   }
 }
 
-export function executeSignup( signup_data, callback ){
+export function executeSignup( signup_data ){
   var xhr = null;
   return function( dispatch ){
     if( xhr ) xhr.abort();
+    dispatch( postSignup( signup_data ) );
     xhr = request
       .post('/api/v1/auth/signup')
       .send( signup_data )
-      .end( (err, res) => {
-        if( !res.ok )   dispatch( signupError({ message: res.body.message }) );
-        else            dispatch( signupSuccess( res.body ) );
-        return callback( res.ok );
+      .end()
+      .then( (res) => {
+        dispatch( loginSuccess( res.body ) );
       })
-    dispatch( postSignup( signup_data ) );
+      .catch( (res) => {
+        var msg = res.body && res.body.message ? res.body.message : 'error';
+        dispatch( signupError({ message: msg }) );
+      })
     return xhr;
   }
 }
 
-export function executeLogout( callback ){
+export function executeLogout(){
   var xhr = null;
   return function( dispatch ){
     if( xhr ) xhr.abort();
     xhr = request
       .get('/api/v1/auth/signout')
-      .end( (err, res) => {
+      .end()
+      .then( () => {
         dispatch( logoutSuccess() );
-        callback(res.ok);
       });
     return xhr;
   };
@@ -138,10 +144,15 @@ export function getLoggedInUser( callback ){
   return function( dispatch ){
     xhr = request
       .get('/api/v1/users/me')
-      .end( (err, res) => {
+      .end()
+      .then( ( res ) => {
         if( res.body )  dispatch( setMember( res.body ) );
         else            dispatch( setGuest() );
-      });
+      })
     return xhr;
   };
 }
+
+export function getMatches( callback ){
+
+};

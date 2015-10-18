@@ -56,9 +56,8 @@ class Login extends React.Component{
     ]);
 
     if( data_valid ){
-      this.props.executeLogin(data, ( success ) => {
-        if( success )this.props.loginRedirect();
-      });
+      this.props.executeLogin( data )
+                .then( this.props.loginRedirect )
     }
   }
   render(){

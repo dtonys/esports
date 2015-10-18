@@ -49,14 +49,21 @@ var prevMatchUrl = null;
 var routeMap = {
   '/': {
     access: member_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Matches.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Matches.js')) )
+      });
     }
   },
   '/login': {
     access: guest_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Login.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Login.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
     },
     exit: [
       () => { store.dispatch( actions.clearLoginState() ) }
@@ -64,42 +71,77 @@ var routeMap = {
   },
   '/signup': {
     access: guest_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Signup.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Signup.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
     },
     exit: [
       () => { store.dispatch( actions.clearSignupState() ) }
     ]
   },
+  // Profile
   '/profile': {
     access: member_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Profile.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Profile.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
     }
   },
+  // Accounts
   '/accounts': {
     access: member_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Accounts.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Accounts.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
     }
   },
+  // Matches
   '/matches': {
     access: all,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Matches.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Matches.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
     }
   },
+  // Matches
   '/matches/:id': {
     access: member_only,
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/Matches.js')) )
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Matches.js')) )
+      });
+    },
+    getData: function(){
+      return Promise.resolve(null);
     }
   },
+  // NotFound
   '*': {
     access: {},
-    asyncRequire: ( cb ) => {
-      require.ensure([], () => cb(require('components/NotFound.js')) )
-    }
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/NotFound.js')) )
+      });
+    },
+    getData: function(){
+
+    },
   }
 };
 // add matchUrl and default exit function

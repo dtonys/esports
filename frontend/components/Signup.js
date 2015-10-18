@@ -63,9 +63,8 @@ class Signup extends React.Component{
       validPassword( data.password )
     ]);
     if( data_valid ){
-      this.props.executeSignup(data, ( success ) => {
-        if( success )this.props.loginRedirect();
-      });
+      this.props.executeSignup( data )
+                .then( this.props.loginRedirect )
     }
   }
   render(){

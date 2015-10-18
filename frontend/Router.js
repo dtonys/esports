@@ -38,35 +38,23 @@ class Router extends React.Component{
     page.start();
   }
   getData( ctx, next ){
-    // get Component + its dependencies async via webpack
-
-    var component_promise =
-      new Promise(function(res, rej){
-        ctx.routeData.asyncRequire( ( Component ) => {
-          res(Component);
-        });
-      });
+    var component_promise = ctx.routeData.getComponent();
+    var data_promise = ctx.routeData.getData ?
+                        ctx.routeData.getData :
+                        Promise.resolve(null);
 
     this.setState({
       page_loading: true
     });
 
-    component_promise.then( Component => {
-      this.setState({
-        component: Component,
-        page_loading: false
+    Promise
+      .all([ component_promise, data_promise ])
+      .then( values => {
+        this.setState({
+          component: values[0],
+          page_loading: false
+        });
       });
-    });
-
-    // Promise
-    //   .all( [component_promise] )
-    //   .then( values => {
-    //     this.setState({
-    //       component: values[1],
-    //       page_loading: false
-    //     });
-    //   });
-
   }
   loginRedirect(){
     var redirect_to = cookies.get('redirect_to');
@@ -74,9 +62,10 @@ class Router extends React.Component{
     return page('/');
   }
   logout(){
-    this.props.executeLogout( (success) => {
-      if( success ) page('/login');
-    });
+    this.props.executeLogout()
+              .then( () => {
+                page('/login');
+              });
   }
   render(){
     var loading = this.state.page_loading ?
