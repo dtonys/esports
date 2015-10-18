@@ -139,16 +139,30 @@ function user( state, action ){
   return state;
 }
 
+// TODO: read roles from data, deal with admin
 function settings( state, action )
 {
   switch( action.type ){
     case 'SET_SETTINGS':
       var _state = fromJS( action.payload );
+      // logged in?
       if( _state.get('user') ){
-        _state = _state
-                  .set('guest', false )
-                  .set('member', true )
-                  .set('admin', false )
+        _state = _state.merge(
+          fromJS({
+            guest: false,
+            member: true,
+            admin: false
+          })
+        );
+      }
+      else{
+        _state = _state.merge(
+          fromJS({
+            guest: true,
+            member: false,
+            admin: false
+          })
+        );
       }
       return state.merge( _state );
   }
@@ -168,7 +182,7 @@ function reducer(state = initialState, action) {
   function reducerFn( state, item, index ){
     var _substate;
     var { reducer, keyPath } = item;
-    if( !keyPath.length )
+    if( !keyPath || !keyPath.length )
       return reducer( state, action );
     else{
       _substate = state.getIn( keyPath );
