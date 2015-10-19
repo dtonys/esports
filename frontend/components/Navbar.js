@@ -26,13 +26,16 @@ class Navbar extends React.Component{
     var loggedIn = this.props.member;
     return (
       <div className="fixed-navbar" >
-        <div className="navbar-left f-left phone-tablet link" onClick={ () => page('/') } >
-          <div className="logo-text"> ESports </div>
-          <div className="logo-icon"> D </div>
-        </div>
         <div className="navbar-center desktop-only link" onClick={ () => page('/') } >
           <div className="logo-text"> ESports </div>
           <div className="logo-icon"> D </div>
+        </div>
+        <div className="icon-link navbar-left phone-tablet f-left" onClick={ () => page('/') } >
+          <div className="logo-icon"> D </div>
+        </div>
+        <div className="navbar-left f-left stats" onClick={ () => page('/') } >
+          <div className="stat-text"> Address: { this.props.user.dogecoinBlioAddress } </div>
+          <div className="stat-text"> Balance: { this.props.user.dogeBalance } </div>
         </div>
         { loggedIn ? this.renderLoggedIn() : this.renderLoggedOut() }
       </div>
@@ -49,6 +52,10 @@ class Navbar extends React.Component{
           { this.state.dropdown_open ?
             <div className="dropdown-items">
               <div  className="link dropdown-item profile"
+                    onClick={ () => { this.closeDropDown(); alert('todo'); } }>
+                Withdraw
+              </div>
+              <div  className="link dropdown-item profile"
                     onClick={ () => { this.closeDropDown(); page('/profile'); } }>
                 Settings
               </div>
@@ -60,6 +67,7 @@ class Navbar extends React.Component{
             null
           }
         </div>
+        <a className="link navbar-item right-45" onClick={ () => page('/mybets') } > Bets </a>
       </div>
     )
   }

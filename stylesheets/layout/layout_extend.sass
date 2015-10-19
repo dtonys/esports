@@ -12,10 +12,23 @@
   background-color: $color-primary-1
 .navbar-right
   height: 100%
-  width: 200px
+  width: 230px
+  background: white
+.stats
+  text-align: left
+  width: 100px
+  white-space: nowrap
+  word-break: break-word
+.stat-text
+  font-size: 12px
+  color: black
+  // display: inline-block
 .navbar-left
   height: 100%
   padding: 10px
+.icon-link
+  width: 45px
+  cursor: pointer
 .navbar-center
   position: absolute
   left: 50%
@@ -42,6 +55,7 @@
 
 .navbar-item
   border: solid black 1px
+  border-bottom: none
   height: 100%
   padding-top: 18px
   &:hover
@@ -79,5 +93,5 @@
 
 @media #{$mobile_phone}
   .navbar-right
-    width: 140px
+    width: 230px
 @media #{$mobile_tablet}
