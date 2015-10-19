@@ -27,11 +27,9 @@ class Sample extends React.Component{
   getData( e ){
     var p = this.props.getMatches();
     p.then( ( res ) => {
-      console.log( res );
+      console.log( res.body );
+      alert( JSON.stringify(res.body, null, 2) );
     });
-        // .then( ( res ) => {
-        //   alert( JSON.stringify( res.body, null, 2 ) )
-        // });
   }
   render(){
     console.log( this.state );

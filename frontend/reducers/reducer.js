@@ -1,5 +1,4 @@
 import {Map, List, fromJS} from 'immutable';
-import request from 'superagent';
 
 var log = console.log.bind(console, 'reducer ::');
 

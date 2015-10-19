@@ -132,7 +132,9 @@ class Profile extends React.Component{
 
     return (
       <div className="profile-page-container" >
-        { renderFn() }
+        { this.renderProfile() }
+        <div className="margin-10"></div>
+        { this.renderPassword() }
       </div>
     )
   }
@@ -156,7 +158,7 @@ class Profile extends React.Component{
         <form className="generic-form container clearfix"
               onSubmit={ ::this.updateProfile } >
 
-          <div className="form-title" > Edit your profile </div>
+          <div className="form-title" > Change Email </div>
           <div className="margin-10"></div>
           { this.state.save_profile_success ?
               <div>

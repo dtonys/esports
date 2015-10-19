@@ -120,14 +120,16 @@ export function getMyBets(payload) {
 
 // APIs
 export function postLogin( login_data ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    if( xhr ) xhr.abort();
+    if( xhr_promise ) xhr_promise.abort();
     dispatch( _postLogin( login_data ) );
-    xhr = request
+    xhr_promise = request
       .post('/api/v1/auth/signin')
       .send( login_data )
-      .end()
+      .end();
+
+    xhr_promise
       .then( (res) => {
         dispatch( _loginSuccess( res.body ) );
       })
@@ -135,19 +137,20 @@ export function postLogin( login_data ){
         var msg = res.body && res.body.message ? res.body.message : 'error';
         dispatch( _loginError({ message: msg }) );
       })
-    return xhr;
+    return xhr_promise;
   }
 }
 
 export function postSignup( signup_data ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    if( xhr ) xhr.abort();
+    if( xhr_promise ) xhr_promise.abort();
     dispatch( _postSignup( signup_data ) );
-    xhr = request
+    xhr_promise = request
       .post('/api/v1/auth/signup')
       .send( signup_data )
-      .end()
+      .end();
+    xhr_promise
       .then( (res) => {
         dispatch( _loginSuccess( res.body ) );
       })
@@ -155,99 +158,106 @@ export function postSignup( signup_data ){
         var msg = res.body && res.body.message ? res.body.message : 'error';
         dispatch( _signupError({ message: msg }) );
       })
-    return xhr;
+    return xhr_promise;
   }
 }
 
 export function getLogout(){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    if( xhr ) xhr.abort();
-    xhr = request
+    if( xhr_promise ) xhr_promise.abort();
+    xhr_promise = request
       .get('/api/v1/auth/signout')
-      .end()
+      .end();
+    xhr_promise
       .then( () => {
         dispatch( _logoutSuccess() );
       });
-    return xhr;
+    return xhr_promise;
   };
 };
 
 export function getMe( callback ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    xhr = request
+    xhr_promise = request
       .get('/api/v1/users/me')
-      .end()
+      .end();
+    xhr_promise
       .then( ( res ) => {
         if( res.body )  dispatch( _setMember( res.body ) );
         else            dispatch( _setGuest() );
       })
-    return xhr;
+    return xhr_promise;
   };
 }
 
 export function putMe( user_data ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    xhr = request
+    xhr_promise = request
       .put('/api/v1/users')
       .send( user_data )
-      .end()
+      .end();
+    xhr_promise
       .then( ( res ) => {
         if( res.body )  dispatch( _updateMe( res.body ) );
       })
-    return xhr;
+    return xhr_promise;
   }
 }
 
 export function postMePassword( password_data ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    xhr = request
+    xhr_promise = request
       .post('/api/v1/users/password')
       .send( password_data )
-      .end()
-    return xhr;
+      .end();
+    return xhr_promise;
   }
 }
 
 export function getMatches( callback ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    xhr = request
+    xhr_promise = request
       .get('/api/v1/matches')
-      .end()
-      .then( ( res ) => {
-        if( res.body ) dispatch( _getMatches( res.body ) );
-      })
-    return xhr;
+      .end();
+
+    xhr_promise.then( ( res ) => {
+      if( res.body ) dispatch( _getMatches( res.body ) );
+    });
+
+    return xhr_promise;
   };
 };
 
 export function getMatchDetail( id,  callback ){
-  var xhr = null;
+  var xhr_promise = null;
   return function( dispatch ){
-    xhr = request
+    xhr_promise = request
       .get('/api/v1/matches/'+id)
-      .end()
+      .end();
+    xhr_promise
       .then( ( res ) => {
         if( res.body ) dispatch( _getMatchDetail( res.body ) );
       })
-    return xhr;
+    return xhr_promise;
   };
 };
 
 export function fetchMyBets(callback) {
-  var xhr = null;
+  var xhr_promise = null;
   return function (dispatch) {
-    xhr = request
+    xhr_promise = request
       .get('/api/v1/bets')
-      .end()
+      .end();
+    xhr_promise
       .then( (res) => {
         if (res.body) dispatch( getMyBets(res.body));
       });
-    return xhr;
+    return xhr_promise;
   };
 };
 

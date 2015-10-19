@@ -50,15 +50,7 @@ class Navbar extends React.Component{
             <div className="dropdown-items">
               <div  className="link dropdown-item profile"
                     onClick={ () => { this.closeDropDown(); page('/profile'); } }>
-                Edit Profile
-              </div>
-              <div  className="link dropdown-item social"
-                    onClick={ () => { this.closeDropDown(); page('/profile/accounts'); } } >
-                Social Accounts
-              </div>
-              <div  className="link dropdown-item social"
-                    onClick={ () => { this.closeDropDown(); page('/profile/password'); } } >
-                Change Password
+                Settings
               </div>
               <div  className="link dropdown-item logout"
                     onClick={ () => { this.closeDropDown(); this.props.logout(); } } >
