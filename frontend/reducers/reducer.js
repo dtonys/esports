@@ -31,7 +31,8 @@ var initialState = fromJS({
   matchDetail: {
     bets: [],
     match: {}
-  }
+  },
+  myBets: []
 });
 
 function login( state, action ){
@@ -201,6 +202,7 @@ function mybets(substate, action)
       var _substate = fromJS(action.payload);
       return _substate;
   }
+  return substate;
 }
 
 function reducer(state = initialState, action) {

@@ -5,7 +5,11 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/action_creators.js';
 
 class MyBets extends React.Component{
+  constructor( props ){
+    super( props );
+  }
   render(){
+    console.log( this.props.myBets );
     return (
       <div className="mybets-page-container" >
         <div className="header">
@@ -13,7 +17,7 @@ class MyBets extends React.Component{
         </div>
         <div className="bet-items">
           {
-            this.props.bets.map( ( item ) => {
+            this.props.myBets.map( ( item ) => {
               return (
                 <div  className="bet-item"
                       key={item._id} >
@@ -35,7 +39,7 @@ class MyBets extends React.Component{
 }
 var mapStateToProps = function( storeState ){
   return {
-    bets: storeState.get('bets').toJS()
+    myBets: storeState.get('myBets').toJS()
   }
 };
 
