@@ -172,6 +172,17 @@ var routeMap = {
       return store.dispatch( actions.getMatchDetail( params.id ) );
     }
   },
+  '/mybets': {
+    access: member_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/MyBets.js')))
+      });
+    },
+    getData: function(params){
+      return store.dispatch( actions.fetchMyBets() );
+    }
+  },
   // NotFound
   '*': {
     access: {},

@@ -111,6 +111,12 @@ export function clearSignupState(){
     type: 'CLEAR_SIGNUP_STATE'
   }
 }
+export function getMyBets(payload) {
+  return {
+    type: 'GET_MY_BETS_SUCCESS',
+    payload
+  }
+};
 
 // APIs
 export function postLogin( login_data ){
@@ -228,6 +234,19 @@ export function getMatchDetail( id,  callback ){
       .then( ( res ) => {
         if( res.body ) dispatch( _getMatchDetail( res.body ) );
       })
+    return xhr;
+  };
+};
+
+export function fetchMyBets(callback) {
+  var xhr = null;
+  return function (dispatch) {
+    xhr = request
+      .get('/api/v1/bets')
+      .end()
+      .then( (res) => {
+        if (res.body) dispatch( getMyBets(res.body));
+      });
     return xhr;
   };
 };
