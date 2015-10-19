@@ -47,6 +47,25 @@ var prevMatchUrl = null;
 // assume we should match only one route per pass
 // webpack doesn't seem to work properly when variable passed into require
 var routeMap = {
+  // Sample Route
+  '/sample': {
+    // define { guest, member, admin } access, used by authFilter - REQUIRED
+    access: { guest: true, member: true, admin: true },
+    // load Page Component, async via webpack - REQUIRED
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Sample.js')) )
+      });
+    },
+    // load data before showing module - OPTIONAL
+    getData: function( params ){
+      return Promise.resolve(null);
+    },
+    // perform cleanup actions on route exit - OPTIONAL
+    exit: [
+      () => { console.log( 'exit sample' ) }
+    ]
+  },
   '/': {
     access: member_only,
     getComponent: () => {
