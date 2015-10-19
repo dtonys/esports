@@ -223,7 +223,7 @@ function reducer(state = initialState, action) {
     { reducer: settings, keyPath: [] },
     { reducer: matches, keyPath: ['matches'] },
     { reducer: match, keyPath: ['matchDetail'] },
-    { reducer: me, keyPath: ['user'] }
+    { reducer: me, keyPath: ['user'] },
     { reducer: mybets, keyPath: ['myBets'] }
   ];
 
