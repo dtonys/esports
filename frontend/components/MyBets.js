@@ -11,15 +11,15 @@ class MyBets extends React.Component{
   render(){
     console.log( this.props.myBets );
     return (
-      <div className="mybets-page-container" >
+      <div className="matches-page-container" >
         <div className="header">
           My Bets
         </div>
-        <div className="bet-items">
+        <div className="match-items">
           {
             this.props.myBets.map( ( item ) => {
               return (
-                <div  className="bet-item"
+                <div  className="match-item"
                       key={item._id} >
                   <div className="start-date">
                       Bet Amount:

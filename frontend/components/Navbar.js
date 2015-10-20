@@ -42,7 +42,7 @@ class Navbar extends React.Component{
     var open = this.state.dropdown_open ? 'open' : '';
     return (
       <span>
-        <div className="navbar-left f-left stats" onClick={ () => page('/') } >
+        <div className="navbar-left f-left stats">
           <div className="stat-text"> Address: { this.props.user.dogecoinBlioAddress } </div>
           <div className="stat-text"> Balance: { this.props.user.dogeBalance } </div>
         </div>
@@ -54,7 +54,7 @@ class Navbar extends React.Component{
             { this.state.dropdown_open ?
               <div className="dropdown-items">
                 <div  className="link dropdown-item profile"
-                      onClick={ () => { this.closeDropDown(); alert('todo'); } }>
+                      onClick={ () => { this.closeDropDown(); page('/withdraw'); } }>
                   Withdraw
                 </div>
                 <div  className="link dropdown-item profile"

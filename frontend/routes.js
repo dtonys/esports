@@ -77,6 +77,15 @@ var routeMap = {
       });
     }
   },
+  // Sample Admin Route Route
+  '/withdraw': {
+    access: member_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Withdraw.js')) )
+      });
+    }
+  },
   '/': {
     access: member_only,
     getComponent: () => {
