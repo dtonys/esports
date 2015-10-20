@@ -158,8 +158,19 @@ function settings( state, action )
   switch( action.type ){
     case 'SET_SETTINGS':
       var _state = fromJS( action.payload );
-      // logged in?
-      if( _state.get('user') ){
+      var member = _state.getIn(['user', 'roles']).includes('user');
+      var admin = _state.getIn(['user', 'roles']).includes('admin');
+      // logged in
+      if( admin ){
+        _state = _state.merge(
+          fromJS({
+            guest: false,
+            member: true,
+            admin: true
+          })
+        );
+      }
+      else if( member ){
         _state = _state.merge(
           fromJS({
             guest: false,
@@ -168,6 +179,7 @@ function settings( state, action )
           })
         );
       }
+      // logged out
       else{
         _state = _state.merge(
           fromJS({

@@ -66,6 +66,17 @@ var routeMap = {
       () => { console.log( 'exit sample' ) }
     ]
   },
+  // Sample Admin Route Route
+  '/admin': {
+    // define { guest, member, admin } access, used by authFilter - REQUIRED
+    access: admin_only,
+    // load Page Component, async via webpack - REQUIRED
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/Admin.js')) )
+      });
+    }
+  },
   '/': {
     access: member_only,
     getComponent: () => {
@@ -243,14 +254,14 @@ export function authFilter( ctx, next ){
       return page.redirect( access.guest )
     }
   }
-  if( ctx.admin ){
+  else if( ctx.admin ){
     if( access.member !== true &&
         access.admin  !== true ){
       log(`${ctx.routeData.matchUrl} >> redirect >> ${access.admin}`);
       return page.redirect( access.admin );
     }
   }
-  if( ctx.member ){
+  else if( ctx.member ){
     if( access.member !== true ){
       log(`${ctx.routeData.matchUrl} >> redirect >> ${access.member}`);
       return page.redirect( access.member )
