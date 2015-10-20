@@ -33,7 +33,7 @@ var guest_only = {
 var member_only = {
   guest: default_guest_redirect,
   member: true,
-  admin: true,
+  admin: true
 };
 var admin_only = {
   guest: default_guest_redirect,
@@ -213,7 +213,7 @@ var routeMap = {
     },
     getData: function(){
 
-    },
+    }
   }
 };
 for( var url in routeMap ){
@@ -245,13 +245,13 @@ export function extendCtx(){
       if( !ctx.routeData ) ctx.routeData = routeData;
       next();
     }.bind(this, routeMap[url]) );;
-  };
+  }
 }
 
 export function logRoute( ctx, next ){
   log( 'route >>', ctx.path );
   next();
-};
+}
 
 export function authFilter( ctx, next ){
   var access = ctx.routeData.access;
@@ -277,7 +277,7 @@ export function authFilter( ctx, next ){
     }
   }
   next();
-};
+}
 
 // abort route if our url is not changing
 export function checkAbort( ctx, next ){
@@ -287,7 +287,7 @@ export function checkAbort( ctx, next ){
   }
   prevPath = ctx.path;
   next();
-};
+}
 
 // call exit function before changing to route
 export function doExit( ctx, next ){

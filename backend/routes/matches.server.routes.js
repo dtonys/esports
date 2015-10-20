@@ -15,12 +15,11 @@ module.exports = function(app) {
 		.put(matches.update)//users.requiresLogin, matches.hasAuthorization,
 		.delete(users.requiresLogin, matches.hasAuthorization, matches.delete);
 
-	app.route('/api/v1/resolve/:matchId/:winnerNum')
-		.get(users.isAdmin, matches.resolve);
+	app.route('/api/v1/resolve/:matchId')
+		.post(users.isAdmin, matches.resolve);
 
 	// Finish by binding the Match middleware
 	app.param('matchId', matches.matchByID);
-	app.param('winnerNum', matches.winnerNum);
 
 	//app.param('betsByMatch', bets.betsOfMatch);
 };

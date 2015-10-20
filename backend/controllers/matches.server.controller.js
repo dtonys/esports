@@ -72,11 +72,14 @@ exports.read = function(req, res) {
 exports.resolve = function(req, res) {
 	console.log('I AM RESOLVING!!!!');
 
+  //Winner number
+  //TODO: check to see if valid winner number.
+  //TODO: wait for X number of people to submit an entry?
+  var matchres = req.body.winnerNum;
+
 	var the_result = {};
 	the_result.match = req.match;
 	//console.log(req.match);
-
-	var matchres = req.resultInput;
 
 	var match = req.match ;
 	match.result = matchres;
@@ -235,22 +238,6 @@ exports.matchByID = function(req, res, next, id) {
 			req.match = match ;
 			next();
 		});
-};
-
-exports.winnerNum = function(req, res, next, winnerNum) {
-
-	//console.log('WINNER NUM!!!!!');
-	//console.log('winnernum: ' + winnerNum);
-
-
-	//TODO: check to see if valid winner number.
-
-
-	//TODO: wait for X number of people to submit an entry?
-
-	req.resultInput = parseInt(winnerNum);
-	next();
-
 };
 
 /**
