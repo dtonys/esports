@@ -34,10 +34,9 @@
       box-shadow: 0px 0px 4px green inset
 
 .btn
-  height: 40px
+  min-height: 40px
   padding: 10px 10px 10px 10px
   background: white
-  color: black
   border: 0
   border: solid black 1px
   border-radius: 5px
@@ -48,13 +47,17 @@
   outline: none
 
   box-shadow: 0px 0px 4px #999
-  transition: background 0.1s
 
   &:hover
     box-shadow: 0px 0px 4px #000
   &:active
     background: #EEE
-    transition: transform 0.0s
+  &.disabled
+    background: #EEE
+    box-shadow: none
+    cursor: default
+    &:active
+      background: #EEE
 
 .select
   height: 40px
