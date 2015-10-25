@@ -216,7 +216,7 @@ function match( substate, action )
   return substate;
 }
 
-function mybets(substate, action)
+function mybets( substate, action )
 {
   switch (action.type){
     case 'GET_MY_BETS_SUCCESS':
@@ -226,18 +226,34 @@ function mybets(substate, action)
   return substate;
 }
 
+// put misc actions here
+function core( state, action ){
+  switch (action.type){
+    // TODO: update matchDetail list => add this bet
+    case 'POST_BET_SUCCESS':
+      return state;
+    // TODO: Error can be handled by component
+    // case 'POST_BET_ERROR':
+    //   return state;
+  }
+  return state;
+}
+
 function reducer(state = initialState, action) {
   log('action >>', action.type, action.status, action.payload);
 
   var reducers = [
-    { reducer: login, keyPath: [] },
-    { reducer: signup, keyPath: [] },
-    { reducer: setUser, keyPath: [] },
-    { reducer: settings, keyPath: [] },
+    // need access to whole state obj, can modify any part of it
+    { reducer: core },
+    { reducer: login },
+    { reducer: signup },
+    { reducer: setUser },
+    { reducer: settings },
+    // keyPath is path to sub_obj, only modify that
     { reducer: matches, keyPath: ['matches'] },
     { reducer: match, keyPath: ['matchDetail'] },
     { reducer: me, keyPath: ['user'] },
-    { reducer: mybets, keyPath: ['myBets'] }
+    { reducer: mybets, keyPath: ['myBets'] },
   ];
 
   function reducerFn( state, item, index ){

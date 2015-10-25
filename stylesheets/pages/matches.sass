@@ -35,32 +35,21 @@
       border-top: solid black 2px
   .amt
     width: 100%
+    min-height: 45px
   .for
     font-size: 24px
+    margin-top: 30px
   .choose-team
     min-height: 40px
-    border: solid black 2px
     border-radius: 5px
     position: relative
     overflow: hidden
     font-size: 18px
   .team-1, .team-2
     padding-top: 5px
-    position: absolute
-    background: white
-    border-radius: 0
-    border: none
-    &:hover
-      box-shadow: 0px -1px 3px 1px #666 inset
-  .team-1
-    border-right: solid black 2px
-    left: 0
-    width: 50%
-    height: 100%
-  .team-2
-    left: 50%
-    width: 50%
-    height: 100%
+    &.chosen
+      background: black
+      color: white
   .section-right
     position: absolute
     right: 0
@@ -84,6 +73,14 @@
         color: black
       &.bet-closed
         color: black
+  .bet-error
+    background: white
+    display: inline-block
+    border-radius: 5px
+    padding: 5px
+  .bet-success-msg
+    color: green
+    font-size: 28px
   @media #{$mobile_phone}
     .headline, .bet-status
       font-size: 18px

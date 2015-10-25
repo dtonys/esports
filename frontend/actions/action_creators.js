@@ -90,6 +90,20 @@ function _getMatchDetail( payload ){
   }
 }
 
+function _postBetSuccess( payload ){
+  return {
+    type: 'POST_BET_SUCCESS',
+    payload
+  }
+}
+
+function _postBetError( payload ){
+  return {
+    type: 'POST_BET_ERROR',
+    payload
+  }
+}
+
 /**
  * Public
  */
@@ -257,6 +271,23 @@ export function fetchMyBets(callback) {
       .then( (res) => {
         if (res.body) dispatch( getMyBets(res.body));
       });
+    return xhr_promise;
+  };
+};
+
+export function postBet( bet_data ) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    dispatch( _postBetSuccess( bet_data ) );
+    xhr_promise = Promise.resolve();
+    // xhr_promise = request
+    //   .post('/api/v1/bets')
+    //   .send( bet_data )
+    //   .end();
+    // xhr_promise
+    //   .then( (res) => {
+    //     if (res.body) dispatch( _postBet(res.body));
+    //   });
     return xhr_promise;
   };
 };

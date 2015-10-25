@@ -55,6 +55,15 @@ validator.min = function(limit){
   return _min;
 }
 
+/**
+ * validate.enforce
+ *   return string with invalid characters removed
+ */
+var enforce = {};
+enforce.integer = function( str ){
+  return str.replace(/\D+|\s+/g, '');
+};
+
 // attach error messages
 for( let key in validator ){
   validator[key].error_message = error_map[key] ? error_map[key]() : 'error';
@@ -70,4 +79,4 @@ function validatorFactory( validators, error_path ){
   }
 };
 
-export { validator, runValidators, validatorFactory }
+export { validator, enforce, runValidators, validatorFactory }
