@@ -7,7 +7,6 @@ import * as actions from '../actions/action_creators.js';
 import { enforce } from '../helpers/validate.js';
 
 import serialize from 'form-serialize';
-
 import moment from 'moment';
 
 // Bet Status
@@ -25,7 +24,7 @@ class MatchDetail extends React.Component{
     this.bet_status = BET_CAN_DO;
     this.match_status = MATCH_READY;
     this.state = {
-      betting: false,
+      betting: this.props.route_ctx.queryparams['bet'] ? true : false,
       prediction: 0,
       amount: '',
       errors: [],
