@@ -29,7 +29,8 @@ class MatchDetail extends React.Component{
       prediction: 0,
       amount: '',
       errors: [],
-      bet_success: false
+      bet_success: false,
+      bets: this.props.matchDetail.bets
     };
   }
   openBet( e ){
@@ -56,7 +57,7 @@ class MatchDetail extends React.Component{
     data.match = this.props.matchDetail.match._id;
     if( this.state.prediction ) data.prediction = this.state.prediction;
     // validate
-    if( !data.prediction )  errors.push('Selet a team to bet on');
+    if( !data.prediction )  errors.push('Select a team to bet on');
     if( !data.amount )      errors.push('Input a valid amount');
     if( errors.length ){
       this.setState({
@@ -66,24 +67,30 @@ class MatchDetail extends React.Component{
     }
     // fire API
     this.props.postBet( data )
-              .then( () => {
-                alert(' post bet success ');
+              .then( ( res ) => {
+                var bet = res.body;
+                bet.user = {
+                  username: this.props.user.username
+                };
                 this.setState({
-                  bet_success: true
+                  bet_success: true,
+                  bets: [bet].concat( this.state.bets )
+                })
+              })
+              .catch( (res) => {
+                var msg = _.get( res, 'response.body.message' ) || 'error';
+                this.setState({
+                  errors: [msg]
                 })
               });
   }
   render(){
     var match = this.props.matchDetail.match;
+    var bets = this.state.bets;
     var startMoment = moment(match.matchStartTime);
     // m.format("dddd, MMMM Do YYYY, h:mm:ss a");
-
     var betting = this.state.betting;
-
     var _disabled = (this.bet_status === BET_DONE || this.bet_status === BET_CLOSED) ? 'disabled' : '';
-
-    var team1_chosen = this.state.prediction === 1;
-    var team2_chosen = this.state.prediction === 2;
 
     return (
       <div className="matches-page-container" >
@@ -160,59 +167,109 @@ class MatchDetail extends React.Component{
         { betting ?
           <div className="section _2 clearfix">
             { this.state.bet_success ?
-              <div className="bet-success-msg">
-                Bet Post Success!
-              </div>
-              :
-              <form onSubmit={ ::this.submitForm } >
-                { this.state.errors.length ?
-                  <div>
-                    <div className="bet-error error left-100"> { this.state.errors[0] } </div>
-                    <div className="left-100 margin-10"></div>
-                  </div>
-                  :
-                  null
-                }
-                <div className="left-48 choose-team">
-                  <div  className={`btn team-1 left-100 ${team1_chosen ? 'chosen' : ''}`}
-                        onClick={ this.selectTeam.bind(this, 1) } >
-                    { match.team1name }
-                  </div>
-                  <div className="left-100 margin-10"></div>
-                  <div  className={`btn team-2 left-100 ${team2_chosen ? 'chosen' : ''}`}
-                        onClick={ this.selectTeam.bind(this, 2) }>
-                    { match.team2name }
-                  </div>
-                </div>
-                <div className="left-4"> &nbsp; </div>
-                <div className="left-48">
-                  <input  className="input amt"
-                            type="number"
-                            placeholder="Bet amount"
-                            name="amount"
-                            value={ this.state.amount }
-                            onChange={ ::this.setAmount } />
-                  <div className="left-100 margin-10"></div>
-                  <input  className="left-100 btn"
-                          type="submit"
-                          value="Submit Bet"/>
-                </div>
-              </form>
+                this.renderPostBetSuccess() :
+                this.renderPostBetForm()
             }
           </div>
           :
           null
         }
-        <div className="section _3">
-          Match
+        { console.log( "bets.length ", bets.length ) }
+        { bets.length ?
+            <div className="section _3">
+              { this.renderCurrentBets() }
+            </div> :
+            null
+        }
+        {/*
+            <pre>
+              { JSON.stringify( this.props.matchDetail, null, 2 ) }
+            </pre>
+        */}
+
+      </div>
+    )
+  }
+  renderPostBetSuccess(){
+    return (
+      <div className="bet-success-msg">
+        Bet Post Success!
+      </div>
+    );
+  }
+  renderPostBetForm(){
+    var match = this.props.matchDetail.match;
+    return (
+      <form onSubmit={ ::this.submitForm } >
+        { this.state.errors.length ?
+          <div>
+            <div className="bet-error error left-100"> { this.state.errors[0] } </div>
+            <div className="left-100 margin-10"></div>
+          </div>
+          :
+          null
+        }
+        <div className="left-48 choose-team">
+          <div  className={`btn team-1 left-100 ${this.state.prediction === 1 ? 'chosen' : ''}`}
+                onClick={ this.selectTeam.bind(this, 1) } >
+            { match.team1name }
+          </div>
+          <div className="left-100 margin-10"></div>
+          <div  className={`btn team-2 left-100 ${this.state.prediction === 2 ? 'chosen' : ''}`}
+                onClick={ this.selectTeam.bind(this, 2) }>
+            { match.team2name }
+          </div>
         </div>
-        <pre>
-          { JSON.stringify( this.props.matchDetail, null, 2 ) }
-        </pre>
+        <div className="left-4"> &nbsp; </div>
+        <div className="left-48">
+          <input  className="input amt"
+                    type="number"
+                    placeholder="Bet amount"
+                    name="amount"
+                    value={ this.state.amount }
+                    onChange={ ::this.setAmount } />
+          <div className="left-100 margin-10"></div>
+          <input  className="left-100 btn"
+                  type="submit"
+                  value="Submit Bet"/>
+        </div>
+      </form>
+    );
+  }
+  renderCurrentBets(){
+    var bets = this.state.bets;
+    var teams = [
+      null,
+      this.props.matchDetail.match.team1name,
+      this.props.matchDetail.match.team2name
+    ];
+    return (
+      <div>
+        <div className="section-header clearfix">
+          <div className="current-bets align-left left-80" >
+            { bets.length } open bets
+          </div>
+        </div>
+        <div className="section-content">
+          <div className="bet-list">
+            {
+              bets.map( ( bet ) => {
+                return (
+                  <div className="bet-item" key={ bet._id } >
+                    { bet.amount } on { teams[bet.prediction] } by { bet.user.username }
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
+        <div className=""></div>
       </div>
     )
   }
 }
+
+
 var mapStateToProps = function( storeState ){
   return {
     matchDetail: storeState.get('matchDetail').toJS()

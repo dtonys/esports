@@ -229,12 +229,18 @@ function mybets( substate, action )
 // put misc actions here
 function core( state, action ){
   switch (action.type){
-    // TODO: update matchDetail list => add this bet
     case 'POST_BET_SUCCESS':
-      return state;
+      var response = fromJS( action.payload );
+      // subtract amount from balance
+      var _state = fromJS({
+        user: {
+          dogeBalance: state.getIn(['user', 'dogeBalance']) - response.get('amount')
+        }
+      });
+      return state.mergeDeep( _state );
     // TODO: Error can be handled by component
-    // case 'POST_BET_ERROR':
-    //   return state;
+    case 'POST_BET_ERROR':
+      return state;
   }
   return state;
 }
