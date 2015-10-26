@@ -67,17 +67,19 @@ var routeMap = {
     ]
   },
   // Sample Admin Route Route
-  '/admin': {
+  '/adminpanel': {
     // define { guest, member, admin } access, used by authFilter - REQUIRED
     access: admin_only,
     // load Page Component, async via webpack - REQUIRED
     getComponent: () => {
       return new Promise( (res, rej) => {
-        require.ensure([], () => res(require('components/Admin.js')) )
+        require.ensure([], () => res(require('components/AdminPanel.js')) )
       });
-    }
+    },
+    getData: function(){
+      return store.dispatch( actions.getAdminPanel() );
+    },
   },
-  // Sample Admin Route Route
   '/withdraw': {
     access: member_only,
     getComponent: () => {

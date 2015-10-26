@@ -105,6 +105,13 @@ function _postBetError( payload ){
   }
 }
 
+function _getAdminPanel( payload ){
+  return {
+    type: 'GET_ADMIN_PANEL_SUCCESS',
+    payload
+  }
+}
+
 /**
  * Public
  */
@@ -272,6 +279,22 @@ export function fetchMyBets(callback) {
       .then( (res) => {
         if (res.body) dispatch( getMyBets(res.body));
       });
+    return xhr_promise;
+  };
+};
+
+
+export function getAdminPanel( callback ){
+  var xhr_promise = null;
+  return function( dispatch ){
+    xhr_promise = request
+      .get('/api/v1/matches')
+      .end();
+
+    xhr_promise.then( ( res ) => {
+      if( res.body ) dispatch( _getAdminPanel( res.body ) );
+    });
+
     return xhr_promise;
   };
 };
