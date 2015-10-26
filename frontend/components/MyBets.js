@@ -16,7 +16,25 @@ class MyBets extends React.Component{
           My Bets
         </div>
         <div className="match-items">
-          {
+          <div style={ {margin: "10px"} }>
+            <div className="bet-list">
+              {
+                this.props.myBets.map( ( bet ) => {
+                  var teams = [
+                    null,
+                    bet.match.team1name,
+                    bet.match.team2name
+                  ]
+                  return (
+                    <div className="bet-item" key={ bet._id } >
+                      { bet.amount } on { teams[bet.prediction] } by { this.props.user.username }
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </div>
+          { /*
             this.props.myBets.map( ( item ) => {
               return (
                 <div  className="match-item"
@@ -31,7 +49,7 @@ class MyBets extends React.Component{
                 </div>
               )
             })
-          }
+          */}
         </div>
       </div>
     )

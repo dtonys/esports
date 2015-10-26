@@ -1,6 +1,7 @@
 import superagent from 'superagent';
 import agent from 'superagent-promise';
 var request = agent( superagent, Promise );
+import _ from 'lodash';
 
 import { store } from '../index.js';
 
@@ -90,6 +91,20 @@ function _getMatchDetail( payload ){
   }
 }
 
+function _postBetSuccess( payload ){
+  return {
+    type: 'POST_BET_SUCCESS',
+    payload
+  }
+}
+
+function _postBetError( payload ){
+  return {
+    type: 'POST_BET_ERROR',
+    payload
+  }
+}
+
 /**
  * Public
  */
@@ -134,7 +149,7 @@ export function postLogin( login_data ){
         dispatch( _loginSuccess( res.body ) );
       })
       .catch( (res) => {
-        var msg = res.body && res.body.message ? res.body.message : 'error';
+        var msg = _.get( res, 'response.body.message' ) || 'error';
         dispatch( _loginError({ message: msg }) );
       })
     return xhr_promise;
@@ -155,7 +170,7 @@ export function postSignup( signup_data ){
         dispatch( _loginSuccess( res.body ) );
       })
       .catch( (res) => {
-        var msg = res.body && res.body.message ? res.body.message : 'error';
+        var msg = _.get( res, 'response.body.message' ) || 'error';
         dispatch( _signupError({ message: msg }) );
       })
     return xhr_promise;
@@ -257,6 +272,38 @@ export function fetchMyBets(callback) {
       .then( (res) => {
         if (res.body) dispatch( getMyBets(res.body));
       });
+    return xhr_promise;
+  };
+};
+
+export function postBet( bet_data ) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    /* Mock test */
+    // var response_data = {
+    //   "__v": 0,
+    //   "user": "56089617f80fcbe46d519581",
+    //   "amount": 100,
+    //   "match": "551d52419a5e1ca41c07263c",
+    //   "prediction": 1,
+    //   "_id": "562d19a8bb2d13827ae835b3",
+    //   "status": 0,
+    //   "created": "2015-10-25T18:04:24.606Z"
+    // }
+    // dispatch( _postBetSuccess( response_data ) );
+    // xhr_promise = Promise.resolve( response_data );
+    xhr_promise = request
+      .post('/api/v1/bets')
+      .send( bet_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postBetSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postBetError({ message: msg }) );
+      })
     return xhr_promise;
   };
 };

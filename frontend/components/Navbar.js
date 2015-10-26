@@ -27,11 +27,11 @@ class Navbar extends React.Component{
     return (
       <div className="fixed-navbar" >
         <div className="navbar-center desktop-only link" onClick={ () => page('/') } >
-          <div className="logo-text"> ESports </div>
-          <div className="logo-icon"> D </div>
+          <div className="logo-text"> SuchBet </div>
+          <div className="logo-icon"></div>
         </div>
         <div className="icon-link navbar-left phone-tablet f-left" onClick={ () => page('/') } >
-          <div className="logo-icon"> D </div>
+          <div className="logo-icon"></div>
         </div>
 
         { loggedIn ? this.renderLoggedIn() : this.renderLoggedOut() }

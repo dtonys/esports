@@ -123,13 +123,10 @@ class Profile extends React.Component{
   }
   render(){
     var renderFn = ::this.renderProfile;
-    var map = {
-      'accounts': ::this.renderSocial,
-      'password': ::this.renderPassword
-    }
-    if( this.props.params.section && map[this.props.params.section] )
-      renderFn = map[this.props.params.section]
-
+    // var map = {
+    //   'accounts': ::this.renderSocial,
+    //   'password': ::this.renderPassword
+    // }
     return (
       <div className="profile-page-container" >
         { this.renderProfile() }

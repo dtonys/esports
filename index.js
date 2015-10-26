@@ -102,7 +102,7 @@ server.use(compression({
 var staticMiddleware = express.static(__dirname + '/public');
 // Showing stack errors
 server.set('showStackError', true);
-server.use(favicon(__dirname + '/public/favicon.ico'));      // serve favicon
+server.use(favicon(__dirname + '/public/favicon2.ico'));      // serve favicon
 server.use(staticMiddleware);                                // serve static assets
 server.use(bodyParser.json());                               // body parser, for POST request
 server.use(bodyParser.urlencoded({ extended: true }));
@@ -154,7 +154,7 @@ var auth = require('basic-auth');
     var user = auth(req);
     if (user === undefined || user['name'] !== 'git' || user['pass'] !== 'git_secret') {
         res.statusCode = 401;
-        res.setHeader('WWW-Authenticate', 'Basic realm="Esports"');
+        res.setHeader('WWW-Authenticate', 'Basic realm="SuchBet"');
         res.end('Unauthorized');
     } else {
         next();

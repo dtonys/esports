@@ -54,7 +54,7 @@ class Router extends React.Component{
         this.setState({
           component: values[0],
           page_loading: false,
-          params: ctx.params
+          route_ctx: ctx
         });
       });
   }
@@ -81,7 +81,7 @@ class Router extends React.Component{
         { RoutedComponent && !loading ?
           <RoutedComponent
             { ...this.props }
-            params={ this.state.params }
+            route_ctx={ this.state.route_ctx }
             loginRedirect={::this.loginRedirect} /> :
           null
         }

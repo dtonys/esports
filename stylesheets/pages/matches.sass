@@ -21,3 +21,89 @@
       border-bottom: none
     &:hover
       background: #EEE
+  .bet-btn
+    border-radius: 5px
+    min-height: 40px
+    padding: 10px
+    text-align: center
+  .section
+    position: relative
+    padding: 10px
+    &._1
+    &._2
+      padding: 20px 10px
+      text-align: center
+      background: #EEE
+      box-shadow: -1px 1px 3px #666 inset
+    &._3
+      border-top: solid black 2px
+  .amt
+    width: 100%
+    min-height: 45px
+  .for
+    font-size: 24px
+    margin-top: 30px
+  .choose-team
+    min-height: 40px
+    border-radius: 5px
+    position: relative
+    overflow: hidden
+    font-size: 18px
+  .team-1, .team-2
+    padding-top: 5px
+    &.chosen
+      background: black
+      color: white
+  .section-right
+    position: absolute
+    right: 0
+    width: 20%
+    height: 100%
+    top: 0
+    border: none
+    border-left: solid black 2px
+    border-radius: 0
+    font-size: 28px
+    line-height: 35px
+    box-shadow: none
+  .headline
+    font-size: 28px
+  .bet-status
+    .status
+      text-align: center
+      height: auto
+      &.bet-can-do
+      &.bet-done
+        color: black
+      &.bet-closed
+        color: black
+  .bet-error
+    background: white
+    display: inline-block
+    border-radius: 5px
+    padding: 5px
+  .bet-success-msg
+    color: green
+    font-size: 28px
+  .section-header
+  .current-bets
+    font-size: 28px
+  .bet-list
+    border: solid black 1px
+    border-radius: 5px
+  .bet-item
+    padding: 10px 10px
+    border-bottom: solid black 1px
+    &:last-child
+      border-bottom: none
+
+
+  @media #{$mobile_phone}
+    .headline, .bet-status
+      font-size: 18px
+      line-height: normal
+  @media #{$mobile_tablet}
+    .headline, .bet-status
+      font-size: 18px
+      line-height: normal
+
