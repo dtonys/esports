@@ -27,7 +27,7 @@ class MyBets extends React.Component{
                   ]
                   return (
                     <div className="bet-item" key={ bet._id } >
-                      { bet.amount } on { teams[bet.prediction] } by { this.props.user.username }
+                      { bet.amount } on { teams[bet.prediction] }
                     </div>
                   )
                 })
