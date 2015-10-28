@@ -1,7 +1,7 @@
 import page from 'page';
 import 'components/forms.sass';
 import 'components/forms_extend.sass';
-import 'pages/sample.sass';
+import 'pages/matches.sass';
 
 import {connect} from 'react-redux';
 import * as actions from '../actions/action_creators.js';
@@ -14,7 +14,7 @@ class AdminPanel extends React.Component{
   }
   render(){
     return (
-      <div className="sample-page-container" >
+      <div className="matches-page-container" >
         <div className="header">
           ADMIN PAGE
         </div>
@@ -56,6 +56,12 @@ class AdminPanel extends React.Component{
                       Resolve Match
                     </div>
                   </div>
+                  <div className="left-20" style={{ minHeight: "40px" }} >
+                    <div  className="btn bet-btn"
+                          onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
+                      Resolve Match
+                    </div>
+                  </div>
                 </div>
               )
             })
@@ -67,6 +73,7 @@ class AdminPanel extends React.Component{
 };
 
 var mapStateToProps = function( storeState ){
+  console.log('mapStateToProps:' + storeState);
   return {
     adminPanel: storeState.get('adminPanel').toJS()
   }
@@ -77,4 +84,4 @@ var AdminContainer = connect(
   actions
 )(AdminPanel);
 
-export default AdminPanel;
+export default AdminContainer;

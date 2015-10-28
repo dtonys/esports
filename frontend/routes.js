@@ -68,9 +68,7 @@ var routeMap = {
   },
   // Sample Admin Route Route
   '/adminpanel': {
-    // define { guest, member, admin } access, used by authFilter - REQUIRED
     access: admin_only,
-    // load Page Component, async via webpack - REQUIRED
     getComponent: () => {
       return new Promise( (res, rej) => {
         require.ensure([], () => res(require('components/AdminPanel.js')) )

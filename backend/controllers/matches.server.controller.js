@@ -213,7 +213,23 @@ exports.delete = function(req, res) {
  * List of Matches
  */
 exports.list = function(req, res) {
-	Match.find().sort('-matchStartTime').populate('user', 'displayName').exec(function(err, matches) {
+
+  /*Get:
+  5 most recent matches.
+  any upcoming matches.
+  */
+  var oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+	Match.find()
+
+    //All matches have happened one week ago, or after.
+    .where('matchStartTime').gte(oneWeekAgo)
+
+    //Sort by match start time
+    .sort('-matchStartTime')
+
+    .exec(function(err, matches) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
