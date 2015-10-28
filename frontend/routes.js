@@ -200,7 +200,7 @@ var routeMap = {
       });
     },
     getData: function(params){
-      return store.dispatch( actions.fetchMyBets() );
+      return store.dispatch( actions.getMyBets() );
     }
   },
   // NotFound

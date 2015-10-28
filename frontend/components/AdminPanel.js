@@ -12,6 +12,35 @@ class AdminPanel extends React.Component{
   constructor( props ){
     super( props );
   }
+  submitForm ( e ) {
+    console.log("@@@SUBMIT FORM@@@");
+    //fire api
+
+    var data = {"winnerNum" : 2};
+
+    this.props.postResolveMatch ( data )
+      .then( ( res ) => {
+        var resbody = res.body;
+        console.log('@@@then ' + resbody);
+        /*
+        var bet = res.body;
+        bet.user = {
+          username: this.props.user.username
+        };
+        this.setState({
+          bet_success: true,
+          bets: [bet].concat( this.state.bets )
+        })
+        */
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        this.setState({
+          errors: [msg]
+        })
+      });
+
+  }
   render(){
     return (
       <div className="matches-page-container" >
@@ -24,8 +53,7 @@ class AdminPanel extends React.Component{
               var startMoment = moment(item.matchStartTime);
               return (
                 <div  className="match-item clearfix"
-                      key={item._id}
-                      onClick={ () => page(`/matches/${item._id}`) } >
+                      key={item._id}>
                   <div className="left-80" >
                     <div className="headline">
                       <a  className="link"
@@ -50,18 +78,13 @@ class AdminPanel extends React.Component{
                       ( { startMoment.fromNow() } )
                     </div>
                   </div>
-                  <div className="left-20" style={{ minHeight: "40px" }} >
-                    <div  className="btn bet-btn"
-                          onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
-                      Resolve Match
+                  <form onSubmit = { ::this.submitForm } >
+                    <div className="left-20" style={{ minHeight: "40px" }}  >
+                      <input  className="left-100 btn"
+                            type="submit"
+                            value="resolve match"/>
                     </div>
-                  </div>
-                  <div className="left-20" style={{ minHeight: "40px" }} >
-                    <div  className="btn bet-btn"
-                          onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
-                      Resolve Match
-                    </div>
-                  </div>
+                  </form>
                 </div>
               )
             })
@@ -73,7 +96,6 @@ class AdminPanel extends React.Component{
 };
 
 var mapStateToProps = function( storeState ){
-  console.log('mapStateToProps:' + storeState);
   return {
     adminPanel: storeState.get('adminPanel').toJS()
   }

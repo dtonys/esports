@@ -64,6 +64,14 @@ exports.read = function(req, res) {
 		});
 };
 
+/*
+//Resolving a match without having the match ID in the url.
+exports.resolve = function(req, res) {
+  var match = req.body.match;
+  req.match = match;
+};
+*/
+
 /** Resolve a match.
  * 1. check if user has permission?
  * 2. count up all the bets on each side.
@@ -77,16 +85,13 @@ exports.resolve = function(req, res) {
   //TODO: wait for X number of people to submit an entry?
   var matchres = req.body.winnerNum;
 
-	var the_result = {};
-	the_result.match = req.match;
-	//console.log(req.match);
 
 	var match = req.match ;
 	match.result = matchres;
     match.status = 3;
 	match.save();
 
-	Bet.find({'match':req.match})
+	Bet.find({'match':match})
 		.populate('user', 'dogecoinBlioAddress dogeBalance username')
 		.exec(function(err, bets) {
 			if (err) {
