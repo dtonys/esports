@@ -21,35 +21,83 @@ exports.create = function(req, res) {
 		return res.status(400).send({message: 'You must bet at least 5 DOGE!'});
 	}
 
-	//create the bet. we don't save it until later.
-	var bet = new Bet(req.body);
+  var current_time = new Date();
 
-	if (bet.amount > theuser.dogeBalance)
-	{
-		return res.status(400).send(
-			{message: 'You don\'t have enough for that!'});
-	}
+  //find the match
 
-	//TODO: check timing of bet for doubled stake
-	// if match date already started, we deny it.
-	// if it's before 24 hours, then we double the bet's stake.
+  console.log('CREATING BET!');
+
+  Match.findById(req.body.match).
+    exec(function(err, match) {
+      if (err) return next(err);
+      if (! match) return next(new Error('Failed to find Match ' + id));
+
+      //Check timing/status of the match.
+      //The match status must be 0 or 1, and must have a start time in the future.
+      if ((current_time > match.matchStartTime) ||  (match.status > 1))
+      {
+        return res.status(400).send(
+          {message: 'Betting is closed for this match!'});
+      }
+
+       //TODO: check timing of bet for doubled stake
+      //else if (current_time < match.matchStartTime - 24)
+
+      //create the bet. we don't save it until later.
+      var bet = new Bet(req.body);
+
+      //need to save previous amount in case if we're adding.
+      var betamount = bet.amount;
+
+      if (bet.amount > theuser.dogeBalance)
+      {
+        return res.status(400).send(
+          {message: 'You don\'t have enough for that!'});
+      }
+
+      //Check to see if the user already has a bet. (currently disabling this)
+      //if so, we should just add it, instead of creating.
+      /*
+      Bet.find(
+        { 'match' : req.body.match,
+          'user' : theuser,
+          'prediction' : req.body.prediction}).
+        exec(function(err, previousbet) {
+          if (err) return next(err);
+
+          //We found a previous bet that's the same.
+          if (previousbet)
+          {
+            console.log('PREVIOUS BET FOUND!');
+            console.log('past bet:' + bet);
+            bet = previousbet;
+            bet.amount += betamount;
+
+            console.log('current bet:' + bet);
+          }
+        });
+      */
+
+      //save the bet.
+      bet.user = theuser;
+      bet.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(bet);
+
+          // change user's balance.
+          theuser.dogeBalance -= betamount;
+          theuser.save();
+        }
+      });
 
 
 
-	bet.user = theuser;
-	bet.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(bet);
 
-			// change user's balance.
-			theuser.dogeBalance -= bet.amount;
-			theuser.save();
-		}
-	});
+    });
 };
 
 /**

@@ -125,6 +125,19 @@ function _postResolveMatchError( payload ){
   }
 }
 
+function _postCreateMatchSuccess( payload ){
+  return {
+    type: 'POST_CREATE_MATCH_SUCCESS',
+    payload
+  }
+}
+function _postCreateMatchError( payload ){
+  return {
+    type: 'POST_CREATE_MATCH_ERROR',
+    payload
+  }
+}
+
 /**
  * Public
  */
@@ -314,7 +327,7 @@ export function postResolveMatch( match_data ) {
   var xhr_promise = null;
   return function (dispatch) {
     xhr_promise = request
-      .post('/api/v1/resolve/551d52419a5e1ca41c07263c')
+      .post('/api/v1/resolve/' + match_data.matchid)
       .send( match_data )
       .end();
     xhr_promise
@@ -327,6 +340,26 @@ export function postResolveMatch( match_data ) {
       });
     return xhr_promise;
   };
+}
+
+export function postCreateMatch( match_data ) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .post('/api/v1/matches')
+      .send( match_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postCreateMatchSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postCreateMatchError({ message: msg }) );
+      });
+    return xhr_promise;
+  };
+
 }
 
 

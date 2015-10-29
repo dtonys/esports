@@ -17,10 +17,10 @@ exports.create = function(req, res) {
 	var match = new Match(req.body);
 	match.user = req.user;
 
-	console.log('team1name' + match.team1name);
-	console.log('team2name' + match.team2name);
-	console.log('tourneyname' + match.tourneyName);
-	console.log('gamename' + match.gameName);
+	console.log('team1name:' + match.team1name);
+	console.log('team2name:' + match.team2name);
+	console.log('tourneyname:' + match.tourneyName);
+	console.log('gamename:' + match.gameName);
 
 	match.save(function(err) {
 		if (err) {
@@ -78,7 +78,9 @@ exports.resolve = function(req, res) {
  * 3.
  */
 exports.resolve = function(req, res) {
-	console.log('I AM RESOLVING!!!!');
+  var match = req.match ;
+	console.log('RESOLVING MATCH:' + match.gameName + " - " + match.tourneyName +
+    "(" + match.team1name + " vs " + match.team2name + ")");
 
   //Winner number
   //TODO: check to see if valid winner number.

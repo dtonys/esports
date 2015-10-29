@@ -12,26 +12,16 @@ class AdminPanel extends React.Component{
   constructor( props ){
     super( props );
   }
-  submitForm ( e ) {
+  submitResolveMatch ( e, match ) {
     console.log("@@@SUBMIT FORM@@@");
     //fire api
 
-    var data = {"winnerNum" : 2};
+    var data = {"winnerNum" : 2, "matchid" : match._id};
 
     this.props.postResolveMatch ( data )
       .then( ( res ) => {
         var resbody = res.body;
         console.log('@@@then ' + resbody);
-        /*
-        var bet = res.body;
-        bet.user = {
-          username: this.props.user.username
-        };
-        this.setState({
-          bet_success: true,
-          bets: [bet].concat( this.state.bets )
-        })
-        */
       })
       .catch( (res) => {
         var msg = _.get( res, 'response.body.message' ) || 'error';
@@ -39,13 +29,35 @@ class AdminPanel extends React.Component{
           errors: [msg]
         })
       });
-
+  }
+  submitCreateMatch () {
+    var data = {
+      'team1name' : this.linkState('team1name'),
+      'team2name' : this.linkState('team2name'),
+      'tourneyName' : this.linkState('tourneyName'),
+      'gameName' : this.linkState('gameName')
+    };
+    this.props.postCreateMatch ( data )
+      .then( ( res ) => {
+        var resbody = res.body;
+        console.log('@@@then ' + resbody);
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        this.setState({
+          errors: [msg]
+        })
+      });
   }
   render(){
     return (
       <div className="matches-page-container" >
         <div className="header">
           ADMIN PAGE
+        </div>
+        <br/><br/>
+        <div className="header">
+          MATCHES
         </div>
         <div className="match-items">
           {
@@ -77,12 +89,16 @@ class AdminPanel extends React.Component{
                       &nbsp;&nbsp;
                       ( { startMoment.fromNow() } )
                     </div>
+                    <div className="match-status">
+                      Match status: &nbsp;
+                      { item.status }
+                    </div>
                   </div>
-                  <form onSubmit = { ::this.submitForm } >
+                  <form onSubmit = { this.submitResolveMatch(this, item) } >
                     <div className="left-20" style={{ minHeight: "40px" }}  >
                       <input  className="left-100 btn"
                             type="submit"
-                            value="resolve match"/>
+                            value="Resolve Match"/>
                     </div>
                   </form>
                 </div>
@@ -90,6 +106,40 @@ class AdminPanel extends React.Component{
             })
           }
         </div>
+
+        <div className="left-100 margin-10">
+          <br/><br/>
+        </div>
+        <div className="header">
+          CREATE A MATCH
+        </div>
+        <div>
+          <div className="left-48 choose-team">
+            <input  className="input amt"
+                    placeholder="Team 1 Name"
+                    name="team1name"/>
+            <div className="left-100 margin-10"></div>
+            <input  className="input amt"
+                    placeholder="Team 2 Name"
+                    name="team2name"/>
+            <div className="left-100 margin-10"></div>
+            <input  className="input amt"
+                    placeholder="Game Name"
+                    name="gameName"/>
+            <div className="left-100 margin-10"></div>
+            <input  className="input amt"
+                    placeholder="Tourney Name"
+                    name="tourneyName"/>
+          </div>
+          <div className="left-4"> &nbsp; </div>
+          <div className="left-48">
+            <div  className="btn right-100" >
+              Create Match
+            </div>
+          </div>
+        </div>
+
+
       </div>
     )
   }
