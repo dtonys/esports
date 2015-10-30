@@ -2,22 +2,34 @@ import page from 'page';
 import 'components/forms.sass';
 import 'components/forms_extend.sass';
 import 'pages/matches.sass';
+import 'components/forms.sass';
+import 'components/forms_extend.sass';
 
+import reactMixin from 'react-mixin';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import {connect} from 'react-redux';
 import * as actions from '../actions/action_creators.js';
 
 import moment from 'moment';
+import { forms } from '../helpers/forms.js';
 
+@reactMixin.decorate(forms)
+@reactMixin.decorate(LinkedStateMixin)
 class AdminPanel extends React.Component{
   constructor( props ){
     super( props );
+    this.state = {
+      'team1name' : '',
+      'team2name' : '',
+      'tourneyName' : '',
+      'gameName' : ''
+    }
   }
-  submitResolveMatch ( e, match ) {
-    console.log("@@@SUBMIT FORM@@@");
-    //fire api
+  submitResolveMatch( e , match ) {
 
     var data = {"winnerNum" : 2, "matchid" : match._id};
 
+    //fire api
     this.props.postResolveMatch ( data )
       .then( ( res ) => {
         var resbody = res.body;
@@ -30,24 +42,23 @@ class AdminPanel extends React.Component{
         })
       });
   }
-  submitCreateMatch () {
-    var data = {
-      'team1name' : this.linkState('team1name'),
-      'team2name' : this.linkState('team2name'),
-      'tourneyName' : this.linkState('tourneyName'),
-      'gameName' : this.linkState('gameName')
-    };
-    this.props.postCreateMatch ( data )
-      .then( ( res ) => {
-        var resbody = res.body;
-        console.log('@@@then ' + resbody);
-      })
-      .catch( (res) => {
-        var msg = _.get( res, 'response.body.message' ) || 'error';
-        this.setState({
-          errors: [msg]
+  submitCreateMatch( e ) {
+    var data = this.state;
+    console.log('data:' + data);
+
+    data.matchStartTime = "2015-11-30T18:12:05.658Z";
+
+    this.props.postCreateMatch( data )
+        .then( ( res ) => {
+          var resbody = res.body;
+          console.log('@@@then ' + resbody);
         })
-      });
+        .catch( (res) => {
+          var msg = _.get( res, 'response.body.message' ) || 'error';
+          this.setState({
+            errors: [msg]
+          })
+        });
   }
   render(){
     return (
@@ -94,7 +105,7 @@ class AdminPanel extends React.Component{
                       { item.status }
                     </div>
                   </div>
-                  <form onSubmit = { this.submitResolveMatch(this, item) } >
+                  <form onSubmit = { () => { this.submitResolveMatch(this, item) } } >
                     <div className="left-20" style={{ minHeight: "40px" }}  >
                       <input  className="left-100 btn"
                             type="submit"
@@ -110,40 +121,43 @@ class AdminPanel extends React.Component{
         <div className="left-100 margin-10">
           <br/><br/>
         </div>
-        <div className="header">
-          CREATE A MATCH
-        </div>
-        <div>
-          <div className="left-48 choose-team">
-            <input  className="input amt"
-                    placeholder="Team 1 Name"
-                    name="team1name"/>
-            <div className="left-100 margin-10"></div>
-            <input  className="input amt"
-                    placeholder="Team 2 Name"
-                    name="team2name"/>
-            <div className="left-100 margin-10"></div>
-            <input  className="input amt"
-                    placeholder="Game Name"
-                    name="gameName"/>
-            <div className="left-100 margin-10"></div>
-            <input  className="input amt"
-                    placeholder="Tourney Name"
-                    name="tourneyName"/>
+        <div className="section _1 clearfix">
+          <div className="header">
+            CREATE A MATCH
           </div>
-          <div className="left-4"> &nbsp; </div>
-          <div className="left-48">
-            <div  className="btn right-100" >
-              Create Match
+          <form className="generic-form container"
+                onSubmit = {() => { this.submitCreateMatch(this) } } >
+            <div className="left-48 choose-team">
+              <input className="input amt"
+                     placeholder="Team 1 Name"
+                     name="team1name"
+                     valueLink={this.linkState('team1name')}/>
+              <div className="left-100 margin-10"></div>
+              <input  className="input amt"
+                      placeholder="Team 2 Name"
+                      name="team2name"
+                      valueLink={this.linkState('team2name')}/>
+              <div className="left-100 margin-10"></div>
+              <input  className="input amt"
+                      placeholder="Game Name"
+                      name="gameName"
+                      valueLink={this.linkState('gameName')}/>
+              <div className="left-100 margin-10"></div>
+              <input  className="input amt"
+                      placeholder="Tourney Name"
+                      name="tourneyName"
+                      valueLink={this.linkState('tourneyName')}/>
             </div>
-          </div>
+            <div className="left-4"> &nbsp; </div>
+            <input type="submit" value="Create Match" className="action-item submit btn left-50" />
+          </form>
         </div>
 
 
       </div>
     )
   }
-};
+}
 
 var mapStateToProps = function( storeState ){
   return {

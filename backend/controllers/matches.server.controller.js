@@ -17,10 +17,13 @@ exports.create = function(req, res) {
 	var match = new Match(req.body);
 	match.user = req.user;
 
+    //console.log(req.body);
+
 	console.log('team1name:' + match.team1name);
 	console.log('team2name:' + match.team2name);
 	console.log('tourneyname:' + match.tourneyName);
 	console.log('gamename:' + match.gameName);
+    console.log('starttime:' + match.matchStartTime);
 
 	match.save(function(err) {
 		if (err) {
@@ -234,7 +237,7 @@ exports.list = function(req, res) {
     .where('matchStartTime').gte(oneWeekAgo)
 
     //Sort by match start time
-    .sort('-matchStartTime')
+    .sort('+matchStartTime')
 
     .exec(function(err, matches) {
 		if (err) {
