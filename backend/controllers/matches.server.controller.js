@@ -108,15 +108,20 @@ exports.resolve = function(req, res) {
 
 				//get the total bet amounts
 				var totals = [0, 0];
+        var shares = [0, 0];
 				for (var i in bets)
 				{
 					var bet = bets[i];
 					if (parseInt(bet.amount) > 0)
 					{
-						if (bet.prediction === 1)
-							totals[0] += bet.amount;
-						else if (bet.prediction === 2)
-							totals[1] += bet.amount;
+						if (bet.prediction === 1) {
+              totals[0] += bet.amount;
+              shares[0] += bet.stake;
+            }
+            else if (bet.prediction === 2) {
+              totals[1] += bet.amount;
+              shares[1] += bet.stake;
+            }
 					}
 				}
 
@@ -130,11 +135,11 @@ exports.resolve = function(req, res) {
 				var payout = 0;
 				if (matchres === 1) {
 					payout = totals[1];
-					winnertot = totals[0];
+					winnertot = shares[0];
 				}
 				else if (matchres === 2) {
 					payout = totals[0];
-					winnertot = totals[1];
+					winnertot = shares[1];
 				}
 
 				//Take 5% rake from loser
@@ -148,7 +153,7 @@ exports.resolve = function(req, res) {
 					//If a correct bet, and the bet amount is more than 0
 					if (bet2.prediction === matchres && parseInt(bet2.amount) > 0)
 					{
-						var betratio = bet2.amount / winnertot;
+						var betratio = bet2.stake / winnertot;
 
 						//give player back his bet, and the payout.
 						var playerpayout = bet2.amount + Math.ceil(betratio * payout);

@@ -40,14 +40,20 @@ exports.create = function(req, res) {
           {message: 'Betting is closed for this match!'});
       }
 
-       //TODO: check timing of bet for doubled stake
-      //else if (current_time < match.matchStartTime - 24)
-
       //create the bet. we don't save it until later.
       var bet = new Bet(req.body);
 
+      //Share is a copy of amount.
+      bet.stake = bet.amount;
+      //check timing of bet for doubled stake
+      if (current_time < match.matchStartTime - 24) {
+        bet.stake *= 2;
+      }
+
       //need to save previous amount in case if we're adding.
       var betamount = bet.amount;
+
+
 
       if (bet.amount > theuser.dogeBalance)
       {
