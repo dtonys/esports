@@ -9,8 +9,14 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
 	sbtools = require('../sbfuncs'),
+  request = require('request'),
 	BlockIo = require('block_io');
 var block_io = new BlockIo('c3f9-2390-cd21-204b', 'OMFGbl0ck10', 2);
+
+var mailchimp_api_key = '2ce985b55fabca58d3e92f4183993a94-us8';
+var mailchimp_endpoint = 'https://z:' + mailchimp_api_key + '@us8.api.mailchimp.com/3.0/';
+var mailchimp_list_id = '2456ad2c1a';
+
 
 /**
  * Signup
@@ -35,7 +41,6 @@ exports.signup = function(req, res) {
 		//Set the address
 		user.dogecoinBlioAddress = blio_res.data.address;
 
-
 		// Then save the user
 		user.save(function(err) {
 			if (err) {
@@ -58,6 +63,33 @@ exports.signup = function(req, res) {
 			}
 		});
 	});
+
+  //Subscribe the user via mailchimp.
+  var mailchimp_data = {
+    'status' : 'subscribed',
+    'email_address' : user.email,
+    'merge_fields' : {
+      'FNAME' : user.username
+    }};
+
+  var mailchimp_url = mailchimp_endpoint + 'lists/' + mailchimp_list_id + "/members";
+
+  var post_obj = {
+    url: mailchimp_url,
+    json: mailchimp_data
+  };
+
+  request.post(post_obj, function(err, resp, body) {
+    console.log('response code: ' + resp.statusCode);
+    if (err) {
+      console.log('error:' + err);
+    }
+    else {
+      console.log('body: ' + JSON.stringify(body));
+    }
+  });
+
+
 };
 
 
