@@ -10,6 +10,10 @@ var mongoose = require('mongoose'),
 	_ = require('lodash'),
 	request = require('request');
 
+var mailchimp_api_key = '2ce985b55fabca58d3e92f4183993a94-us8';
+var mailchimp_endpoint = 'https://z:' + mailchimp_api_key + '@us8.api.mailchimp.com/3.0/';
+var mailchimp_list_id = '2456ad2c1a';
+
 /**
  * Create a Match
  */
@@ -181,7 +185,38 @@ exports.resolve = function(req, res) {
 			}
 		});
 
+  //Send a mailchimp email out to all people who bet in the match.
 
+  /** 1. create the segment */
+  
+  /** 2. create the email and send it to the segment we created above. */
+
+
+  /*
+  var mailchimp_data = {
+    'status' : 'subscribed',
+    'email_address' : user.email,
+    'merge_fields' : {
+      'FNAME' : user.username
+    }};
+
+  var mailchimp_url = mailchimp_endpoint + 'lists/' + mailchimp_list_id + "/members";
+
+  var post_obj = {
+    url: mailchimp_url,
+    json: mailchimp_data
+  };
+
+  request.post(post_obj, function(err, resp, body) {
+    console.log('response code: ' + resp.statusCode);
+    if (err) {
+      console.log('error:' + err);
+    }
+    else {
+      console.log('body: ' + JSON.stringify(body));
+    }
+  });
+  */
 
     //Redirect adminuser back to matches page.
 	res.redirect('/#!/matches/' + match._id);

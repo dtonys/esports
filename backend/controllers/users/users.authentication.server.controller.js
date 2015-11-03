@@ -101,9 +101,22 @@ exports.signin = function(req, res, next) {
 		if (err || !user) {
 			res.status(400).send(info);
 		} else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function(err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
 
 			//Get address balance
+      //NO LONGER NECESSARY, BECAUSE OUR DATABASE SHOULD BE ACCURATE.
 			//sbtools.get_user_balance(req, res)
+      /*
 			block_io.get_address_balance({'address':user.dogecoinBlioAddress},
 				function(blio_req, blio_res)
 				{
@@ -115,22 +128,12 @@ exports.signin = function(req, res, next) {
 								message: errorHandler.getErrorMessage(err)
 							});
 						} else {
-							// Remove sensitive data before login
-							user.password = undefined;
-							user.salt = undefined;
-
-							req.login(user, function(err) {
-								if (err) {
-									res.status(400).send(err);
-								} else {
-									res.json(user);
-								}
-							});
+						  //other stuff
 						}
 					});
 				}
 			);
-
+      */
 		}
 	})(req, res, next);
 };
