@@ -11,8 +11,9 @@ var _ = require('lodash'),
     mongoose = require('mongoose'),
     BlockIo = require('block_io'),
     User = mongoose.model('User'),
+    sbfuncs = require('./sbfuncs.js'),
     Transaction = mongoose.model('Transaction');
-var block_io = new BlockIo('c3f9-2390-cd21-204b', 'OMFGbl0ck10', 2);
+var block_io = new BlockIo(sbfuncs.block_io_config, sbfuncs.block_io_pin, sbfuncs.block_io_vers);
 
 
 /**

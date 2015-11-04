@@ -82,11 +82,15 @@ var UserSchema = new Schema({
 	dogecoinBlioAddress: {
 		type: String
 	},
-
 	dogeBalance: {
 		type: Number,
 		default: 0
-	}
+	},
+  emailOptIn: {
+    type: Boolean,
+    default: true
+  }
+
 
 
 

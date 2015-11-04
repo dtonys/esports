@@ -26,6 +26,10 @@ var TransactionSchema = new Schema({
     balance_change: {
         type: Number,
         required: 'Need a balance change #'
+    },
+    timestamp: {
+      type: Date,
+      default: Date.now
     }
 });
 

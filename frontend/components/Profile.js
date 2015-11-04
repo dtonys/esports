@@ -174,6 +174,8 @@ class Profile extends React.Component{
           }
           { this.renderInput({ name: "email", type: "email"}) }
           <div className="margin-10"></div>
+          { this.renderInput({ name: "emailOptIn", type: "checkbox"}) }
+          <div className="margin-10"></div>
           <input type="submit" value="submit" className="action-item submit btn left-100" />
         </form>
       </div>
