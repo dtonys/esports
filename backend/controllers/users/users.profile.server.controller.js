@@ -21,6 +21,7 @@ exports.update = function(req, res) {
 
   //save old email
   var oldemail = user.email;
+  var wasOptedIn = user.emailOptIn;
 
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
@@ -32,25 +33,25 @@ exports.update = function(req, res) {
 
     //check to see if new email
     var newemail = user.email;
+    var changedOptIn = (wasOptedIn == user.emailOptIn);
 
     //check to see if new email. if so, then update mailchimp.
-    if (newemail != oldemail)
+    if ( (newemail != oldemail) || changedOptIn )
     {
-
       var mailchimp_url = sbfuncs.mailchimp_endpoint + 'lists/' +
         sbfuncs.mailchimp_list_id + "/members/" + user.mailChimpHash;
       var mailchimp_data = {
-        'status': 'subscribed',
+        'status': (user.emailOptIn?'subscribed':'unsubscribed'),
         'email_address' : newemail
       };
       var put_obj = { url: mailchimp_url, json: mailchimp_data };
       console.log('putobj:' + JSON.stringify(put_obj));
-      request.patch(put_obj, function(err, resp, body) {
+      request.put(put_obj, function(err, resp, body) {
         if (err) {
           console.log('Error:' + err);
         }
         else {
-          console.log('body: ' + JSON.stringify(body));
+         //console.log('body: ' + JSON.stringify(body));
         }
       });
 
