@@ -86,6 +86,11 @@ var UserSchema = new Schema({
 		type: Number,
 		default: 0
 	},
+
+  //Subscriber hash of mailchimp.
+  mailChimpHash: {
+    type: String
+  },
   emailOptIn: {
     type: Boolean,
     default: true

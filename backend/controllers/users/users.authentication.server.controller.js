@@ -37,52 +37,52 @@ exports.signup = function(req, res) {
 
 		//Set the address
 		user.dogecoinBlioAddress = blio_res.data.address;
+    console.log('bliores:' + JSON.stringify(blio_res));
 
-		// Then save the user
-		user.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
+    //Subscribe the user via mailchimp.
+    var mailchimp_data = {
+      'status' : 'subscribed',
+      'email_address' : user.email,
+      'merge_fields' : {
+        'FNAME' : user.username
+      }};
 
-        //Subscribe the user via mailchimp.
-        var mailchimp_data = {
-          'status' : 'subscribed',
-          'email_address' : user.email,
-          'merge_fields' : {
-            'FNAME' : user.username
-          }};
+    var mailchimp_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/members";
+    var post_obj = { url: mailchimp_url, json: mailchimp_data };
 
-        var mailchimp_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/members";
+    request.post(post_obj, function(err, resp, body) {
+      if (err) {
+        console.log('Error:' + err);
+      }
+      else {
+        //console.log('body: ' + JSON.stringify(body));
+        user.mailChimpHash = body.id;
+      }
+      // Then save the user
+      user.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
 
-        var post_obj = {
-          url: mailchimp_url,
-          json: mailchimp_data
-        };
 
-        request.post(post_obj, function(err, resp, body) {
-          if (err) {
-            console.log('error:' + err);
-          }
-          else {
-            console.log('body: ' + JSON.stringify(body));
-          }
-        });
+          // Remove sensitive data before login
+          user.password = undefined;
+          user.salt = undefined;
 
-				// Remove sensitive data before login
-				user.password = undefined;
-				user.salt = undefined;
+          req.login(user, function(err) {
+            if (err) {
+              res.status(400).send(err);
+            } else {
+              res.json(user);
+            }
+          });
 
-				req.login(user, function(err) {
-					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.json(user);
-					}
-				});
-			}
-		});
+        }
+      });
+    });
+
 	});
 
 
