@@ -43,9 +43,8 @@ exports.signup = function(req, res) {
     var mailchimp_data = {
       'status' : 'subscribed',
       'email_address' : user.email,
-      'merge_fields' : {
-        'FNAME' : user.username
-      }};
+      'merge_fields' : { 'FNAME' : user.username }
+    };
 
     var mailchimp_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/members";
     var post_obj = { url: mailchimp_url, json: mailchimp_data };
