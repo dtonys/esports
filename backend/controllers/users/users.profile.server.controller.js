@@ -90,6 +90,9 @@ exports.update = function(req, res) {
             });
 
           }
+
+          //save the user. note: this is actually some copypasta of above
+          //can change it once i understand how to properly make a function lol
           else
           {
 

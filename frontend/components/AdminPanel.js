@@ -82,6 +82,10 @@ class AdminPanel extends React.Component{
                     <div  className="match-item clearfix"
                           key={item._id}>
                       <div className="left-80" >
+                        id: { item._id }
+                        <div>
+                          Mailchimp: {item.mailChimpSegmentId }
+                        </div>
                         <div className="headline">
                           <a  className="link"
                               href={`/?gameName=${item.gameName}`}

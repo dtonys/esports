@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Match = mongoose.model('Match'),
 	Bet = mongoose.model('Bet'),
 	_ = require('lodash'),
+  sbfuncs = require('./sbfuncs.js'),
 	request = require('request');
 
 /**
@@ -17,23 +18,49 @@ exports.create = function(req, res) {
 	var match = new Match(req.body);
 	match.user = req.user;
 
-    //console.log(req.body);
+  //console.log(req.body);
 
+  /*
 	console.log('team1name:' + match.team1name);
 	console.log('team2name:' + match.team2name);
 	console.log('tourneyname:' + match.tourneyName);
 	console.log('gamename:' + match.gameName);
-    console.log('starttime:' + match.matchStartTime);
+  console.log('starttime:' + match.matchStartTime);
+  */
 
-	match.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(match);
-		}
-	});
+  //Save new segment on mailchimp.
+  var mailchimp_segment_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/segments";
+  var mailchimp_segment_data = { 'name': match.id };
+
+  var mailchimp_obj = {
+    url: mailchimp_segment_url,
+    json: mailchimp_segment_data
+  };
+  //console.log('post:' + JSON.stringify(mailchimp_obj));
+
+  request.post(mailchimp_obj, function(err, resp, body) {
+    console.log('response code: ' + resp.statusCode);
+    if (err) {
+      console.log('error:' + err);
+    }
+    else {
+      //console.log('body: ' + JSON.stringify(body));
+      match.mailChimpSegmentId = body.id;
+    }
+
+    match.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        //Return Match Data
+        res.jsonp(match);
+      }
+    });
+
+
+  });
 };
 
 /**
@@ -96,8 +123,11 @@ exports.resolve = function(req, res) {
     match.status = 3;
 	match.save();
 
+  //emails of users that bet on this match.
+  var match_emails = [];
+
 	Bet.find({'match':match})
-		.populate('user', 'dogecoinBlioAddress dogeBalance username')
+		.populate('user')
 		.exec(function(err, bets) {
 			if (err) {
 				return res.status(400).send({
@@ -164,7 +194,8 @@ exports.resolve = function(req, res) {
 						bet2.status += playerpayout;
 						bet2.save();
 
-						console.log(bet2.user.username + ':' + bet2.amount + '->' + playerpayout);
+						console.log(bet2.user.username + ':' + bet2.amount + '->' + playerpayout + ' (' + bet2.user.email);
+
 
 						//Update user by giving him currency.
 						bet2.user.dogeBalance += playerpayout;
@@ -172,47 +203,75 @@ exports.resolve = function(req, res) {
 
 						TEMPTOTAL += playerpayout;
 					}
+          match_emails.push(bet2.user.email);
 				}
 
 				//Printing information about stuff.
 				console.log('total payout:' + TEMPTOTAL);
 				var TEMPRAKE = totals[0] + totals[1] - TEMPTOTAL;
 				console.log('rake:' + TEMPRAKE);
+
+
+
+
+        //Send a mailchimp email out to all people who bet in the match.
+
+        /** 1. update the segment */
+        var mailchimp_segment_url = sbfuncs.mailchimp_endpoint + 'lists/' +
+          sbfuncs.mailchimp_list_id + "/segments/" + match.mailChimpSegmentId;
+
+        var mailchimpconditions = [];
+        for (var i = 0; i < match_emails.length; i++)
+        {
+          mailchimpconditions.push({
+            "condition_type": "EmailAddress",
+            "field": "merge0",
+            "op": "is",
+            "value": match_emails[i]
+          });
+        }
+
+        var mailchimp_segment_data = {
+          'name': match.id,
+          'options': {
+            'match': 'any',
+            'conditions': mailchimpconditions
+          }
+        };
+
+        var mailchimp_obj = {
+          url: mailchimp_segment_url,
+          json: mailchimp_segment_data
+        };
+        console.log('patch:' + JSON.stringify(mailchimp_obj));
+
+        request.patch(mailchimp_obj, function(err, resp, body) {
+          console.log('response code: ' + resp.statusCode);
+          if (err) {
+            console.log('error:' + err);
+          }
+          else {
+            console.log('body: ' + JSON.stringify(body));
+          }
+        });
+
+        /** 2. create the email and send it to the segment we created above. */
+
+
+        /*
+         var mailchimp_data = {
+         'status' : 'subscribed',
+         'email_address' : user.email,
+         'merge_fields' : {
+         'FNAME' : user.username
+         }};
+
+
+
+         */
 			}
 		});
 
-  //Send a mailchimp email out to all people who bet in the match.
-
-  /** 1. create the segment */
-
-  /** 2. create the email and send it to the segment we created above. */
-
-
-  /*
-  var mailchimp_data = {
-    'status' : 'subscribed',
-    'email_address' : user.email,
-    'merge_fields' : {
-      'FNAME' : user.username
-    }};
-
-  var mailchimp_url = mailchimp_endpoint + 'lists/' + mailchimp_list_id + "/members";
-
-  var post_obj = {
-    url: mailchimp_url,
-    json: mailchimp_data
-  };
-
-  request.post(post_obj, function(err, resp, body) {
-    console.log('response code: ' + resp.statusCode);
-    if (err) {
-      console.log('error:' + err);
-    }
-    else {
-      console.log('body: ' + JSON.stringify(body));
-    }
-  });
-  */
 
     //Redirect adminuser back to matches page.
 	res.redirect('/#!/matches/' + match._id);

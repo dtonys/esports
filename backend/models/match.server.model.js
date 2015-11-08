@@ -45,7 +45,10 @@ var MatchSchema = new Schema({
 		type: Number,
 		default: 0
 	},
-
+  //mailchimp segment identifier
+  mailChimpSegmentId: {
+    type: String
+  },
 	/*Status of match.
 	0: "Blind Betting". Match is created. Bets should be blind, but get doubled stake.
 	1: "Regular Betting". 24 hours before match. Bets are shown.
