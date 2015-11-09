@@ -34,7 +34,7 @@ exports.create = function(req, res) {
 
       //Check timing/status of the match.
       //The match status must be 0 or 1, and must have a start time in the future.
-      if ((current_time > match.matchStartTime) ||  (match.status > 1))
+      if ((current_time > match.matchStartTime) || (match.status > 1))
       {
         return res.status(400).send(
           {message: 'Betting is closed for this match!'});
@@ -52,8 +52,6 @@ exports.create = function(req, res) {
 
       //need to save previous amount in case if we're adding.
       var betamount = bet.amount;
-
-
 
       if (bet.amount > theuser.dogeBalance)
       {
@@ -92,11 +90,17 @@ exports.create = function(req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          res.jsonp(bet);
-
           // change user's balance.
           theuser.dogeBalance -= betamount;
           theuser.save();
+
+          //Save the match.
+          if (bet.prediction == 1) { match.team1pot += betamount; }
+          else if (bet.prediction == 2) { match.team2pot += betamount; }
+          match.save();
+
+          res.jsonp(bet);
+
         }
       });
 

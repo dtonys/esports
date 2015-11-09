@@ -175,6 +175,7 @@ class Profile extends React.Component{
           { this.renderInput({ name: "email", type: "email"}) }
           <div className="margin-10"></div>
           <input id="emailOptIn"
+                 class="checkbox"
                  type="checkbox"
                  name="emailOptIn"
                  valueLink={this.linkState("emailOptIn")}

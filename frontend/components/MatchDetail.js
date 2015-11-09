@@ -211,12 +211,12 @@ class MatchDetail extends React.Component{
         <div className="left-48 choose-team">
           <div  className={`btn team-1 left-100 ${this.state.prediction === 1 ? 'chosen' : ''}`}
                 onClick={ this.selectTeam.bind(this, 1) } >
-            { match.team1name }
+            { match.team1name } ( {match.team1pot} )
           </div>
           <div className="left-100 margin-10"></div>
           <div  className={`btn team-2 left-100 ${this.state.prediction === 2 ? 'chosen' : ''}`}
                 onClick={ this.selectTeam.bind(this, 2) }>
-            { match.team2name }
+            { match.team2name } ( {match.team2pot} )
           </div>
         </div>
         <div className="left-4"> &nbsp; </div>

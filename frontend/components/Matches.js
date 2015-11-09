@@ -45,6 +45,9 @@ class Matches extends React.Component{
                       &nbsp;&nbsp;
                       ( { startMoment.fromNow() } )
                     </div>
+                    <div className="start-date">
+                      Pot: {item.team1pot + item.team2pot}
+                    </div>
                   </div>
                   <div className="left-20" style={{ minHeight: "40px" }} >
                     <div  className="btn bet-btn"
