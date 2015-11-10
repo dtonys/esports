@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Bet = mongoose.model('Bet'),
 	Match = mongoose.model('Match'),
 	_ = require('lodash'),
+  sbfuncs = require('./sbfuncs.js'),
 	request = require('request');
 /**
  * Create a Bet
@@ -91,8 +92,14 @@ exports.create = function(req, res) {
           });
         } else {
           // change user's balance.
-          theuser.dogeBalance -= betamount;
-          theuser.save();
+          var txobj = {
+            cryptotype: "DOGE",
+            address: "",
+            balance_change: -betamount,
+            txid: "",
+            note: "Bet on " + match.team1name + " vs " + match.team2name
+          };
+          sbfuncs.createTransaction(theuser, txobj);
 
           //Save the match.
           if (bet.prediction == 1) { match.team1pot += betamount; }

@@ -112,6 +112,7 @@ exports.resolve = function(req, res) {
 	console.log('RESOLVING MATCH:' + match.gameName + " - " + match.tourneyName +
     "(" + match.team1name + " vs " + match.team2name + ")");
 
+  var payoutnote = "Payout for " + match.team1name + " vs " + match.team2name;
   //Winner number
   //TODO: check to see if valid winner number.
   //TODO: wait for X number of people to submit an entry?
@@ -196,10 +197,15 @@ exports.resolve = function(req, res) {
 
 						console.log(bet2.user.username + ':' + bet2.amount + '->' + playerpayout + ' (' + bet2.user.email);
 
-
-						//Update user by giving him currency.
-						bet2.user.dogeBalance += playerpayout;
-						bet2.user.save();
+            //Update user by giving him currency.
+            var txobj = {
+              cryptotype: "DOGE",
+              address: bet2.user.dogecoinBlioAddress,
+              balance_change: playerpayout,
+              txid: "",
+              note: payoutnote
+            };
+            sbfuncs.createTransaction(bet2.user, txobj);
 
 						TEMPTOTAL += playerpayout;
 					}
