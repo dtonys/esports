@@ -111,9 +111,6 @@ exports.create = function(req, res) {
         }
       });
 
-
-
-
     });
 };
 
@@ -204,7 +201,7 @@ exports.betsOfMatch = function(req, res, next, match_id) {
 /**
  * Bet middleware
  */
-exports.betByID = function(req, res, next, id) { 
+exports.betByID = function(req, res, next, id) {
 	Bet.findById(id).populate('user', 'displayName').exec(function(err, bet) {
 		if (err) return next(err);
 		if (! bet) return next(new Error('Failed to load Bet ' + id));
