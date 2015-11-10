@@ -18,7 +18,7 @@ var block_io = new BlockIo(sbfuncs.block_io_config, sbfuncs.block_io_pin, sbfunc
 exports.list = function(req, res) {
   var theuser = req.user;
 
-  Transactions.find({'user':req.user}).
+  Transaction.find({'user':req.user}).
     sort('-created').
     exec(function(err, txs) {
       if (err) {

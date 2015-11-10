@@ -203,6 +203,17 @@ var routeMap = {
       return store.dispatch( actions.getMyBets() );
     }
   },
+  '/history': {
+    access: member_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/TransactionHistory.js')))
+      });
+    },
+    getData: function(params){
+      return store.dispatch( actions.getTransactionHistory());
+    }
+  },
   // NotFound
   '*': {
     access: {},

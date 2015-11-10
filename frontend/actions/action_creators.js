@@ -165,6 +165,12 @@ export function _getMyBets(payload) {
     payload
   }
 }
+export function _getTransactionHistory(payload) {
+  return {
+    type: 'GET_TRANSACTION_HISTORY_SUCCESS',
+    payload
+  }
+}
 
 // APIs
 export function postLogin( login_data ){
@@ -307,6 +313,21 @@ export function getMyBets(callback) {
       });
     return xhr_promise;
   };
+}
+
+export function getTransactionHistory(callback) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .get('/api/v1/transactions')
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _getTransactionHistory(res.body));
+      });
+    return xhr_promise;
+  };
+
 }
 
 export function getAdminPanel( callback ){

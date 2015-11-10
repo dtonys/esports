@@ -32,6 +32,7 @@ var initialState = fromJS({
     match: {}
   },
   myBets: [],
+  transactionHistory: [],
   adminPanel: []
 });
 
@@ -227,6 +228,16 @@ function mybets( substate, action )
   return substate;
 }
 
+function transactionhistory(substate, action)
+{
+  switch(action.type) {
+    case 'GET_TRANSACTION_HISTORY_SUCCESS':
+      var _substate = fromJS(action.payload);
+      return _substate;
+  }
+  return substate;
+}
+
 function adminpanel( substate, action )
 {
   switch( action.type ){
@@ -271,6 +282,7 @@ function reducer(state = initialState, action) {
     { reducer: match, keyPath: ['matchDetail'] },
     { reducer: me, keyPath: ['user'] },
     { reducer: mybets, keyPath: ['myBets'] },
+    { reducer: transactionhistory, keyPath: ['transactionHistory'] },
     { reducer: adminpanel, keyPath: ['adminPanel'] }
   ];
 
