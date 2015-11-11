@@ -15,18 +15,15 @@ var mongoose = require('mongoose'),
  * Create a Match
  */
 exports.create = function(req, res) {
-	var match = new Match(req.body);
-	match.user = req.user;
 
-  //console.log(req.body);
+  var reqbody = req.body;
+  reqbody.outcomeNames = [reqbody.team1name, reqbody.team2name];
+  reqbody.betPot = [0, 0];
 
-  /*
-	console.log('team1name:' + match.team1name);
-	console.log('team2name:' + match.team2name);
-	console.log('tourneyname:' + match.tourneyName);
-	console.log('gamename:' + match.gameName);
-  console.log('starttime:' + match.matchStartTime);
-  */
+  var match = new Match(reqbody);
+  match.user = req.user;
+
+
 
   //Save new segment on mailchimp.
   var mailchimp_segment_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/segments";
@@ -110,19 +107,19 @@ exports.resolve = function(req, res) {
 exports.resolve = function(req, res) {
   var match = req.match ;
 	console.log('RESOLVING MATCH:' + match.gameName + " - " + match.tourneyName +
-    "(" + match.team1name + " vs " + match.team2name + ")");
+    "(" + match.outcomeNames[0] + " vs " + match.outcomeNames[1] + ")");
 
-  var payoutnote = "Payout for " + match.team1name + " vs " + match.team2name;
+  var payoutnote = "Payout for " + match.outcomeNames[0] + " vs " + match.outcomeNames[1];
   //Winner number
   //TODO: check to see if valid winner number.
   //TODO: wait for X number of people to submit an entry?
   var matchres = req.body.winnerNum;
 
 
-	var match = req.match ;
-	match.result = matchres;
-    match.status = 3;
-	match.save();
+  var match = req.match ;
+  match.result = matchres;
+  match.status = 3;
+  match.save();
 
   //emails of users that bet on this match.
   var match_emails = [];
@@ -145,14 +142,8 @@ exports.resolve = function(req, res) {
 					var bet = bets[i];
 					if (parseInt(bet.amount) > 0)
 					{
-						if (bet.prediction === 1) {
-              totals[0] += bet.amount;
-              shares[0] += bet.stake;
-            }
-            else if (bet.prediction === 2) {
-              totals[1] += bet.amount;
-              shares[1] += bet.stake;
-            }
+            totals[bet.prediction] += bet.amount;
+            shares[bet.prediction] += bet.stake;
 					}
 				}
 
@@ -161,17 +152,16 @@ exports.resolve = function(req, res) {
 
 				var TEMPTOTAL = 0;
 
-				//Payout to distribute to players.
-				var winnertot = 0;
+				//Calculate payout to distribute to players, by:
+        //1. winner total (stakes) is shares[matchres]
+        //2. payout is sum of all the non-winning total.
+				var winnertot = shares[matchres];
 				var payout = 0;
-				if (matchres === 1) {
-					payout = totals[1];
-					winnertot = shares[0];
-				}
-				else if (matchres === 2) {
-					payout = totals[0];
-					winnertot = shares[1];
-				}
+        for (var p = 0; p < totals.length; p++)
+        {
+          if (p === matchres) continue;
+          payout += totals[p];
+        }
 
 				//Take 5% rake from loser
 				payout = Math.ceil(payout * 0.95);
@@ -182,12 +172,14 @@ exports.resolve = function(req, res) {
 					var bet2 = bets[j];
 
 					//If a correct bet, and the bet amount is more than 0
-					if (bet2.prediction === matchres && parseInt(bet2.amount) > 0)
+					if (bet2.prediction === matchres && bet2.amount > 0 && bet2.stake > 0)
 					{
 						var betratio = bet2.stake / winnertot;
 
 						//give player back his bet, and the payout.
 						var playerpayout = bet2.amount + Math.ceil(betratio * payout);
+
+            console.log(bet2.user.username + ':' + bet2.amount + '->' + playerpayout + ' (' + bet2.user.email + ')');
 
 						//Save the bet's status
 						// Maybe need to change this to += to properly keep track of payouts
@@ -195,7 +187,6 @@ exports.resolve = function(req, res) {
 						bet2.status += playerpayout;
 						bet2.save();
 
-						console.log(bet2.user.username + ':' + bet2.amount + '->' + playerpayout + ' (' + bet2.user.email);
 
             //Update user by giving him currency.
             var txobj = {
@@ -220,9 +211,10 @@ exports.resolve = function(req, res) {
 
 
 
-        //Send a mailchimp email out to all people who bet in the match.
-
+        //TODO:Send a mailchimp email out to all people who bet in the match.
+        //Problem: cannot have more than 10 conditions. so, need to find a way to manually add shit to a segment.
         /** 1. update the segment */
+        /*
         var mailchimp_segment_url = sbfuncs.mailchimp_endpoint + 'lists/' +
           sbfuncs.mailchimp_list_id + "/segments/" + match.mailChimpSegmentId;
 
@@ -260,6 +252,7 @@ exports.resolve = function(req, res) {
             console.log('body: ' + JSON.stringify(body));
           }
         });
+        */
 
         /** 2. create the email and send it to the segment we created above. */
 
