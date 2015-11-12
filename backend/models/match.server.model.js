@@ -57,6 +57,7 @@ var MatchSchema = new Schema({
 	2: "Match in Progress". Match is under way. No more bets allowed.
 	3: "Match Resolving". Match is finished, and we're paying the match out.
 	4: "Match Done". We're done paying the winners.
+	5: "Match Cancelled". Because of any reason, we're refunding the bets for this match.
 	*/
 	status: {
 		type: Number,

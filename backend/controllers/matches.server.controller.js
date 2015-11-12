@@ -91,6 +91,60 @@ exports.read = function(req, res) {
 		});
 };
 
+/**
+ * Cancel a match. Refund all people.
+ */
+exports.cancel = function(req, res) {
+
+  var match = req.match ;
+  match.result = matchres;
+  match.status = 5;
+  match.save();
+
+  Bet.find({'match':match})
+    .populate('user')
+    .exec(function(err, bets) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var TEMPTOTAL = 0;
+        //for each valid bet, give the user a refund.
+        for (var j in bets)
+        {
+          var bet = bets[j];
+
+          var playerpayout = bet.amount;
+
+          //Save the bet's status
+          // Maybe need to change this to += to properly keep track of payouts
+          // (in case of server error double spending, etc).
+          bet.status += playerpayout;
+          bet.save();
+
+          //Update user by giving him currency.
+          var txobj = {
+            cryptotype: "DOGE",
+            address: bet.user.dogecoinBlioAddress,
+            balance_change: playerpayout,
+            txid: "",
+            note: 'Refund for match'
+          };
+
+          sbfuncs.createTransaction(bet2.user, txobj);
+
+          TEMPTOTAL += playerpayout;
+
+        }
+        console.log('CANCELED:' + TEMPTOTAL);
+      }
+    });
+
+    //Redirect adminuser back to matches page.
+  res.redirect('/#!/matches/' + match._id);
+};
+
 /*
 //Resolving a match without having the match ID in the url.
 exports.resolve = function(req, res) {
@@ -209,6 +263,8 @@ exports.resolve = function(req, res) {
 				console.log('rake:' + TEMPRAKE);
 
 
+        match.status = 5;
+        match.save();
 
 
         //TODO:Send a mailchimp email out to all people who bet in the match.
