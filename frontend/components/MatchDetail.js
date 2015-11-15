@@ -25,7 +25,7 @@ class MatchDetail extends React.Component{
     this.match_status = MATCH_READY;
     this.state = {
       betting: this.props.route_ctx.queryparams['bet'] ? true : false,
-      prediction: 0,
+      prediction: -1,
       amount: '',
       errors: [],
       bet_success: false,
@@ -52,16 +52,17 @@ class MatchDetail extends React.Component{
     e.preventDefault();
     var errors = [];
     // extract form data
-    var data = serialize( e.target, { hash: true } )
+    var data = serialize( e.target, { hash: true } );
     data.match = this.props.matchDetail.match._id;
-    if( this.state.prediction ) data.prediction = this.state.prediction;
+    if( this.state.prediction > -1) data.prediction = this.state.prediction;
     // validate
-    if( !data.prediction )  errors.push('Select a team to bet on');
+    //Data prediction cannot be null, and can be 0 (since that's a valid outcome).
+    if( !data.prediction && data.prediction != 0)  errors.push('Select a team to bet on');
     if( !data.amount )      errors.push('Input a valid amount');
     if( errors.length ){
       this.setState({
         errors: errors
-      })
+      });
       return;
     }
     // fire API
@@ -101,12 +102,12 @@ class MatchDetail extends React.Component{
                   target="_blank" >{ match.gameName }</a>
               &nbsp;match between&nbsp;
               <a  className="link"
-                  href={`/?teamName=${match.team1name}`}
-                  target="_blank" >{ match.team1name }</a>
+                  href={`/?teamName=${match.outcomeNames[0]}`}
+                  target="_blank" >{ match.outcomeNames[0] }</a>
               &nbsp;and&nbsp;
               <a  className="link"
-                  href={`/?teamName=${match.team2name}`}
-                  target="_blank" >{ match.team2name }</a>
+                  href={`/?teamName=${match.outcomeNames[1]}`}
+                  target="_blank" >{ match.outcomeNames[1]}</a>
             </div>
             <div className="match-status">
               { this.match_status === MATCH_READY ?
@@ -209,14 +210,14 @@ class MatchDetail extends React.Component{
           null
         }
         <div className="left-48 choose-team">
-          <div  className={`btn team-1 left-100 ${this.state.prediction === 1 ? 'chosen' : ''}`}
-                onClick={ this.selectTeam.bind(this, 1) } >
-            { match.team1name }
+          <div  className={`btn team-1 left-100 ${this.state.prediction === 0 ? 'chosen' : ''}`}
+                onClick={ this.selectTeam.bind(this, 0) } >
+            { match.outcomeNames[0] } ( {match.betPot[0]} )
           </div>
           <div className="left-100 margin-10"></div>
-          <div  className={`btn team-2 left-100 ${this.state.prediction === 2 ? 'chosen' : ''}`}
-                onClick={ this.selectTeam.bind(this, 2) }>
-            { match.team2name }
+          <div  className={`btn team-2 left-100 ${this.state.prediction === 1 ? 'chosen' : ''}`}
+                onClick={ this.selectTeam.bind(this, 1) }>
+            { match.outcomeNames[1] } ( {match.betPot[1]} )
           </div>
         </div>
         <div className="left-4"> &nbsp; </div>
@@ -237,11 +238,7 @@ class MatchDetail extends React.Component{
   }
   renderCurrentBets(){
     var bets = this.state.bets;
-    var teams = [
-      null,
-      this.props.matchDetail.match.team1name,
-      this.props.matchDetail.match.team2name
-    ];
+    var teams = this.props.matchDetail.match.outcomeNames;
     return (
       <div>
         <div className="section-header clearfix">

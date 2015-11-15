@@ -11,9 +11,27 @@ var _ = require('lodash'),
     mongoose = require('mongoose'),
     BlockIo = require('block_io'),
     User = mongoose.model('User'),
+    sbfuncs = require('./sbfuncs.js'),
     Transaction = mongoose.model('Transaction');
-var block_io = new BlockIo('c3f9-2390-cd21-204b', 'OMFGbl0ck10', 2);
+var block_io = new BlockIo(sbfuncs.block_io_config, sbfuncs.block_io_pin, sbfuncs.block_io_vers);
 
+exports.list = function(req, res) {
+  var theuser = req.user;
+
+  Transaction.find({'user':req.user}).
+    sort('-created').
+    exec(function(err, txs) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        //console.log(bets);
+        res.jsonp(txs);
+      }
+    });
+
+};
 
 /**
  *
@@ -40,14 +58,14 @@ exports.withdraw = function(req, res) {
         return;
     }
 
-
     //using block io, withdraw to the address.
     block_io.withdraw({'amounts': amount, 'to_addresses': address},
         function(blio_req, blio_res) {
 
             //TODO: catch blio error
 
-            //var totalfee = blio_res.data.network_fee + blio_res.data.blockio_fee;
+            var totalfee = parseFloat(blio_res.data.network_fee) +
+              parseFloat(blio_res.data.blockio_fee);
 
             var txobj = {
                 cryptotype: cryptotype,
@@ -55,23 +73,12 @@ exports.withdraw = function(req, res) {
                 balance_change: -amount,
                 confirmations: 0,
                 txid: blio_res.data.txid,
+                fee: totalfee,
+                note: 'Withdrawal'
             };
             console.log(txobj);
 
-            var transaction = new Transaction(txobj);
-            transaction.save(function(err) {
-                if (err) {
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                } else {
-                    user.dogeBalance -= amount;
-                    user.save();
-                    res.jsonp(blio_res);
-                }
-
-            });
-
-
+            sbfuncs.createTransaction(user, txobj);
+            res.jsonp(blio_res);
     });
 };

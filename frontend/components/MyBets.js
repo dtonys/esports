@@ -20,14 +20,9 @@ class MyBets extends React.Component{
             <div className="bet-list">
               {
                 this.props.myBets.map( ( bet ) => {
-                  var teams = [
-                    null,
-                    bet.match.team1name,
-                    bet.match.team2name
-                  ]
                   return (
                     <div className="bet-item" key={ bet._id } >
-                      { bet.amount } on { teams[bet.prediction] }
+                      { bet.amount } on { bet.match.outcomeNames[bet.prediction] }
                     </div>
                   )
                 })

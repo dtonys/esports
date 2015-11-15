@@ -105,6 +105,39 @@ function _postBetError( payload ){
   }
 }
 
+function _getAdminPanel( payload ){
+  return {
+    type: 'GET_ADMIN_PANEL_SUCCESS',
+    payload
+  }
+}
+
+function _postResolveMatchSuccess( payload ){
+  return {
+    type: 'POST_RESOLVE_MATCH_SUCCESS',
+    payload
+  }
+}
+function _postResolveMatchError( payload ){
+  return {
+    type: 'POST_RESOLVE_MATCH_ERROR',
+    payload
+  }
+}
+
+function _postCreateMatchSuccess( payload ){
+  return {
+    type: 'POST_CREATE_MATCH_SUCCESS',
+    payload
+  }
+}
+function _postCreateMatchError( payload ){
+  return {
+    type: 'POST_CREATE_MATCH_ERROR',
+    payload
+  }
+}
+
 /**
  * Public
  */
@@ -126,12 +159,18 @@ export function clearSignupState(){
     type: 'CLEAR_SIGNUP_STATE'
   }
 }
-export function getMyBets(payload) {
+export function _getMyBets(payload) {
   return {
     type: 'GET_MY_BETS_SUCCESS',
     payload
   }
-};
+}
+export function _getTransactionHistory(payload) {
+  return {
+    type: 'GET_TRANSACTION_HISTORY_SUCCESS',
+    payload
+  }
+}
 
 // APIs
 export function postLogin( login_data ){
@@ -151,7 +190,7 @@ export function postLogin( login_data ){
       .catch( (res) => {
         var msg = _.get( res, 'response.body.message' ) || 'error';
         dispatch( _loginError({ message: msg }) );
-      })
+      });
     return xhr_promise;
   }
 }
@@ -172,7 +211,7 @@ export function postSignup( signup_data ){
       .catch( (res) => {
         var msg = _.get( res, 'response.body.message' ) || 'error';
         dispatch( _signupError({ message: msg }) );
-      })
+      });
     return xhr_promise;
   }
 }
@@ -190,7 +229,7 @@ export function getLogout(){
       });
     return xhr_promise;
   };
-};
+}
 
 export function getMe( callback ){
   var xhr_promise = null;
@@ -202,7 +241,7 @@ export function getMe( callback ){
       .then( ( res ) => {
         if( res.body )  dispatch( _setMember( res.body ) );
         else            dispatch( _setGuest() );
-      })
+      });
     return xhr_promise;
   };
 }
@@ -217,7 +256,7 @@ export function putMe( user_data ){
     xhr_promise
       .then( ( res ) => {
         if( res.body )  dispatch( _updateMe( res.body ) );
-      })
+      });
     return xhr_promise;
   }
 }
@@ -246,9 +285,9 @@ export function getMatches( callback ){
 
     return xhr_promise;
   };
-};
+}
 
-export function getMatchDetail( id,  callback ){
+export function getMatchDetail( id, callback ){
   var xhr_promise = null;
   return function( dispatch ){
     xhr_promise = request
@@ -260,9 +299,9 @@ export function getMatchDetail( id,  callback ){
       })
     return xhr_promise;
   };
-};
+}
 
-export function fetchMyBets(callback) {
+export function getMyBets(callback) {
   var xhr_promise = null;
   return function (dispatch) {
     xhr_promise = request
@@ -270,11 +309,82 @@ export function fetchMyBets(callback) {
       .end();
     xhr_promise
       .then( (res) => {
-        if (res.body) dispatch( getMyBets(res.body));
+        if (res.body) dispatch( _getMyBets(res.body));
       });
     return xhr_promise;
   };
-};
+}
+
+export function getTransactionHistory(callback) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .get('/api/v1/transactions')
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _getTransactionHistory(res.body));
+      });
+    return xhr_promise;
+  };
+
+}
+
+export function getAdminPanel( callback ){
+  var xhr_promise = null;
+  return function( dispatch ){
+    xhr_promise = request
+      .get('/api/v1/matches')
+      .end();
+    xhr_promise.then( ( res ) => {
+      if( res.body ) dispatch( _getAdminPanel( res.body ) );
+    });
+
+    return xhr_promise;
+  };
+}
+
+export function postResolveMatch( match_data ) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .post('/api/v1/resolve/' + match_data.matchid)
+      .send( match_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postResolveMatchSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postResolveMatchError({ message: msg }) );
+      });
+    return xhr_promise;
+  };
+}
+
+export function postCreateMatch( match_data ) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .post('/api/v1/matches')
+      .send( match_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postCreateMatchSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postCreateMatchError({ message: msg }) );
+      });
+    return xhr_promise;
+  };
+
+}
+
+
+
 
 export function postBet( bet_data ) {
   var xhr_promise = null;
@@ -303,10 +413,10 @@ export function postBet( bet_data ) {
       .catch( (res) => {
         var msg = _.get( res, 'response.body.message' ) || 'error';
         dispatch( _postBetError({ message: msg }) );
-      })
+      });
     return xhr_promise;
   };
-};
+}
 
 // export function execute(  ){
 // }

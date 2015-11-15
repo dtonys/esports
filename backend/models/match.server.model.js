@@ -15,18 +15,19 @@ var MatchSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	//Team 1 Name
-	team1name: {
-		type: String,
-		default: String,
-		trim: true
-	},
-	//Team 2 name
-	team2name: {
-		type: String,
-		default: String,
-		trim: true
-	},
+
+  //Name of outcomes.
+  outcomeNames: {
+    type: [String]
+  },
+  //Total amount of money inside the match. probably could do an aggregate later
+  //TODO: aggregate bets instead of summing this
+  betPot: {
+    type: [Number]
+  },
+
+
+
 	//When the match starts
 	matchStartTime: {
 		type: Date,
@@ -40,18 +41,23 @@ var MatchSchema = new Schema({
 	gameName: {
 		type: String
 	},
-	//0 if not done yet, 1 if team1 won, 2 if team 2 won, 3 if draw/negated or somehting
+
+	//-1 if not done yet, then array index if a winner has been chosen
 	result: {
 		type: Number,
-		default: 0
+		default: -1
 	},
-
+  //mailchimp segment identifier
+  mailChimpSegmentId: {
+    type: String
+  },
 	/*Status of match.
 	0: "Blind Betting". Match is created. Bets should be blind, but get doubled stake.
 	1: "Regular Betting". 24 hours before match. Bets are shown.
 	2: "Match in Progress". Match is under way. No more bets allowed.
 	3: "Match Resolving". Match is finished, and we're paying the match out.
 	4: "Match Done". We're done paying the winners.
+	5: "Match Cancelled". Because of any reason, we're refunding the bets for this match.
 	*/
 	status: {
 		type: Number,

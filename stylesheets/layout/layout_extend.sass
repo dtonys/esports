@@ -4,16 +4,18 @@
 
 // layout_extend.sass
 .fixed-navbar
-  background-color: #f8f8f8
   // box-shadow: 0 2px 2px 0 #dbdbdb
-  background-color: white
-  border-bottom: solid black 2px
+  background: #cccccc
+  background: linear-gradient(to bottom, #ffffff 0%, #cccccc 100%)
+  border-bottom: solid #ccc 1px
+
 .fixed-scroll-wrap
-  background-color: $color-primary-1
+  // background-color: $color-primary-1
+  background-color: #444
+
 .navbar-right
   height: 100%
   width: 230px
-  background: white
 .stats
   text-align: left
   width: 100px
@@ -27,7 +29,7 @@
   height: 100%
   padding: 10px
 .icon-link
-  width: 45px
+  width: 50px
   cursor: pointer
 .navbar-center
   position: absolute
@@ -45,6 +47,7 @@
   background-image: url(/img/dogecoin.png)
   background-size: 38px 38px
   background-position: center
+  background-repeat: no-repeat
   display: inline-block
   vertical-align: top
   height: 100%
@@ -55,38 +58,76 @@
   padding-top: 5px
 
 .navbar-item
-  border: solid black 1px
   border-bottom: none
   height: 100%
   padding-top: 18px
   &:hover
-    box-shadow: 0px 0px 4px #000
+    box-shadow: none
   &:active
     background: #EEE
     transition: transform 0.0s
+
+.my-bets
+  color: black
+  border: none
+  padding: 10px
+  &:hover
+    border: none
+    box-shadow: none
+  .wrap
+    border: solid black 1px
+    padding-top: 8px
+    border-radius: 20px
+    background: $gold
+    height: 100%
+    box-shadow: 0px 0px 4px #999 inset
+    &:hover
+      box-shadow: 0px 0px 4px #000 inset
+    &:active
+      background: $gold_darker
+
+  .bets-icon, .text
+    display: inline-block
+    vertical-align: top
+  .bets-icon
+    width: 30px
+    position: relative
+    bottom: 5px
+  .text
+    color: black
+    margin-left: 5px
+  .fa
+    color: black
 
 .dropdown
   height: auto
 
   .dropdown-head, .dropdown-item
-    border: solid black 1px
     height: 100%
     padding: 18px 0
+    cursor: pointer
     &:hover
-      box-shadow: 0px 0px 4px #000
+      box-shadow: none
     &:active
       background: #EEE
       transition: transform 0.0s
   .dropdown-head
     background: none
+    border-bottom: solid transparent 2px
     &.open
-      background: #EEE
+      background: none
   .dropdown-items
     height: 100%
+    border: solid black 2px
+    border-top: none
+    border-bottom: none
   .dropdown-item
     padding: 10px 0
-    background: white
+    background: #cccccc
     vertical-align: center
+    border-bottom: solid black 2px
+    &:first-child
+      border-top: solid black 2px
   // .dropdown-head
   //   padding: 18px 0
   // .dropdown-item
@@ -94,5 +135,9 @@
 
 @media #{$mobile_phone}
   .navbar-right
-    width: 230px
+    width: 175px
+  .navbar-left
+    overflow: hidden
 @media #{$mobile_tablet}
+  .navbar-left
+    overflow: hidden

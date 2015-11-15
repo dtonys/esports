@@ -2,31 +2,73 @@
 @import '../helpers/variables'
 @import '../helpers/colors'
 
+.bet-icon
+  width: 40px
+  height: 40px
+
+.icon_40x40
+  width: 40px
+  height: 40px
+  position: absolute
+  top: 0
+  left: 0
+
 .matches-page-container
-  background-color: white
-  border: solid black 2px
+  padding: 0 10px
+  // background-color: white
+  // border: solid black 2px
   max-width: $content_max_width
   margin: 20px auto
   text-align: left
+
+  .btn
+    box-shadow: 0px 0px 4px #999 inset
+    &:hover
+      box-shadow: 0px 0px 4px #000 inset
+    &:active
+      background: $gold_darker
+
   .header
     border-bottom: solid black 2px
     font-size: 30px
     padding: 10px 10px
+    display: none
   .match-items
   .match-item
+    background: linear-gradient(to right, #528fb1 0%, #aad0e5 100%)
+    border: solid black 2px
+    border-right: none
+    border-bottom: none
+
     padding: 10px 10px
-    border-bottom: solid black 2px
+    // border-bottom: solid black 2px
     cursor: pointer
+    border-radius: 5px
     &:last-child
       border-bottom: none
     &:hover
-      background: #EEE
+      background: #528fb1
+    .left-80
+      padding-left: 50px
+      position: relative
   .bet-btn
-    border-radius: 5px
+    border-radius: 50px
     min-height: 40px
     padding: 10px
     text-align: center
+    background: $gold
+    .fa
+      font-size: 40px
+    .bet-icon, .text
+      display: inline-block
+      vertical-align: top
+    .text
+      font-size: 24px
+      margin-top: 3px
+      margin-left: 5px
+
   .section
+    background: white
     position: relative
     padding: 10px
     &._1
@@ -89,6 +131,7 @@
   .current-bets
     font-size: 28px
   .bet-list
+    background: #eee
     border: solid black 1px
     border-radius: 5px
   .bet-item
@@ -102,7 +145,14 @@
     .headline, .bet-status
       font-size: 18px
       line-height: normal
+    .bet-btn
+      .text
+        display: none
+
   @media #{$mobile_tablet}
+    .bet-btn
+      .text
+        display: none
     .headline, .bet-status
       font-size: 18px
       line-height: normal

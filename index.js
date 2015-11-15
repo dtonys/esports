@@ -40,6 +40,8 @@ var block_io = new BlockIo('c3f9-2390-cd21-204b', 'OMFGblock10', 2);
 // main server connection
 var server = exports.server = express();
 
+var port = 3001;
+
 // Globbing model files
 config.getGlobbedFiles('./backend/models/**/*.js').forEach(function(modelPath) {
   require(path.resolve(modelPath));
@@ -69,7 +71,6 @@ var db = mongoose.connect(config.db, function(err) {
     _server = httpsServer;
   }
 
-  var port = 3001;
   try{ port = fs.readFileSync('./port.txt', "utf8" ); } catch(e){};
 
   server.listen(port, function(){
@@ -253,8 +254,8 @@ function createBlockIoWebhook(url) {
   });
 }
 
-//
-ngrok.connect(5000, function(err, url) {
+//This should be for local host only... I think. Ngrok exposes local host so I can get web hooks.
+ngrok.connect(port, function(err, url) {
   console.log('ngrok: ' + url);
   startBlockIoWebhooks(url);
 });
