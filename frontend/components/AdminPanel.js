@@ -13,6 +13,7 @@ import * as actions from '../actions/action_creators.js';
 import moment from 'moment';
 import { forms } from '../helpers/forms.js';
 
+import util from 'FE_util.js';
 
 @reactMixin.decorate(forms)
 @reactMixin.decorate(LinkedStateMixin)
@@ -138,9 +139,13 @@ class AdminPanel extends React.Component{
                     name="gameName"
                     valueLink={this.linkState('gameName')}>
               <option value=""></option>
-              <option value="League of Legends">League of Legends</option>
-              <option value="DOTA2">DOTA 2</option>
-              <option value="CSGO">CSGO</option>
+              {
+                Object.keys( util.gameNameMap ).map( ( item, index ) => {
+                  return (
+                    <option value="{item}">{item}</option>
+                  )
+                })
+              }
             </select>
             <div className="left-100 margin-10"></div>
             <input className="input amt"
