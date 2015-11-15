@@ -20,6 +20,7 @@ class Matches extends React.Component{
             this.props.matches.map( ( item ) => {
               var startMoment = moment(item.matchStartTime);
               var gameName = item.gameName || 'default';
+              var gameObj = util.gameNameMap[gameName] ? util.gameNameMap[gameName] : util.gameNameMap['default'];
 
               return (
                 <div key={item._id} >
@@ -27,7 +28,7 @@ class Matches extends React.Component{
                         onClick={ () => page(`/matches/${item._id}`) } >
                     <div className="left-80" >
                       <img  className="icon_40x40"
-                            src={ util.gameNameMap[gameName].icon_url } />
+                            src={ gameObj.icon_url } />
                       <div className="headline">
                         <a  className="link"
                             href={`/?gameName=${item.gameName}`}

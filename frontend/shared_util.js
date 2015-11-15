@@ -13,44 +13,33 @@ var escape_html = exports.capitalize = function( str ){
 };
 
 var gameNameMap = exports.gameNameMap = {
-  'League of Legends': {
+  'LOL': {
     icon_url: '/img/lol_icon.png',
-    icon_class: 'lol-icon'
-  },
-  'league': {
-    icon_url: '/img/lol_icon.png',
-    icon_class: 'lol-icon'
-  },
-  'leagueoflegends': {
-    icon_url: '/img/lol_icon.png',
-    icon_class: 'lol-icon'
-  },
-  'LoL': {
-    icon_url: '/img/lol_icon.png',
-    icon_class: 'lol-icon'
-  },
-  'League of Legends': {
-    icon_url: '/img/lol_icon.png',
-    icon_class: 'lol-icon'
+    icon_class: 'lol-icon',
+    display_name: 'League of Legends',
+    short_name: 'LOL'
   },
   'DOTA2': {
     icon_url: '/img/dota2_icon.png',
-    icon_class: 'dota2-icon'
-  },
-  'dota2': {
-    icon_url: '/img/dota2_icon.png',
-    icon_class: 'dota2-icon'
+    icon_class: 'dota2-icon',
+    display_name: 'DOTA 2',
+    short_name: 'DOTA2'
   },
   'CSGO': {
     icon_url: '/img/csgo_icon.png',
-    icon_class: 'csgo-icon'
-  },
-  'csgo': {
-    icon_url: '/img/csgo_icon.png',
-    icon_class: 'csgo-icon'
+    icon_class: 'csgo-icon',
+    display_name: 'Counter Strike GO',
+    short_name: 'CSGO'
   },
   'default': {
     icon_url: '/img/40x40.png',
     icon_class: 'default-icon'
   }
 };
+
+var teamNameMap = exports.teamNameMap = {
+  'cloud9': {
+    icon_url: '',
+    display_name: 'Cloud9',
+  }
+}
