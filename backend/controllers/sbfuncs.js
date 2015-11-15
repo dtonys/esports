@@ -7,7 +7,8 @@ var errorHandler = require('./errors.server.controller.js'),
 module.exports = {
 
 
-  block_io_config : 'c3f9-2390-cd21-204b',
+  block_io_config : 'e093-6355-a839-6878',
+    //vadejoseph: 'c3f9-2390-cd21-204b',
   block_io_pin : 'OMFGbl0ck10',
   block_io_vers: 2,
 
