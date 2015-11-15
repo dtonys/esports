@@ -58,7 +58,10 @@ class Profile extends React.Component{
         verifyPassword: [],
         email: []
       },
-      save_profile_success: false
+      save_profile_success: false,
+      email_toggle: false,
+      password_toggle: false,
+      notif_toggle: false
     };
   }
 
@@ -121,17 +124,20 @@ class Profile extends React.Component{
     e.preventDefault();
     alert('submitForm');
   }
+  toggleState( state_key ){
+    this.setState({
+      [state_key]: !this.state[state_key]
+    })
+  }
   render(){
-    var renderFn = ::this.renderProfile;
-    // var map = {
-    //   'accounts': ::this.renderSocial,
-    //   'password': ::this.renderPassword
-    // }
     return (
       <div className="profile-page-container" >
         { this.renderProfile() }
         <div className="margin-10"></div>
         { this.renderPassword() }
+        <div className="margin-10"></div>
+        { this.renderNotifSettings() }
+        <div className="margin-10"></div>
       </div>
     )
   }
@@ -154,8 +160,25 @@ class Profile extends React.Component{
       <div className="">
         <form className="generic-form container clearfix"
               onSubmit={ ::this.updateProfile } >
+          <div  className="form-title"
+                onClick ={ this.toggleState.bind(this, 'email_toggle' )}>
+            Change Email
+          </div>
+          <div className="form-toggle" >
+            { this.state.email_toggle ?
+                <div className="on"> ▲ </div>
+              :
+                <div className="off"> ▼ </div>
+            }
+          </div>
+            { this.state.email_toggle ? renderFormContents.call(this) : null }
+        </form>
+      </div>
+    )
 
-          <div className="form-title" > Change Email </div>
+    function renderFormContents(){
+      return (
+        <div>
           <div className="margin-10"></div>
           { this.state.save_profile_success ?
               <div>
@@ -174,39 +197,29 @@ class Profile extends React.Component{
           }
           { this.renderInput({ name: "email", type: "email"}) }
           <div className="margin-10"></div>
-          <input id="emailOptIn"
-                 type="checkbox"
-                 name="emailOptIn"
-                 valueLink={this.linkState("emailOptIn")}
-                 className = "checkbox"/>
-          <label htmlFor="emailOptIn" className="label">
-            <div className="checked-box"></div>
-            <div className="unchecked-box"></div>
-            Email Opt In
-          </label>
-          <div className="margin-10"></div>
           <input type="submit" value="submit" className="action-item submit btn left-100" />
-        </form>
-      </div>
-    )
+        </div>
+      )
+    }
+
   }
-  renderSocial(){
-    // TODO: social
-    return (
-      <div className="">
-        <form className="generic-form container clearfix" >
-          <div className="form-title" > Connect other social accounts: </div>
-          <div className="social-options" >
-            <img className="social-option-img" src="/img/facebook.png" />
-            <img className="social-option-img" src="/img/twitter.png" />
-            <img className="social-option-img" src="/img/google.png" />
-            <img className="social-option-img" src="/img/linkedin.png" />
-            <img className="social-option-img" src="/img/github.png" />
-          </div>
-        </form>
-      </div>
-    )
-  }
+  // renderSocial(){
+  //   // TODO: social
+  //   return (
+  //     <div className="">
+  //       <form className="generic-form container clearfix" >
+  //         <div className="form-title" > Connect other social accounts: </div>
+  //         <div className="social-options" >
+  //           <img className="social-option-img" src="/img/facebook.png" />
+  //           <img className="social-option-img" src="/img/twitter.png" />
+  //           <img className="social-option-img" src="/img/google.png" />
+  //           <img className="social-option-img" src="/img/linkedin.png" />
+  //           <img className="social-option-img" src="/img/github.png" />
+  //         </div>
+  //       </form>
+  //     </div>
+  //   )
+  // }
   renderPassword(){
     var curr_err = _.get( this.state, 'errors.currentPassword' );
     var has_curr_err = curr_err && curr_err.length;
@@ -223,8 +236,26 @@ class Profile extends React.Component{
       <div className="">
         <form className="generic-form container clearfix"
               onSubmit={ ::this.updatePassword } >
-          <div className="form-title" > Change Password </div>
-          { server_error ?
+          <div  className="form-title"
+                onClick ={ this.toggleState.bind(this, 'password_toggle' ) }  >
+            Change Password
+          </div>
+          <div className="form-toggle" >
+            { this.state.password_toggle ?
+                <div className="on"> ▲ </div>
+              :
+                <div className="off"> ▼ </div>
+            }
+          </div>
+          { this.state.password_toggle ? renderFormContents.call(this) : null }
+        </form>
+      </div>
+    )
+
+    function renderFormContents(){
+      return (
+        <div>
+         { server_error ?
               <div>
                 <div className="margin-10"></div>
                 <div className="error input"> { server_error } </div>
@@ -285,9 +316,45 @@ class Profile extends React.Component{
           }
           <div className="margin-10"></div>
           <input type="submit" value="submit" className="action-item submit btn left-100" />
-        </form>
-      </div>
+        </div>
+      )
+    }
+
+  }
+  renderNotifSettings(){
+    return (
+      <form className="generic-form container clearfix">
+        <div  className="form-title"
+              onClick ={ this.toggleState.bind(this, 'notif_toggle' )} >
+          Notification Settings
+        </div>
+        <div className="form-toggle" >
+          { this.state.notif_toggle ?
+              <div className="on"> ▲ </div>
+            :
+              <div className="off"> ▼ </div>
+          }
+        </div>
+        { this.state.notif_toggle ? renderFormContents.call(this) : null }
+      </form>
     )
+
+    function renderFormContents(){
+      return (
+        <div>
+          <input id="emailOptIn"
+                 type="checkbox"
+                 name="emailOptIn"
+                 valueLink={this.linkState("emailOptIn")}
+                 className = "checkbox"/>
+          <label htmlFor="emailOptIn" className="label">
+            <div className="checked-box"></div>
+            <div className="unchecked-box"></div>
+            Email Opt In
+          </label>
+        </div>
+      )
+    }
   }
 }
 
