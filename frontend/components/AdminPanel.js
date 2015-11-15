@@ -142,7 +142,7 @@ class AdminPanel extends React.Component{
               {
                 Object.keys( util.gameNameMap ).map( ( item, index ) => {
                   return (
-                    <option value="{item}">{item}</option>
+                    <option value={item} >{item}</option>
                   )
                 })
               }
