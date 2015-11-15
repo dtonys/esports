@@ -43,6 +43,8 @@ var validEmail = validatorFactory(
 class Profile extends React.Component{
   constructor( props ){
     super( props );
+    var section = this.props.route_ctx.params.section;
+
     this.state = {
       currentPassword: '',
       newPassword: '',
@@ -59,9 +61,9 @@ class Profile extends React.Component{
         email: []
       },
       save_profile_success: false,
-      email_toggle: false,
-      password_toggle: false,
-      notif_toggle: false
+      email_toggle: section === 'email',
+      password_toggle: section === 'password',
+      notif_toggle: section === 'notifications'
     };
   }
 
