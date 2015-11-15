@@ -93,14 +93,14 @@ class AdminPanel extends React.Component{
                               onClick={ (e) => e.stopPropagation() } >{ item.gameName }</a>
                           &nbsp;match between&nbsp;
                           <a  className="link"
-                              href={`/?teamName=${item.outcomeNames[0]}`}
+                              href={`/?teamName=${item.team1name}`}
                               target="_blank"
-                              onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[0] }</a>
+                              onClick={ (e) => e.stopPropagation() } >{ item.team1name }</a>
                           &nbsp;and&nbsp;
                           <a  className="link"item
-                              href={`/?teamName=${item.outcomeNames[1]}`}
+                              href={`/?teamName=${item.team2name}`}
                               target="_blank"
-                              onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[1] }</a>
+                              onClick={ (e) => e.stopPropagation() } >{ item.team2name }</a>
                         </div>
                         <div className="start-date">
                           Match begins on: &nbsp;
@@ -115,12 +115,12 @@ class AdminPanel extends React.Component{
                       </div>
                       <div className="left-20" style={{ minHeight: "40px" }}  >
                         <input  className="left-100 btn" type="submit"
-                                value={item.outcomeNames[0]}
-                                onClick = { () => { this.submitResolveMatch(this, item, 0) } }>
+                                value={item.team1name}
+                                onClick = { () => { this.submitResolveMatch(this, item, 1) } }>
                         </input>
                         <input  className="left-100 btn" type="submit"
-                                value={item.outcomeNames[1]}
-                                onClick = { () => { this.submitResolveMatch(this, item, 1) } }>
+                                value={item.team2name}
+                                onClick = { () => { this.submitResolveMatch(this, item, 2) } }>
                         </input>
                       </div>
                     </div>

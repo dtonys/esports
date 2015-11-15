@@ -58,7 +58,7 @@ var BetSchema = new Schema({
 		required: 'Share failed!'
 	},
 
-	// Prediction on who will win. Number corresponds to the outcome index the person is betting on.
+	// Prediction on who will win. 1 = team1, 2 = team2, 3 = draw
 	prediction: {
 		required: 'Select an outcome to bet on!',
 		type: Number

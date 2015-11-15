@@ -15,19 +15,18 @@ var MatchSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-
-  //Name of outcomes.
-  outcomeNames: {
-    type: [String]
-  },
-  //Total amount of money inside the match. probably could do an aggregate later
-  //TODO: aggregate bets instead of summing this
-  betPot: {
-    type: [Number]
-  },
-
-
-
+	//Team 1 Name
+	team1name: {
+		type: String,
+		default: String,
+		trim: true
+	},
+	//Team 2 name
+	team2name: {
+		type: String,
+		default: String,
+		trim: true
+	},
 	//When the match starts
 	matchStartTime: {
 		type: Date,
@@ -42,10 +41,22 @@ var MatchSchema = new Schema({
 		type: String
 	},
 
-	//-1 if not done yet, then array index if a winner has been chosen
+
+  //Total amount of money inside the match. probably could do an aggregate later
+  //TODO: aggregate this team1pot/team2pot instead of summing it
+  team1pot: {
+    type: Number,
+    default: 0
+  },
+  team2pot: {
+    type: Number,
+    default: 0
+  },
+
+	//0 if not done yet, 1 if team1 won, 2 if team 2 won, 3 if draw/negated or somehting
 	result: {
 		type: Number,
-		default: -1
+		default: 0
 	},
   //mailchimp segment identifier
   mailChimpSegmentId: {

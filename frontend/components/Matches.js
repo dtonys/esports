@@ -30,14 +30,14 @@ class Matches extends React.Component{
                           onClick={ (e) => e.stopPropagation() } >{ item.gameName }</a>
                       &nbsp;match between&nbsp;
                       <a  className="link"
-                          href={`/?teamName=${item.outcomeNames[0]}`}
+                          href={`/?teamName=${item.team1name}`}
                           target="_blank"
-                          onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[0] }</a>
+                          onClick={ (e) => e.stopPropagation() } >{ item.team1name }</a>
                       &nbsp;and&nbsp;
                       <a  className="link"item
-                          href={`/?teamName=${item.outcomeNames[1]}`}
+                          href={`/?teamName=${item.team2name}`}
                           target="_blank"
-                          onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[1] }</a>
+                          onClick={ (e) => e.stopPropagation() } >{ item.team2name }</a>
                     </div>
                     <div className="start-date">
                       Match begins on: &nbsp;
@@ -46,7 +46,7 @@ class Matches extends React.Component{
                       ( { startMoment.fromNow() } )
                     </div>
                     <div className="start-date">
-                      Pot: {item.betPot[0] + item.betPot[1]}
+                      Pot: {item.team1pot + item.team2pot}
                     </div>
                   </div>
                   <div className="left-20" style={{ minHeight: "40px" }} >

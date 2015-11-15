@@ -26,6 +26,8 @@ exports.create = function(req, res) {
 
   //find the match
 
+  console.log('CREATING BET!');
+
   Match.findById(req.body.match).
     exec(function(err, match) {
       if (err) return next(err);
@@ -95,16 +97,14 @@ exports.create = function(req, res) {
             address: "",
             balance_change: -betamount,
             txid: "",
-            note: "Bet on " + match.outcomeNames[0] + " vs " + match.outcomeNames[1]
+            note: "Bet on " + match.team1name + " vs " + match.team2name
           };
           sbfuncs.createTransaction(theuser, txobj);
 
-          console.log('before:' + match.betPot[0] + ", " + match.betPot[1]);
           //Save the match.
-          match.betPot[bet.prediction] += betamount;
-          match.markModified('betPot');
+          if (bet.prediction == 1) { match.team1pot += betamount; }
+          else if (bet.prediction == 2) { match.team2pot += betamount; }
           match.save();
-          console.log('after:' + match.betPot[0] + ", " + match.betPot[1]);
 
           res.jsonp(bet);
 
