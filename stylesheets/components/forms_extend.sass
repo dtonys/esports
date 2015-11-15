@@ -1,3 +1,7 @@
+@import '../helpers/mixins'
+@import '../helpers/variables'
+@import '../helpers/colors'
+
 // forms_extend
 .input
   width: 100%
@@ -11,8 +15,12 @@
   max-width: 320px
   margin: auto
   display: block
-  background: white
+  background: linear-gradient(to bottom, #ffffff 0%, #cccccc 100%)
   width: 100%
+  border: solid $gold_darker_2 2px
+  border-right: none
+  border-bottom: none
+
   .form-title
     font-size: 18px
   .action-item

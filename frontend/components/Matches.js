@@ -57,7 +57,8 @@ class Matches extends React.Component{
                     <div className="left-20" style={{ minHeight: "40px" }} >
                       <div  className="btn bet-btn"
                             onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
-                        <i className="fa fa-level-up"></i>
+                        <img className="bet-icon" src="/img/chip_icon.png" />
+                        <div className="text" > Bet </div>
                       </div>
                     </div>
                   </div>

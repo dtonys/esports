@@ -48,8 +48,8 @@ class Navbar extends React.Component{
         </div>
         <div className="navbar-right f-right" >
           <div className="dropdown right-55" >
-            <div className={`link dropdown-head ${open}`} onClick={ ::this.toggleDropDown } >
-              { this.props.user.username }
+            <div className={`dropdown-head ${open}`} onClick={ ::this.toggleDropDown } >
+              { this.props.user.username } ▾
             </div>
             { this.state.dropdown_open ?
               <div className="dropdown-items">
@@ -69,7 +69,12 @@ class Navbar extends React.Component{
               null
             }
           </div>
-          <a className="link navbar-item right-45" onClick={ () => page('/mybets') } > Bets </a>
+          <a className="link navbar-item right-45 my-bets" onClick={ () => page('/mybets') } >
+            <div className="wrap">
+              <i className="fa fa-list"></i>
+              <div className="text" > Bets </div>
+            </div>
+          </a>
         </div>
       </span>
     )
