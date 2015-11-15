@@ -7,6 +7,9 @@ module.exports = function(app) {
     var users = require('../../backend/controllers/users.server.controller');
     var transactions = require('../../backend/controllers/transactions.server.controller');
 
+    app.route('/api/v1/transactions')
+      .get(users.requiresLogin, transactions.list);
+
     app.route('/api/v1/withdraw')
-        .post(users.requiresLogin, transactions.withdraw);
+      .post(users.requiresLogin, transactions.withdraw);
 };

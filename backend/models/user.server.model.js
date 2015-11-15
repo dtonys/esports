@@ -32,6 +32,7 @@ var UserSchema = new Schema({
 	email: {
 		type: String,
 		trim: true,
+    unique: 'unique email test error message',
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
@@ -82,11 +83,20 @@ var UserSchema = new Schema({
 	dogecoinBlioAddress: {
 		type: String
 	},
-
 	dogeBalance: {
 		type: Number,
 		default: 0
-	}
+	},
+
+  //Subscriber hash of mailchimp.
+  mailChimpHash: {
+    type: String
+  },
+  emailOptIn: {
+    type: Boolean,
+    default: true
+  }
+
 
 
 

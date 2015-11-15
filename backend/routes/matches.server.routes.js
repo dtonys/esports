@@ -18,6 +18,9 @@ module.exports = function(app) {
 	app.route('/api/v1/resolve/:matchId')
 		.post(users.isAdmin, matches.resolve);
 
+	app.route('/api/v1/cancel/:matchId')
+		.post(users.isAdmin, matches.cancel);
+
 	// Finish by binding the Match middleware
 	app.param('matchId', matches.matchByID);
 

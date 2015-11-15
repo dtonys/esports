@@ -8,9 +8,12 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
-	sbtools = require('../sbfuncs'),
+	sbfuncs = require('../sbfuncs'),
+  request = require('request'),
 	BlockIo = require('block_io');
-var block_io = new BlockIo('c3f9-2390-cd21-204b', 'OMFGbl0ck10', 2);
+var block_io = new BlockIo(sbfuncs.block_io_config, sbfuncs.block_io_pin, sbfuncs.block_io_vers);
+
+
 
 /**
  * Signup
@@ -34,30 +37,54 @@ exports.signup = function(req, res) {
 
 		//Set the address
 		user.dogecoinBlioAddress = blio_res.data.address;
+    console.log('bliores:' + JSON.stringify(blio_res));
+
+    //Subscribe the user via mailchimp.
+    var mailchimp_data = {
+      'status' : 'subscribed',
+      'email_address' : user.email,
+      'merge_fields' : { 'FNAME' : user.username }
+    };
+
+    var mailchimp_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/members";
+    var post_obj = { url: mailchimp_url, json: mailchimp_data };
+
+    request.post(post_obj, function(err, resp, body) {
+      if (err) {
+        console.log('Error:' + err);
+      }
+      else {
+        //console.log('body: ' + JSON.stringify(body));
+        user.mailChimpHash = body.id;
+      }
+      // Then save the user
+      user.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
 
 
-		// Then save the user
-		user.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
+          // Remove sensitive data before login
+          user.password = undefined;
+          user.salt = undefined;
 
-				// Remove sensitive data before login
-				user.password = undefined;
-				user.salt = undefined;
+          req.login(user, function(err) {
+            if (err) {
+              res.status(400).send(err);
+            } else {
+              res.json(user);
+            }
+          });
 
-				req.login(user, function(err) {
-					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.json(user);
-					}
-				});
-			}
-		});
+        }
+      });
+    });
+
 	});
+
+
 };
 
 
@@ -69,9 +96,22 @@ exports.signin = function(req, res, next) {
 		if (err || !user) {
 			res.status(400).send(info);
 		} else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function(err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
 
 			//Get address balance
+      //NO LONGER NECESSARY, BECAUSE OUR DATABASE SHOULD BE ACCURATE.
 			//sbtools.get_user_balance(req, res)
+      /*
 			block_io.get_address_balance({'address':user.dogecoinBlioAddress},
 				function(blio_req, blio_res)
 				{
@@ -83,22 +123,12 @@ exports.signin = function(req, res, next) {
 								message: errorHandler.getErrorMessage(err)
 							});
 						} else {
-							// Remove sensitive data before login
-							user.password = undefined;
-							user.salt = undefined;
-
-							req.login(user, function(err) {
-								if (err) {
-									res.status(400).send(err);
-								} else {
-									res.json(user);
-								}
-							});
+						  //other stuff
 						}
 					});
 				}
 			);
-
+      */
 		}
 	})(req, res, next);
 };

@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Bet = mongoose.model('Bet'),
 	Match = mongoose.model('Match'),
 	_ = require('lodash'),
+  sbfuncs = require('./sbfuncs.js'),
 	request = require('request');
 /**
  * Create a Bet
@@ -21,35 +22,96 @@ exports.create = function(req, res) {
 		return res.status(400).send({message: 'You must bet at least 5 DOGE!'});
 	}
 
-	//create the bet. we don't save it until later.
-	var bet = new Bet(req.body);
+  var current_time = new Date();
 
-	if (bet.amount > theuser.dogeBalance)
-	{
-		return res.status(400).send(
-			{message: 'You don\'t have enough for that!'});
-	}
+  //find the match
 
-	//TODO: check timing of bet for doubled stake
-	// if match date already started, we deny it.
-	// if it's before 24 hours, then we double the bet's stake.
+  Match.findById(req.body.match).
+    exec(function(err, match) {
+      if (err) return next(err);
+      if (! match) return next(new Error('Failed to find Match ' + id));
 
+      //Check timing/status of the match.
+      //The match status must be 0 or 1, and must have a start time in the future.
+      if ((current_time > match.matchStartTime) || (match.status > 1))
+      {
+        return res.status(400).send(
+          {message: 'Betting is closed for this match!'});
+      }
 
+      //create the bet. we don't save it until later.
+      var bet = new Bet(req.body);
 
-	bet.user = theuser;
-	bet.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(bet);
+      //Share is a copy of amount.
+      bet.stake = bet.amount;
+      //check timing of bet for doubled stake
+      if (current_time < match.matchStartTime - 24) {
+        bet.stake *= 2;
+      }
 
-			// change user's balance.
-			theuser.dogeBalance -= bet.amount;
-			theuser.save();
-		}
-	});
+      //need to save previous amount in case if we're adding.
+      var betamount = bet.amount;
+
+      if (bet.amount > theuser.dogeBalance)
+      {
+        return res.status(400).send(
+          {message: 'You don\'t have enough for that!'});
+      }
+
+      //Check to see if the user already has a bet. (currently disabling this)
+      //if so, we should just add it, instead of creating.
+      /*
+      Bet.find(
+        { 'match' : req.body.match,
+          'user' : theuser,
+          'prediction' : req.body.prediction}).
+        exec(function(err, previousbet) {
+          if (err) return next(err);
+
+          //We found a previous bet that's the same.
+          if (previousbet)
+          {
+            console.log('PREVIOUS BET FOUND!');
+            console.log('past bet:' + bet);
+            bet = previousbet;
+            bet.amount += betamount;
+
+            console.log('current bet:' + bet);
+          }
+        });
+      */
+
+      //save the bet.
+      bet.user = theuser;
+      bet.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          // change user's balance.
+          var txobj = {
+            cryptotype: "DOGE",
+            address: "",
+            balance_change: -betamount,
+            txid: "",
+            note: "Bet on " + match.outcomeNames[0] + " vs " + match.outcomeNames[1]
+          };
+          sbfuncs.createTransaction(theuser, txobj);
+
+          console.log('before:' + match.betPot[0] + ", " + match.betPot[1]);
+          //Save the match.
+          match.betPot[bet.prediction] += betamount;
+          match.markModified('betPot');
+          match.save();
+          console.log('after:' + match.betPot[0] + ", " + match.betPot[1]);
+
+          res.jsonp(bet);
+
+        }
+      });
+
+    });
 };
 
 /**
@@ -139,7 +201,7 @@ exports.betsOfMatch = function(req, res, next, match_id) {
 /**
  * Bet middleware
  */
-exports.betByID = function(req, res, next, id) { 
+exports.betByID = function(req, res, next, id) {
 	Bet.findById(id).populate('user', 'displayName').exec(function(err, bet) {
 		if (err) return next(err);
 		if (! bet) return next(new Error('Failed to load Bet ' + id));
