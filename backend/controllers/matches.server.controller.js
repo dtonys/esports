@@ -384,7 +384,7 @@ exports.list = function(req, res) {
 	Match.find()
 
     //All matches have happened one week ago, or after.
-    .where('matchStartTime').gte(oneWeekAgo)
+    // .where('matchStartTime').gte(oneWeekAgo)
 
     //Sort by match start time
     .sort('+matchStartTime')
