@@ -5,6 +5,11 @@ import 'pages/index.sass'
 
 // global polyfill to allow use of ES6 Promise
 require('es6-promise').polyfill();
+// FastClick to fix mobile delay
+import FastClick from 'fastclick';
+window.addEventListener('load', () => {
+  FastClick.attach(document.body);
+});
 
 import Router from './Router.js';
 

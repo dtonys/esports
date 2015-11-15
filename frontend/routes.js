@@ -207,7 +207,7 @@ var routeMap = {
   },
   // NotFound
   '*': {
-    access: {},
+    access: all,
     getComponent: () => {
       return new Promise( (res, rej) => {
         require.ensure([], () => res(require('components/NotFound.js')) )
