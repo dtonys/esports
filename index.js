@@ -222,6 +222,7 @@ function startBlockIoWebhooks(url) {
 
     var createnew = true;
 
+    //TODO: probably need to change this up
     //for each webhook, check to see if type = account. if so, delete it.
     for (var i in res.data)
     {
