@@ -22,6 +22,10 @@ class Matches extends React.Component{
               var gameName = item.gameName || 'default';
               var gameObj = util.gameNameMap[gameName] ? util.gameNameMap[gameName] : util.gameNameMap['default'];
 
+              var betTotal = item.betPot.reduce( ( prev, curr ) => {
+                return prev + curr;
+              })
+
               return (
                 <div key={item._id} >
                   <div  className="match-item clearfix"
@@ -52,7 +56,7 @@ class Matches extends React.Component{
                         ( { startMoment.fromNow() } )
                       </div>
                       <div className="start-date">
-                        Pot: {item.team1pot + item.team2pot}
+                        Pot: {betTotal}
                       </div>
                     </div>
                     <div className="left-20" style={{ minHeight: "40px" }} >
