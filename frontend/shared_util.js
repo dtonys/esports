@@ -37,9 +37,28 @@ var gameNameMap = exports.gameNameMap = {
   }
 };
 
+//http://wiki.teamliquid.net/dota2/Portal:Teams
+//http://wiki.teamliquid.net/counterstrike/Portal:Teams
+
 var teamNameMap = exports.teamNameMap = {
   'cloud9': {
     icon_url: '',
     display_name: 'Cloud9',
+    initials: 'C9'
+  },
+  'complexity': {
+    icon_url: '',
+    display_name: 'compLexity Gaming',
+    initials: 'coL'
+  },
+  'evilgeniuses': {
+    icon_url: '',
+    display_name:'Evil Geniuses',
+    initials:'EG'
+  },
+  'teamliquid': {
+    icon_url:'',
+    display_name:'Team Liquid',
+    initials:'TL'
   }
-}
+};
