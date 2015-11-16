@@ -25,7 +25,7 @@ class TransactionHistory extends React.Component{
                 this.props.transactionHistory.map( ( tx ) => {
                   return (
                     <div className="bet-item" key={ tx._id } >
-                      { tx.balance_change } b/c of { tx.note }
+                      { tx.balance_change } b/c of { tx.note } ; Balance: {tx.curr_balance}
                     </div>
                   )
                 })

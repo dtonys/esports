@@ -24,7 +24,7 @@ class Matches extends React.Component{
 
               var betTotal = item.betPot.reduce( ( prev, curr ) => {
                 return prev + curr;
-              })
+              });
 
               return (
                 <div key={item._id} >

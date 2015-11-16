@@ -19,7 +19,7 @@ exports.list = function(req, res) {
   var theuser = req.user;
 
   Transaction.find({'user':req.user}).
-    sort('-created').
+    sort('-timestamp').
     exec(function(err, txs) {
       if (err) {
         return res.status(400).send({
