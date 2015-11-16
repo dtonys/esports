@@ -138,6 +138,20 @@ function _postCreateMatchError( payload ){
   }
 }
 
+function _postWithdrawSuccess( payload) {
+  return {
+    type: 'POST_WITHDRAW_SUCCESS',
+    payload
+  }
+}
+
+function _postWithdrawError( payload) {
+  return {
+    type: 'POST_WITHDRAW_ERROR',
+    payload
+  }
+}
+
 /**
  * Public
  */
@@ -383,7 +397,24 @@ export function postCreateMatch( match_data ) {
 
 }
 
-
+export function postWithdraw(withdraw_data) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .post('/api/v1/withdraw')
+      .send( withdraw_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postWithdrawSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postWithdrawError({ message: msg }) );
+      });
+    return xhr_promise;
+  };
+}
 
 
 export function postBet( bet_data ) {

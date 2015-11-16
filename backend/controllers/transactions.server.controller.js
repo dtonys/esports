@@ -19,7 +19,7 @@ exports.list = function(req, res) {
   var theuser = req.user;
 
   Transaction.find({'user':req.user}).
-    sort('-created').
+    sort('-timestamp').
     exec(function(err, txs) {
       if (err) {
         return res.status(400).send({
@@ -41,21 +41,28 @@ exports.withdraw = function(req, res) {
     var amount = req.body.amount;
     var address = req.body.address; //'2N15rWNxXozv1WoYhE9srgezLXgvgAs6WY6';
     var cryptotype = "DOGE";
-    /*
-    var amount = req.amount;
-    var address = req.address;
-     */
 
     //TODO: how to handle network fee? - currently we just eat it.
 
     //TODO: handle missing address?
 
+    if (!amount || amount < 100)
+    {
+      return res.status(400).send({message: 'You must withdraw at least 100 DOGE!'});
+    }
+
+    //simple check for address
+    if (!address || address.length < 5)
+    {
+      return res.status(400).send({message: 'Please provide an address to withdraw to!'});
+    }
+
+
     //Check balance. return error if amount isn't enough.
     //TODO: need to check balance in database? not sure if this balance is accurate or can be manipulated
     if (user.dogeBalance < amount)
     {
-        res.jsonp({'error':'balance too low'});
-        return;
+      return res.status(400).send({message: "You don't have that much!"});
     }
 
     //using block io, withdraw to the address.

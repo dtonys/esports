@@ -7,7 +7,8 @@ var errorHandler = require('./errors.server.controller.js'),
 module.exports = {
 
 
-  block_io_config : 'e093-6355-a839-6878',
+  block_io_config : 'c3f9-2390-cd21-204b',
+    //suchbet: 'e093-6355-a839-6878',
     //vadejoseph: 'c3f9-2390-cd21-204b',
   block_io_pin : 'OMFGbl0ck10',
   block_io_vers: 2,
@@ -36,21 +37,21 @@ module.exports = {
     */
 
     //Change user's balance.
-    user.dogeBalance += txobj.balance_change;
+    user.dogeBalance += parseInt(txobj.balance_change);
     user.save();
 
     //Save the transaction in database.
     var transaction = new Transaction(txobj);
     transaction.user = user;
+    transaction.curr_balance = user.dogeBalance;
     transaction.save(function(err) {
       if (err) {
         console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         console.log('ERROR CREATING TRANSACTION:' + errorHandler.getErrorMessage(err));
-        /*
+
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
-        */
       } else {
       }
 

@@ -374,6 +374,25 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 
+  var queries = req.query;
+
+  console.log('query:' + JSON.stringify(queries));
+
+
+  var findquery = {};
+
+  if (queries.gameName)
+    findquery.gameName = queries.gameName;
+  if (queries.tourneyName)
+    findquery.tourneyName = queries.tourneyName;
+  if (queries.teamName)
+    findquery.outcomeNames = queries.teamName;
+
+
+  var per_page = ((queries.per_page)?queries.per_page:10);
+  var skipnum = (queries.page ? ((queries.page - 1) * per_page) : 0);
+
+
   /*Get:
   5 most recent matches.
   any upcoming matches.
@@ -381,13 +400,15 @@ exports.list = function(req, res) {
   var oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-	Match.find()
+	Match.find(findquery)
 
     //All matches have happened one week ago, or after.
     // .where('matchStartTime').gte(oneWeekAgo)
 
     //Sort by match start time
     .sort('+matchStartTime')
+    .limit(per_page)
+    .skip(skipnum)
 
     .exec(function(err, matches) {
 		if (err) {

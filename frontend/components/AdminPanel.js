@@ -142,21 +142,39 @@ class AdminPanel extends React.Component{
               {
                 Object.keys( util.gameNameMap ).map( ( item, index ) => {
                   return (
-                    <option value={item} >{item}</option>
+                    <option value={item} >{util.gameNameMap[item].display_name}</option>
                   )
                 })
               }
             </select>
             <div className="left-100 margin-10"></div>
-            <input className="input amt"
-                   placeholder="Team 1 Name"
-                   name="team1name"
-                   valueLink={this.linkState('team1name')}/>
+            <select className="select input amt"
+                    placeholder="Team 1 Name"
+                    name="team1name"
+                    valueLink={this.linkState('team1name')}>
+              <option value=""></option>
+              {
+                Object.keys( util.teamNameMap ).map( ( item, index ) => {
+                  return (
+                    <option value={item} >{util.teamNameMap[item].display_name}</option>
+                  )
+                })
+              }
+            </select>
             <div className="left-100 margin-10"></div>
-            <input  className="input amt"
+            <select className="select input amt"
                     placeholder="Team 2 Name"
                     name="team2name"
-                    valueLink={this.linkState('team2name')}/>
+                    valueLink={this.linkState('team2name')}>
+              <option value=""></option>
+              {
+                Object.keys( util.teamNameMap ).map( ( item, index ) => {
+                  return (
+                    <option value={item} >{util.teamNameMap[item].display_name}</option>
+                  )
+                })
+              }
+            </select>
             <div className="left-100 margin-10"></div>
             <input  className="input amt"
                     placeholder="Tourney Name"
