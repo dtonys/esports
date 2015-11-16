@@ -41,7 +41,7 @@ class Router extends React.Component{
   getData( ctx, next ){
     var component_promise = ctx.routeData.getComponent();
     var data_promise = ctx.routeData.getData ?
-                        ctx.routeData.getData( ctx.params ) :
+                        ctx.routeData.getData( ctx ) :
                         Promise.resolve(null);
 
     this.setState({

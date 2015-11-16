@@ -286,11 +286,12 @@ export function postMePassword( password_data ){
   }
 }
 
-export function getMatches( callback ){
+export function getMatches( params = {} ){
   var xhr_promise = null;
   return function( dispatch ){
     xhr_promise = request
       .get('/api/v1/matches')
+      .query( params )
       .end();
 
     xhr_promise.then( ( res ) => {
@@ -415,7 +416,6 @@ export function postWithdraw(withdraw_data) {
     return xhr_promise;
   };
 }
-
 
 export function postBet( bet_data ) {
   var xhr_promise = null;
