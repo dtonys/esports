@@ -65,27 +65,32 @@ exports.withdraw = function(req, res) {
       return res.status(400).send({message: "You don't have that much!"});
     }
 
-    //using block io, withdraw to the address.
-    block_io.withdraw({'amounts': amount, 'to_addresses': address},
-        function(blio_req, blio_res) {
+  //using block io, withdraw to the address.
+  block_io.withdraw({'amounts': amount, 'to_addresses': address},
+    function (blio_req, blio_res) {
 
-            //TODO: catch blio error
+      console.log();
 
-            var totalfee = parseFloat(blio_res.data.network_fee) +
-              parseFloat(blio_res.data.blockio_fee);
+      //TODO: catch blio error
+      if (blio_res.status == "fail") {
+        return res.status(400).send({message: 'Invalid Address!'});
+      }
 
-            var txobj = {
-                cryptotype: cryptotype,
-                address: address,
-                balance_change: -amount,
-                confirmations: 0,
-                txid: blio_res.data.txid,
-                fee: totalfee,
-                note: 'Withdrawal'
-            };
-            console.log(txobj);
+      var totalfee = parseFloat(blio_res.data.network_fee) +
+        parseFloat(blio_res.data.blockio_fee);
 
-            sbfuncs.createTransaction(user, txobj);
-            res.jsonp(blio_res);
+      var txobj = {
+        cryptotype: cryptotype,
+        address: address,
+        balance_change: -amount,
+        confirmations: 0,
+        txid: blio_res.data.txid,
+        fee: totalfee,
+        note: 'Withdrawal'
+      };
+      console.log(txobj);
+
+      sbfuncs.createTransaction(user, txobj);
+      res.jsonp(blio_res);
     });
 };

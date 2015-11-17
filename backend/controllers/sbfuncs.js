@@ -16,7 +16,7 @@ module.exports = {
   mailchimp_endpoint : 'https://z:' + '2ce985b55fabca58d3e92f4183993a94-us8' + '@us8.api.mailchimp.com/3.0/',
   mailchimp_list_id : '2456ad2c1a',
 
-  createTransaction: function (user, txobj)
+  createTransaction: function (user, txobj, res)
   {
     /*
      var txobj = {
@@ -49,9 +49,9 @@ module.exports = {
         console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         console.log('ERROR CREATING TRANSACTION:' + errorHandler.getErrorMessage(err));
 
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
+        if (res) {
+          return res.status(400).send({ message: errorHandler.getErrorMessage(err)});
+        }
       } else {
       }
 
