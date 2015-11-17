@@ -16,7 +16,6 @@ var _ = require('lodash'),
 var block_io = new BlockIo(sbfuncs.block_io_config, sbfuncs.block_io_pin, sbfuncs.block_io_vers);
 
 exports.list = function(req, res) {
-  var theuser = req.user;
 
   Transaction.find({'user':req.user}).
     sort('-timestamp').
@@ -72,25 +71,28 @@ exports.withdraw = function(req, res) {
       console.log();
 
       //TODO: catch blio error
-      if (blio_res.status == "fail") {
+      if (blio_res == "fail") {
         return res.status(400).send({message: 'Invalid Address!'});
       }
+      else {
+        var totalfee = parseFloat(blio_res.data.network_fee) +
+          parseFloat(blio_res.data.blockio_fee);
 
-      var totalfee = parseFloat(blio_res.data.network_fee) +
-        parseFloat(blio_res.data.blockio_fee);
+        var txobj = {
+          cryptotype: cryptotype,
+          address: address,
+          balance_change: -amount,
+          confirmations: 0,
+          txid: blio_res.data.txid,
+          fee: totalfee,
+          note: 'Withdrawal'
+        };
+        console.log(txobj);
 
-      var txobj = {
-        cryptotype: cryptotype,
-        address: address,
-        balance_change: -amount,
-        confirmations: 0,
-        txid: blio_res.data.txid,
-        fee: totalfee,
-        note: 'Withdrawal'
-      };
-      console.log(txobj);
+        sbfuncs.createTransaction(user, txobj);
+        res.jsonp(blio_res);
 
-      sbfuncs.createTransaction(user, txobj);
-      res.jsonp(blio_res);
+      }
+
     });
 };
