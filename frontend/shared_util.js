@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // shared_utils
 var capitalize = exports.capitalize = function( str ){
   return str[0].toUpperCase() + str.slice(1);
@@ -10,6 +12,27 @@ var tagsToReplace = {
 };
 var escape_html = exports.capitalize = function( str ){
   return str[0].toUpperCase() + str.slice(1);
+};
+
+/**
+ * Input a match, get an array of potential payouts.
+ *
+ */
+var payouts = exports.payouts = function (match) {
+
+  var betTotal = match.betPot.reduce( ( prev, curr ) => {
+    return prev + curr;
+  });
+
+  var payouts = new Array(match.betPot.length);
+
+  for (var i = 0; i < match.betPot.length; i++)
+  {
+    var pay = .95 * (betTotal - match.betPot[i]);
+    payouts[i] = _.round(pay/match.betPot[i] + 1, 2);
+  }
+
+  return payouts;
 };
 
 var gameNameMap = exports.gameNameMap = {

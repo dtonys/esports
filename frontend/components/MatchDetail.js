@@ -8,6 +8,7 @@ import { enforce } from '../helpers/validate.js';
 
 import serialize from 'form-serialize';
 import moment from 'moment';
+import util from 'FE_util.js';
 
 // Bet Status
 const BET_CAN_DO        = 1;
@@ -197,8 +198,10 @@ class MatchDetail extends React.Component{
       </div>
     );
   }
-  renderPostBetForm(){
+  renderPostBetForm() {
     var match = this.props.matchDetail.match;
+    var payouts = util.payouts(match);
+    
     return (
       <form onSubmit={ ::this.submitForm } >
         { this.state.errors.length ?
@@ -212,12 +215,12 @@ class MatchDetail extends React.Component{
         <div className="left-48 choose-team">
           <div  className={`btn team-1 left-100 ${this.state.prediction === 0 ? 'chosen' : ''}`}
                 onClick={ this.selectTeam.bind(this, 0) } >
-            { match.outcomeNames[0] } ( {match.betPot[0]} )
+            { match.outcomeNames[0] } ( Current Payout: {payouts[0]}x  )
           </div>
           <div className="left-100 margin-10"></div>
           <div  className={`btn team-2 left-100 ${this.state.prediction === 1 ? 'chosen' : ''}`}
                 onClick={ this.selectTeam.bind(this, 1) }>
-            { match.outcomeNames[1] } ( {match.betPot[1]} )
+            { match.outcomeNames[1] } ( Current Payout: {payouts[1]}x  )
           </div>
         </div>
         <div className="left-4"> &nbsp; </div>
