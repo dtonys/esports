@@ -1,4 +1,4 @@
-import _ from 'lodash';
+var _ = require('lodash');
 
 // shared_utils
 var capitalize = exports.capitalize = function( str ){
@@ -20,16 +20,21 @@ var escape_html = exports.capitalize = function( str ){
  */
 var payouts = exports.payouts = function (match) {
 
-  var betTotal = match.betPot.reduce( ( prev, curr ) => {
-    return prev + curr;
-  });
+  var betTotal = _.sum(match.betPot);
 
   var payouts = new Array(match.betPot.length);
 
   for (var i = 0; i < match.betPot.length; i++)
   {
-    var pay = .95 * (betTotal - match.betPot[i]);
-    payouts[i] = _.round(pay/match.betPot[i] + 1, 2);
+    if (match.betPot[i] > 0)
+    {
+      var pay = .95 * (betTotal - match.betPot[i]);
+      payouts[i] = _.round(pay/match.betPot[i] + 1, 2);
+    }
+    else
+    {
+     payouts[i] =  _.round(1, 2);
+    }
   }
 
   return payouts;
