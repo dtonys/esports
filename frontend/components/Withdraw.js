@@ -25,6 +25,10 @@ class Withdraw extends React.Component{
   submitForm( e ){
     e.preventDefault();
     var errors = [];
+    this.setState({
+      errors: errors,
+      withdraw_success: false
+    });
     var data = serialize( e.target, { hash: true } );
 
     //TODO: validate amount (< 100) and address?
@@ -54,6 +58,16 @@ class Withdraw extends React.Component{
         })
       });
   }
+  renderWithdrawSuccess(){
+    return (
+      <div className="bet-success-msg">
+        Withdrawal made!
+      </div>
+    )
+  }
+  renderUIFeedback(){
+
+  }
   render(){
     console.log( this.state );
     console.log( this.props );
@@ -67,6 +81,11 @@ class Withdraw extends React.Component{
             </div>
             :
             null
+          }
+          {
+            this.state.withdraw_success ?
+              this.renderWithdrawSuccess() :
+              null
           }
           <div className="form-title" > Withdraw </div>
           <div className="margin-10"></div>

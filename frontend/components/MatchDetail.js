@@ -194,14 +194,14 @@ class MatchDetail extends React.Component{
   renderPostBetSuccess(){
     return (
       <div className="bet-success-msg">
-        Bet Post Success!
+        Bet Placed!
       </div>
     );
   }
   renderPostBetForm() {
     var match = this.props.matchDetail.match;
     var payouts = util.payouts(match);
-    
+
     return (
       <form onSubmit={ ::this.submitForm } >
         { this.state.errors.length ?
