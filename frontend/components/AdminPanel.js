@@ -36,12 +36,14 @@ class AdminPanel extends React.Component{
     return(
     <select className="select input amt"
             name={valueName}
-            defaultValue={placeholder}
-            valueLink={this.linkState({valueName})}>
+            valueLink={this.linkState(valueName)}>
+      <option disabled="disabled">{placeholder}</option>
       {
         Object.keys(objectMap).map( ( item, index ) => {
           return (
-            <option value={item} >{objectMap[item][displayProp]}</option>
+            <option value={item}>
+              {objectMap[item][displayProp]}
+            </option>
           )
         })
       }
@@ -213,80 +215,9 @@ class AdminPanel extends React.Component{
               })
             }
           </div>
+
           <div className="left-50">
-            <div>
-
-            </div>
-            <div className="headline">CREATE A MATCH</div>
-            <form className="generic-form container"
-                  onSubmit = {() => { this.submitCreateMatch(this) } } >
-              <select className="select input amt"
-                      placeholder="Game Name"
-                      name="gameName"
-                      valueLink={this.linkState('gameName')}>
-                <option value=""></option>
-                {
-                  Object.keys( util.gameNameMap ).map( ( item, index ) => {
-                    return (
-                      <option value={item} key={"gameName_" + util.gameNameMap[item].display_name}>
-                        {util.gameNameMap[item].display_name}</option>
-                    )
-                  })
-                }
-              </select>
-              <div className="left-100 margin-10"></div>
-              <select className="select input amt"
-                      placeholder="Team 1 Name"
-                      name="team1name"
-                      valueLink={this.linkState('team1name')}>
-                <option value=""></option>
-                {
-                  Object.keys( util.teamNameMap ).map( ( item, index ) => {
-                    return (
-                      <option value={item} >{util.teamNameMap[item].display_name}</option>
-                    )
-                  })
-                }
-              </select>
-              <div className="left-100 margin-10"></div>
-              <select className="select input amt"
-                      placeholder="Team 2 Name"
-                      name="team2name"
-                      valueLink={this.linkState('team2name')}>
-                <option value=""></option>
-                {
-                  Object.keys( util.teamNameMap ).map( ( item, index ) => {
-                    return (
-                      <option value={item} >{util.teamNameMap[item].display_name}</option>
-                    )
-                  })
-                }
-              </select>
-              <div className="left-100 margin-10"></div>
-              <select className="select input amt"
-                      placeholder="Tournament Name"
-                      name="tourneyName"
-                      valueLink={this.linkState('tourneyName')}>
-                <option value=""></option>
-                {
-                  Object.keys( this.props.adminPanel.tournaments ).map( ( item, index ) => {
-                    return (
-                      <option value={item} >
-                        {this.props.adminPanel.tournaments[item].name}</option>
-                    )
-                  })
-                }
-              </select>
-              <div className="left-100 margin-10"></div>
-              <input  className="input amt"
-                      placeholder="Match Date"
-                      name="matchStartTime"
-                      valueLink={this.linkState('matchStartTime')}/>
-              <div className="left-100 margin-10"></div>
-              <input type="submit" value="Create Match"
-                     className="input amt action-item submit btn left-50" />
-            </form>
-
+            {this.renderCreateMatch()}
           </div>
 
           <div className="left-50">

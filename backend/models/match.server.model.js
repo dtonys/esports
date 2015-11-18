@@ -35,11 +35,13 @@ var MatchSchema = new Schema({
 	},
 	//Name of the tourney (maybe needs to be an ID?)
 	tourneyName: {
-		type: String
+		type: String,
+    required:'Tournament Name Required!'
 	},
 	//Name of the game (maybe needs to be an ID?)
 	gameName: {
-		type: String
+		type: String,
+    required:'Game Name Required!'
 	},
 
 	//-1 if not done yet, then array index if a winner has been chosen
