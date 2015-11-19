@@ -4,7 +4,9 @@
 'user strict';
 
 
-var webdriver = require('selenium-webdriver'),
+var PythonShell = require('python-shell'),
+  errorHandler = require('./errors.server.controller'),
+  webdriver = require('selenium-webdriver'),
   By = require('selenium-webdriver').By,
   until = require('selenium-webdriver').until;
 
@@ -12,11 +14,22 @@ var webdriver = require('selenium-webdriver'),
  * Scrapes esportlivescore.com for infos
  */
 exports.scrapeELS = function(req, res) {
+  console.log('going');
+  PythonShell.run('./scripts/scraper_esportlivescore.py', function(err, results) {
+    if (err) {
+      return res.status(400).send({message: errorHandler.getErrorMessage(err)});
+    } else {
+      console.log('results:' + results);
+      console.log('finished!');
+      res.jsonp({})
+    }
 
+  });
+  /*
   var path = 'ty_notstarted.html';
 
   scrapeELSPage(path);
-  res.jsonp({})
+  */
 };
 
 
