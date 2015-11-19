@@ -58,6 +58,10 @@ class Navbar extends React.Component{
                   Withdraw
                 </div>
                 <div  className="link dropdown-item profile"
+                      onClick={ () => { this.closeDropDown(); page('/history'); } }>
+                  Account Activity
+                </div>
+                <div  className="link dropdown-item profile"
                       onClick={ () => { this.closeDropDown(); page('/profile'); } }>
                   Settings
                 </div>

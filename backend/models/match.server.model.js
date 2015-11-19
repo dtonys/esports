@@ -16,34 +16,34 @@ var MatchSchema = new Schema({
 		ref: 'User'
 	},
 
+  /******** Properties that should be defined on match creation *******************/
+  //When the match starts
+  matchStartTime: {
+    type: Date,
+    default: Date.now
+  },
+  //Name of the tourney (maybe needs to be an ID?)
+  tourneyName: {
+    type: String,
+    required:'Tournament Name Required!'
+  },
+  //Name of the game (maybe needs to be an ID?)
+  gameName: {
+    type: String,
+    required:'Game Name Required!'
+  },
   //Name of outcomes.
   outcomeNames: {
     type: [String]
   },
+
+  /********* Properties that are set automatically and can be referneced *******/
+
   //Total amount of money inside the match. probably could do an aggregate later
   //TODO: aggregate bets instead of summing this
   betPot: {
     type: [Number]
   },
-
-
-
-	//When the match starts
-	matchStartTime: {
-		type: Date,
-		default: Date.now
-	},
-	//Name of the tourney (maybe needs to be an ID?)
-	tourneyName: {
-		type: String,
-    required:'Tournament Name Required!'
-	},
-	//Name of the game (maybe needs to be an ID?)
-	gameName: {
-		type: String,
-    required:'Game Name Required!'
-	},
-
 	//-1 if not done yet, then array index if a winner has been chosen
 	result: {
 		type: Number,
