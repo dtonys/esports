@@ -406,7 +406,7 @@ exports.list = function(req, res) {
     // .where('matchStartTime').gte(oneWeekAgo)
 
     //Sort by match start time
-    .sort('+matchStartTime')
+    .sort({matchStartTime: +1})
     .limit(per_page)
     .skip(skipnum)
 
