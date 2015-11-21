@@ -1,10 +1,10 @@
+'use strict';
 /**
  * Created by Joseph on 11/19/2015.
  */
-'user strict';
 
-
-var PythonShell = require('python-shell');
+var PythonShell = require('python-shell'),
+  sbfuncs = require('./sbfuncs.js');
 
 /**
  * Scrapes esportlivescore.com for infos
@@ -18,10 +18,14 @@ exports.scrapeELS = function(req, res) {
       if (err) {
         return res.status(400).send({message: err, stacktrace:err.stack});
       } else {
-        console.log('results:' + results);
+        var matchlist = [];
+        for (var i = 0; i < results.length; i++)
+        {
+          matchlist.push(sbfuncs.createMatch(results[i]));
+        }
+        //console.log('results:' + results);
 
-
-        res.jsonp(results);
+        res.jsonp(matchlist);
     }
 
   });

@@ -8,7 +8,7 @@ module.exports = function(app) {
 	// Matches Routes
 	app.route('/api/v1/matches')
 		.get(matches.list)
-		.post(users.requiresLogin, matches.create);
+		.post(users.isAdmin, matches.create);
 
 	app.route('/api/v1/matches/:matchId')
 		.get(matches.read)

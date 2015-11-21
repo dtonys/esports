@@ -18,46 +18,11 @@ exports.create = function(req, res) {
 
   var reqbody = req.body;
   reqbody.outcomeNames = [reqbody.team1name, reqbody.team2name];
-  reqbody.betPot = [0, 0];
 
-  var match = new Match(reqbody);
-  match.user = req.user;
+  reqbody.user = req.user;
 
+  sbfuncs.createMatch(reqbody, res);
 
-
-  //Save new segment on mailchimp.
-  var mailchimp_segment_url = sbfuncs.mailchimp_endpoint + 'lists/' + sbfuncs.mailchimp_list_id + "/segments";
-  var mailchimp_segment_data = { 'name': match.id };
-
-  var mailchimp_obj = {
-    url: mailchimp_segment_url,
-    json: mailchimp_segment_data
-  };
-  //console.log('post:' + JSON.stringify(mailchimp_obj));
-
-  request.post(mailchimp_obj, function(err, resp, body) {
-    console.log('response code: ' + resp.statusCode);
-    if (err) {
-      console.log('error:' + err);
-    }
-    else {
-      //console.log('body: ' + JSON.stringify(body));
-      match.mailChimpSegmentId = body.id;
-    }
-
-    match.save(function(err) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        //Return Match Data
-        res.jsonp(match);
-      }
-    });
-
-
-  });
 };
 
 /**
