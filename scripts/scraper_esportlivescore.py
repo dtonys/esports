@@ -44,7 +44,8 @@ def scrapeELSMatch(match_element):
     #mongodb timestring looks likes: 2015-12-18T16:47:28.016Z
     matchStartTime = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(epoch))
 
-    tourney_name = "blahblah"
+    tourney_name = portion_home.find_element_by_xpath(".//td[@class='init-click-done tournament-td']/a").get_attribute("href")
+    tourney_name = tourney_name.replace("http://esportlivescore.com/to_", "").replace(".html", "")
 
     result = {
               'gameName': game_name,

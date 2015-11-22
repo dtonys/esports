@@ -17,16 +17,22 @@ module.exports = {
   mailchimp_endpoint : 'https://z:' + '2ce985b55fabca58d3e92f4183993a94-us8' + '@us8.api.mailchimp.com/3.0/',
   mailchimp_list_id : '2456ad2c1a',
 
-  createMatch: function(match_obj, res)
+  createMatch: function(match_obj, res, callback)
   {
+    if (typeof res === 'function') {
+      callback = res;
+      res = null;
+    }
 
     Match.count(match_obj, function(err, matchcount) {
 
       //Check for a repeat if we're not expecting a response.
       if (res == null && matchcount > 0)
       {
-        console.log('this is a repeat.');
-        return {};
+        console.log('This match already exists in the database!');
+
+        if (callback != null)
+          return callback({});
       }
       else
       {
@@ -56,8 +62,7 @@ module.exports = {
          });
          */
         match.save(function(err) {
-          if (res)
-          {
+          if (res) {
             if (err) {
               console.log(err);
               return res.status(400).send({ message: errorHandler.getErrorMessage(err) }); }
@@ -65,7 +70,9 @@ module.exports = {
             else { res.jsonp(match); }
           }
         });
-        return match;
+
+        if (callback != null)
+          return callback(match);
 
       }
 

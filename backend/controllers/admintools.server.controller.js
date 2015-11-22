@@ -4,6 +4,9 @@
  */
 
 var PythonShell = require('python-shell'),
+  _ = require('lodash'),
+  mongoose = require('mongoose'),
+  Match = mongoose.model('Match'),
   sbfuncs = require('./sbfuncs.js');
 
 /**
@@ -19,13 +22,33 @@ exports.scrapeELS = function(req, res) {
         return res.status(400).send({message: err, stacktrace:err.stack});
       } else {
         var matchlist = [];
+        var repeatcount = 0;
         for (var i = 0; i < results.length; i++)
         {
-          matchlist.push(sbfuncs.createMatch(results[i]));
-        }
-        //console.log('results:' + results);
+          sbfuncs.createMatch(results[i], function(cm_res) {
 
-        res.jsonp(matchlist);
+            //if it's a non-empty object
+            if (!_.isEmpty(cm_res))
+            {
+              matchlist.push(cm_res);
+            }
+            else
+            {
+              repeatcount += 1;
+            }
+
+            if ((matchlist.length + repeatcount) >= results.length)
+            {
+              //console.log('results:' + results);
+
+              console.log('Created ' + matchlist.length + " new matches.");
+              console.log('Found ' + repeatcount + " repeated matches.");
+
+              res.jsonp(matchlist);
+            }
+
+          });
+        }
     }
 
   });
