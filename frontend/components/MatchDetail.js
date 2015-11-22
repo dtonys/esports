@@ -26,6 +26,7 @@ class MatchDetail extends React.Component{
     super( props );
     this.bet_status = K.BET_CAN_DO;
     this.match_status = K.MATCH_READY;
+
     this.state = {
       betting: this.props.route_ctx.queryparams['bet'] ? true : false,
       prediction: -1,
@@ -77,6 +78,7 @@ class MatchDetail extends React.Component{
 
         // add bet to list
         var bet = res.body;
+        bet.new = true;
         bet.user = {
           username: this.props.user.username
         };
@@ -264,7 +266,7 @@ class MatchDetail extends React.Component{
             {
               bets.map( ( bet ) => {
                 return (
-                  <div className="bet-item" key={ bet._id } >
+                  <div className= {`bet-item ${ bet.new && 'new' }`} key={ bet._id } >
                     { bet.amount } on { teams[bet.prediction] } by { bet.user.username }
                   </div>
                 )
