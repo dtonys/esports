@@ -33,7 +33,11 @@ exports.update = function(req, res) {
 
     //check to see if new email
     var newemail = user.email;
-    var changedOptIn = (wasOptedIn == user.emailOptIn);
+
+    var changedOptIn = (user.emailOptIn !== undefined);
+
+    console.log( 'newemail ', newemail );
+    console.log( 'oldemail ', oldemail );
 
     //check to see if new email. if so, then update mailchimp.
     if ( (newemail != oldemail) || changedOptIn )
@@ -41,10 +45,14 @@ exports.update = function(req, res) {
       var mailchimp_subscriber_url = sbfuncs.mailchimp_endpoint + 'lists/' +
         sbfuncs.mailchimp_list_id + "/members/" + user.mailChimpHash;
       var mailchimp_data = {
-        'status': (user.emailOptIn?'subscribed':'unsubscribed'),
         'email_address' : newemail,
         'merge_fields' : { 'FNAME' : user.username }
       };
+
+      // set optin if it was passed in the request as 'true' or 'false'
+      if( user.emailOptIn !== undefined )
+        mailchimp_data['status'] = (user.emailOptIn?'subscribed':'unsubscribed')
+
       var put_obj = { url: mailchimp_subscriber_url, json: mailchimp_data };
 
       //console.log('putobj:' + JSON.stringify(put_obj));
@@ -54,7 +62,6 @@ exports.update = function(req, res) {
           console.log('Error:' + err);
         }
         else {
-
           console.log('put resp body: ' + JSON.stringify(body));
 
           //check to see if the email was actually changed.

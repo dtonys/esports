@@ -1,6 +1,7 @@
 import page from 'page';
 import 'pages/matches.sass';
 import 'components/forms.sass';
+import 'components/forms_extend.sass';
 
 import {connect} from 'react-redux';
 import * as actions from '../actions/action_creators.js';
@@ -60,7 +61,7 @@ class Matches extends React.Component{
                       </div>
                     </div>
                     <div className="left-20" style={{ minHeight: "40px" }} >
-                      <div  className="btn bet-btn"
+                      <div  className="btn bet-btn gold"
                             onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
                         <img className="bet-icon" src="/img/chip_icon.png" />
                         <div className="text" > Bet </div>

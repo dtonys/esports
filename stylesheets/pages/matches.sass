@@ -13,6 +13,10 @@
   top: 0
   left: 0
 
+.sections-wrap
+  border-radius: 5px
+  overflow: hidden
+
 .matches-page-container
   padding: 0 10px
   // background-color: white
@@ -20,13 +24,7 @@
   max-width: $content_max_width
   margin: 20px auto
   text-align: left
-
-  .btn
-    box-shadow: 0px 0px 4px #999 inset
-    &:hover
-      box-shadow: 0px 0px 4px #000 inset
-    &:active
-      background: $gold_darker
+  border-radius: 5px
 
   .header
     border-bottom: solid black 2px
@@ -35,7 +33,7 @@
     display: none
   .match-items
   .match-item
-    background: linear-gradient(to right, #528fb1 0%, #aad0e5 100%)
+    background: linear-gradient(to right, $blue 0%, $blue_light 100%)
     border: solid black 2px
     border-right: none
     border-bottom: none
@@ -47,7 +45,7 @@
     &:last-child
       border-bottom: none
     &:hover
-      background: #528fb1
+      background: $blue
     .left-80
       padding-left: 50px
       position: relative
@@ -68,14 +66,14 @@
       margin-left: 5px
 
   .section
-    background: white
+    background: $blue_light
     position: relative
     padding: 10px
     &._1
     &._2
       padding: 20px 10px
       text-align: center
-      background: #EEE
+      background: $blue
       box-shadow: -1px 1px 3px #666 inset
     &._3
       border-top: solid black 2px
@@ -110,6 +108,8 @@
     box-shadow: none
   .headline
     font-size: 28px
+    > span, > a
+      display: inline-block
   .bet-status
     .status
       text-align: center
@@ -125,8 +125,15 @@
     border-radius: 5px
     padding: 5px
   .bet-success-msg
-    color: green
     font-size: 28px
+    color: $green
+    font-size: 28px
+    background: $blue_light
+    border-radius: 5px
+    border: solid black 2px
+    text-shadow: 1px 1px black
+
+
   .section-header
   .current-bets
     font-size: 28px
@@ -134,11 +141,14 @@
     background: #eee
     border: solid black 1px
     border-radius: 5px
+    overflow: hidden
   .bet-item
     padding: 10px 10px
     border-bottom: solid black 1px
     &:last-child
       border-bottom: none
+    &.new
+      background: $green
 
 
   @media #{$mobile_phone}
