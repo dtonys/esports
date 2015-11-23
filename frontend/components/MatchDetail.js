@@ -12,15 +12,6 @@ import moment from 'moment';
 import util from 'FE_util.js';
 import * as K from '../constants/constants.js'
 
-// Bet Status
-// const K.BET_CAN_DO        = 1;
-// const K.BET_DONE          = 2;
-// const K.BET_CLOSED        = 3;
-// Match Status
-// const K.MATCH_READY       = 1;
-// const K.MATCH_PENDING     = 2;
-// const K.MATCH_RESOLVED    = 3;
-
 class MatchDetail extends React.Component{
   constructor( props ){
     super( props );
