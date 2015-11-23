@@ -143,6 +143,12 @@ class Signup extends React.Component{
                 Log In
             </div>
           </div>
+          <div className="margin-10"></div>
+          <div className="bottom-text">
+            <div className="text">
+              I agree to SuchBet's <a target="_blank" href="/html/tos.html" > Terms of Service </a>
+            </div>
+          </div>
         </form>
       </div>
     )

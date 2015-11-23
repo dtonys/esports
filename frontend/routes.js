@@ -218,6 +218,14 @@ var routeMap = {
       return store.dispatch( actions.getTransactionHistory());
     }
   },
+  '/nux': {
+    access: member_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/NUX.js')) )
+      });
+    }
+  },
   // NotFound
   '*': {
     access: all,
