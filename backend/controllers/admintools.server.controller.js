@@ -12,26 +12,23 @@ var PythonShell = require('python-shell'),
 /**
  * Scrapes esportlivescore.com for infos
  */
-exports.scrapeELS = function(req, res) {
-  console.log('going');
+exports.scrapeELSnew = function (req, res) {
+  console.log('Scraping ELS for new matches.');
 
   //scrape for new matches.
   PythonShell.run('./scripts/scraper_esportlivescore.py',
     {
-      mode:'json',
-      args:['ty_finished.html', '1', '0']
-      //args:['ty_notstarted.html', '0', '7']
+      mode: 'json',
+      args: ['ty_notstarted.html', '0', '7']
     },
-    function(err, results) {
+    function (err, results) {
       if (err) {
-        return res.status(400).send({message: err, stacktrace:err.stack});
+        return res.status(400).send({message: err, stacktrace: err.stack});
       } else {
-        /*
         var matchlist = [];
         var repeatcount = 0;
-        for (var i = 0; i < results.length; i++)
-        {
-          sbfuncs.createMatch(results[i], function(cm_res) {
+        for (var i = 0; i < results.length; i++) {
+          sbfuncs.createMatch(results[i], function (cm_res) {
 
             //if it's a non-empty object
             if (!_.isEmpty(cm_res))
@@ -48,41 +45,50 @@ exports.scrapeELS = function(req, res) {
 
           });
         }
-        */
-        for (var i = 0; i < results.length; i++)
-        {
+
+      }
+    });
+};
+
+exports.scrapeELSfinished = function (req, res) {
+  console.log('Scraping ELS for finished matches.');
+
+  //scrape for new matches.
+  PythonShell.run('./scripts/scraper_esportlivescore.py',
+    {
+      mode: 'json',
+      args: ['ty_finished.html', '1', '0']
+    },
+    function (err, results) {
+      if (err) {
+        return res.status(400).send({message: err, stacktrace: err.stack});
+      } else {
+        for (var i = 0; i < results.length; i++) {
           var the_result = results[i].scraped_result;
-          console.log(JSON.stringify(results[i]));
-
-          var match_to_find = results[i];
-
           delete results[i]['scraped_result'];
-          delete results[i]['matchStartTime'];
-          //match_to_find.matchStartTime = new Date(Date.parse(match_to_find.matchStartTime));
-          console.log(JSON.stringify(results[i]));
 
           var processed = 0;
           //need to copy everything except the thing
-          Match.find(results[i], function(found_matches) {
-            if (found_matches && found_matches.length > 0)
-            {
-              console.log('FOUND IT!!!!!!!!' + results[i]);
-              sbfuncs.resolveMatch(found_matches[0], the_result, req, res);
-            }
-            else
-            {
+          Match.find(results[i], function (err, found_matches) {
+
+            if (found_matches == null || found_matches.length < 1) {
               console.log("Match isn't in database.");
+            }
+            else if (found_matches[0].status > 2) {
+              console.log("Match has already been resolved.");
+            }
+            else {
+              sbfuncs.resolveMatch(found_matches[0], the_result, req, res);
             }
 
             processed += 1;
-            if (processed >= results.length)
-            {
+            if (processed >= results.length) {
               res.jsonp({});
             }
 
           });
         }
 
-    }
-  });
+      }
+    });
 };

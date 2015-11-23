@@ -96,7 +96,7 @@ def scrapeELSPage(driver, path, find_winner=False):
 
 def start_scraping(path, find_results, more_pages):
 
-    driver = webdriver.Firefox()#webdriver.PhantomJS()
+    driver = webdriver.PhantomJS() #webdriver.Firefox()#
 
     #scrape the specified webpage
     scrapeELSPage(driver, path, find_results)

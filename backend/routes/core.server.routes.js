@@ -12,8 +12,12 @@ module.exports = function(app) {
 		.post(core.resp);
 
   /** ADMIN STUFF */
-  app.route('/api/v1/admin/scrapeELS')
-    .get(admintools.scrapeELS);
-//users.isAdmin,
+  //Scrape esportlivescore.com for new matches
+  app.route('/api/v1/admin/scrapeELSnew')
+    .get(users.isAdmin, admintools.scrapeELSnew);
+
+  //Scrape sportlivescore.com for recently finished matches.
+  app.route('/api/v1/admin/scrapeELSfinished')
+    .get(users.isAdmin, admintools.scrapeELSfinished);
 
 };

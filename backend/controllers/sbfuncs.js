@@ -71,6 +71,7 @@ var createMatch = function(match_obj, res, callback)
 //assumes the match is valid.
 var resolveMatch = function(match, matchres, req, res)
 {
+  console.log('---------------------------------------------------------------');
   console.log('RESOLVING MATCH:' + match.gameName + " - " + match.tourneyName +
     "(" + match.outcomeNames[0] + " vs " + match.outcomeNames[1] + ")");
 
@@ -232,6 +233,7 @@ var resolveMatch = function(match, matchres, req, res)
          */
       }
     });
+  console.log('---------------------------------------------------------------');
   //res.jsonp({});
 };
 
