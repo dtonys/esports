@@ -38,7 +38,7 @@ def scrapeELSMatch(match_element, find_winner=False):
     team1name = matchsplit[0].strip()
     team2name = matchsplit[1].strip()
 
-    #since this is hidden, it doesn't work.
+    #since this is hidden, it doesn't work. wait what? nvm
     epoch_text = summary_section.find_element_by_xpath(".//span[@class='phpunixtime']").get_attribute("textContent")
     epoch = (float(epoch_text)/1000)
 
