@@ -37,6 +37,9 @@ def scrapeELSMatch(match_element, find_winner=False):
     matchsplit = matchvs.split('vs')
     team1name = matchsplit[0].strip()
     team2name = matchsplit[1].strip()
+    
+    outcome_names = [team1name, team2name]
+    outcome_names = sorted(outcome_names)
 
     #since this is hidden, it doesn't work. wait what? nvm
     epoch_text = summary_section.find_element_by_xpath(".//span[@class='phpunixtime']").get_attribute("textContent")
@@ -48,10 +51,11 @@ def scrapeELSMatch(match_element, find_winner=False):
     tourney_name = portion_home.find_element_by_xpath(".//td[@class='init-click-done tournament-td']/a").get_attribute("href")
     tourney_name = tourney_name.replace("http://esportlivescore.com/to_", "").replace(".html", "")
 
+
     game_obj = {
               'gameName': game_name,
               'tourneyName': tourney_name,
-              'outcomeNames':[team1name, team2name],
+              'outcomeNames': outcome_names,
               'matchStartTime':matchStartTime
               }
 
@@ -65,11 +69,16 @@ def scrapeELSMatch(match_element, find_winner=False):
             game_obj.update({'scraped_result': 1})
         elif (homescore < awayscore):
             game_obj.update({'scraped_result': 2})
+        
+        # if we switched the two around, we need to reverse these two too.
+        if (team2name == outcome_names[0]):
+            if (game_obj.get('scraped_result') == 1):
+                game_obj.update({'scraped_result': 2})
+            elif (game_obj.get('scraped_result') == 2):
+                game_obj.update({'scraped_result': 1})
 
 
-
-    print json.dumps(game_obj)
-
+    print(json.dumps(game_obj))
     return
 
 '''
@@ -118,8 +127,8 @@ def start_scraping(path, find_results, more_pages):
 if __name__ == "__main__":
     #default
 
-    start_path = "ty_notstarted.html"
-    find_results = False
+    start_path = "ty_finished.html"#"ty_notstarted.html"
+    find_results = True#False
     repeats = 0
 
     if (len(sys.argv) > 1):

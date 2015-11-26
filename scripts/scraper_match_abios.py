@@ -42,7 +42,8 @@ def scrapeAbiosMatch(match_element, find_winner=False):
     match_date = match_date + " 15"
     
     pattern = '%B %d, %H:%M %y'
-    matchStartTime = int(time.mktime(time.strptime(match_date, pattern)))
+    epoch = int(time.mktime(time.strptime(match_date, pattern)))
+    matchStartTime = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(epoch))
     
     
     game_obj = {
