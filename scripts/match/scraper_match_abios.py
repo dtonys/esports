@@ -65,11 +65,11 @@ def start_scraping():
     driver.get('http://abiosgaming.com/calendar')
     time.sleep(5)
     
-    match_sections = driver.find_elements_by_xpath("//div[@class='matches']/div")
+    match_sections = driver.find_elements_by_xpath("//div[@class='match']/div")
     
     if (len(match_sections) < 1):
         time.sleep(5)
-        match_sections = driver.find_elements_by_xpath("//div[@class='matches']/div")
+        match_sections = driver.find_elements_by_xpath("//div[@class='match']/div")
     
     for i in range(0, len(match_sections)):
         scrapeAbiosMatch(match_sections[i], False)

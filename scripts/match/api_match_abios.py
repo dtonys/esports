@@ -30,7 +30,7 @@ def process_abios_match_object(abios_match_obj, find_winner = False):
     outcome_names = [team1name, team2name]
     outcome_names = sorted(outcome_names)
     
-    tourney_name = abios_match_obj.get('tournament_abbrev')
+    tourney_name = abios_match_obj.get('tournament_title').strip()
     epoch = abios_match_obj.get('start')
     matchStartTime = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(epoch))
     
@@ -61,10 +61,10 @@ def process_abios_match_object(abios_match_obj, find_winner = False):
     return
 
 '''
-@upcoming - Boolean: If true, then requests future matches. if not, then requests past matches.
+@upcoming - Boolean: If true, then requests future match. if not, then requests past match.
 '''
 def request_matches(num_matches, upcoming, find_winner):
-    url = "http://abiosgaming.com/ajax/matches?take=" + str(num_matches)
+    url = "http://abiosgaming.com/ajax/match?take=" + str(num_matches)
     
     if (upcoming):
         url += "&upcoming=true"
@@ -73,6 +73,8 @@ def request_matches(num_matches, upcoming, find_winner):
         
     #make the request
     matches = requests.get(url)
+    
+    #TODO: catch for 500
     
     matches = json.loads(matches._content)
     
