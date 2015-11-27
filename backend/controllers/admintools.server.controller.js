@@ -7,6 +7,7 @@ var PythonShell = require('python-shell'),
   _ = require('lodash'),
   mongoose = require('mongoose'),
   Match = mongoose.model('Match'),
+  Tournament = mongoose.model('Tournament'),
   sbfuncs = require('./sbfuncs.js');
 
 /**
@@ -91,4 +92,71 @@ exports.scrapeELSfinished = function (req, res) {
 
       }
     });
+};
+
+var createUniqueTournament = function(input_obj, callback) {
+
+  var tourneyname = input_obj.name;
+
+  //check to see if tournament is there.
+  Tournament.count({name:tourneyname}, function(err, tournamentcount) {
+    if (tournamentcount < 1)
+    {
+      var tournament = new Tournament(input_obj);
+      tournament.save(function(err) {
+        if (err) { console.log(err); }
+        if (callback != null)
+          return callback(tournament);
+      });
+    }
+    else
+    {
+      console.log('already exists');
+      if (callback != null)
+        return callback({});
+    }
+  });
+
+
+};
+
+exports.findAbiosTournaments = function(req, res) {
+
+  //Retrieve matches from
+  PythonShell.run('./scripts/tournament/api_tournament_abios.py',
+    {
+      mode: 'json'
+    },
+    function(err, results) {
+      if (err) { return res.status(400).send({message: err, stacktrace: err.stack});}
+      else {
+        //if a tournament with this name doesn't exist, make it..
+        for (var i = 0; i < results.length; i++)
+        {
+          var tourney_array = [];
+          var repeatcount = 0;
+          var errorcount = 0;
+          createUniqueTournament(results[i], function(tourney_obj) {
+            if (!_.isEmpty(tourney_obj))
+            {
+              tourney_array.push(tourney_obj);
+            }
+            else
+            {
+              repeatcount++;
+            }
+            if (tourney_array.length + repeatcount + errorcount >= results.length)
+            {
+              console.log('Made ' + tourney_array.length + ' new tournaments.');
+              console.log('Found ' + repeatcount + ' repeated tournaments.');
+              console.log('Errors:' + errorcount);
+              res.jsonp({'hi':'hi'});
+            }
+          });
+        }
+
+
+      }
+    });
+
 };

@@ -6,11 +6,25 @@ Created on Nov 25, 2015
 import requests
 import json
 
-def process_abios_tourney_object(tournament_object):
+def process_abios_tourney_object(abios_tournament_object):
     
-    game_part = tournament_object.get('game')
+    game_part = abios_tournament_object.get('game')
     
-    tourney_name = tournament_object.get('title')
+    game_name = game_part.get('title')
+    
+    accepted_games = ["Dota 2", "CS:GO", "LoL"]
+    
+    if (not (game_name in accepted_games)):
+        return
+    
+    tourney_name = abios_tournament_object.get('title')
+    tourney_name = tourney_name.replace(u"\u2013", "-").strip()
+    
+    tourney_obj = {
+                   "name" : tourney_name
+                   }
+    
+    print(json.dumps(tourney_obj))
     
     return
 

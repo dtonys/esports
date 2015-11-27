@@ -20,4 +20,7 @@ module.exports = function(app) {
   app.route('/api/v1/admin/scrapeELSfinished')
     .get(users.isAdmin, admintools.scrapeELSfinished);
 
+  app.route('/api/v1/admin/abios_tournaments')
+    .get(admintools.findAbiosTournaments);
+
 };
