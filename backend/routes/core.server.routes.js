@@ -23,4 +23,7 @@ module.exports = function(app) {
   app.route('/api/v1/admin/abios_tournaments')
     .get(admintools.findAbiosTournaments);
 
+  app.route('/api/v1/admin/els_tournaments')
+    .get(admintools.findELSTournaments);
+
 };

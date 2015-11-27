@@ -120,9 +120,9 @@ var createUniqueTournament = function(input_obj, callback) {
 
 };
 
+//Retrieve tournaments by making a call to ABIOS.
 exports.findAbiosTournaments = function(req, res) {
 
-  //Retrieve matches from
   PythonShell.run('./scripts/tournament/api_tournament_abios.py',
     {
       mode: 'json'
@@ -135,7 +135,6 @@ exports.findAbiosTournaments = function(req, res) {
         {
           var tourney_array = [];
           var repeatcount = 0;
-          var errorcount = 0;
           createUniqueTournament(results[i], function(tourney_obj) {
             if (!_.isEmpty(tourney_obj))
             {
@@ -145,18 +144,55 @@ exports.findAbiosTournaments = function(req, res) {
             {
               repeatcount++;
             }
-            if (tourney_array.length + repeatcount + errorcount >= results.length)
+            if (tourney_array.length + repeatcount >= results.length)
             {
               console.log('Made ' + tourney_array.length + ' new tournaments.');
               console.log('Found ' + repeatcount + ' repeated tournaments.');
-              console.log('Errors:' + errorcount);
-              res.jsonp({'hi':'hi'});
+              res.jsonp({
+                created:tourney_array.length,
+                repeated: repeatcount
+              });
             }
           });
         }
-
-
       }
     });
+};
 
+exports.findELSTournaments = function(req, res) {
+
+  PythonShell.run('./scripts/tournament/scraper_tournament_esportlivescore.py',
+    {
+      mode: 'json'
+    },
+    function(err, results) {
+      if (err) { return res.status(400).send({message: err, stacktrace: err.stack});}
+      else {
+        //if a tournament with this name doesn't exist, make it..
+        for (var i = 0; i < results.length; i++)
+        {
+          var tourney_array = [];
+          var repeatcount = 0;
+          createUniqueTournament(results[i], function(tourney_obj) {
+            if (!_.isEmpty(tourney_obj))
+            {
+              tourney_array.push(tourney_obj);
+            }
+            else
+            {
+              repeatcount++;
+            }
+            if (tourney_array.length + repeatcount >= results.length)
+            {
+              console.log('Made ' + tourney_array.length + ' new tournaments.');
+              console.log('Found ' + repeatcount + ' repeated tournaments.');
+              res.jsonp({
+                created:tourney_array.length,
+                repeated: repeatcount
+              });
+            }
+          });
+        }
+      }
+    });
 };
