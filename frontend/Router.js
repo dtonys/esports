@@ -71,7 +71,7 @@ class Router extends React.Component{
   }
   render(){
     var loading = this.state.page_loading ?
-                    <div className="spinner rotate clockwise absolute" ></div> : null;
+                    <div className="spinner fa fa-2x fa-refresh rotate clockwise absolute" ></div> : null;
     var RoutedComponent = this.state.component || null;
 
     return (
