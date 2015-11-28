@@ -54,7 +54,7 @@ def scrapeELSMatch(match_element, find_winner=False):
 
     game_obj = {
               'gameName': game_name,
-              'tourneyName': tourney_name,
+              'ELS_url': tourney_name,
               'outcomeNames': outcome_names,
               'matchStartTime':matchStartTime
               }

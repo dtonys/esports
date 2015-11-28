@@ -11,14 +11,16 @@ module.exports = function(app) {
 	app.route('/')
 		.post(core.resp);
 
+  //TODO: ALL THESE NEED TO BE ADMIN ONLY (use users.isAdmin). DISABLED IT FOR TESTING PURPOSES
+
   /** ADMIN STUFF */
   //Scrape esportlivescore.com for new matches
   app.route('/api/v1/admin/scrapeELSnew')
-    .get(users.isAdmin, admintools.scrapeELSnew);
+    .get(admintools.scrapeELSnew);
 
   //Scrape sportlivescore.com for recently finished matches.
   app.route('/api/v1/admin/scrapeELSfinished')
-    .get(users.isAdmin, admintools.scrapeELSfinished);
+    .get(admintools.scrapeELSfinished);
 
   app.route('/api/v1/admin/abios_tournaments')
     .get(admintools.findAbiosTournaments);
