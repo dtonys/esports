@@ -17,7 +17,7 @@ exports.scrapeELSnew = function (req, res) {
   console.log('Scraping ELS for new matches.');
 
   //scrape for new matches.
-  PythonShell.run('./scripts/match/scraper_esportlivescore.py',
+  PythonShell.run('./scripts/match/scraper_match_esportlivescore.py',
     {
       mode: 'json',
       args: ['ty_notstarted.html', '0', '7']
@@ -55,7 +55,7 @@ exports.scrapeELSfinished = function (req, res) {
   console.log('Scraping ELS for finished matches.');
 
   //scrape for new matches.
-  PythonShell.run('./scripts/match/scraper_esportlivescore.py',
+  PythonShell.run('./scripts/match/scraper_match_esportlivescore.py',
     {
       mode: 'json',
       args: ['ty_finished.html', '1', '0']

@@ -4,15 +4,14 @@ var errorHandler = require('./errors.server.controller.js'),
   mongoose = require('mongoose'),
   Match = mongoose.model('Match'),
   Bet = mongoose.model('Bet'),
+  _ = require('lodash'),
+  Tournament = mongoose.model('Tournament'),
   Transaction = mongoose.model('Transaction');
 
-var createMatch = function(match_obj, res, callback)
-{
-  if (typeof res === 'function') {
-    callback = res;
-    res = null;
-  }
 
+//Actually save the thing.
+var inputMatch = function(match_obj, res, callback)
+{
   Match.count(match_obj, function(err, matchcount) {
 
     //Check for a repeat if we're not expecting a response.
@@ -62,10 +61,43 @@ var createMatch = function(match_obj, res, callback)
 
       if (callback != null)
         return callback(match);
-
     }
-
   });
+
+};
+
+var createMatch = function(match_obj, res, callback)
+{
+  if (typeof res === 'function') {
+    callback = res;
+    res = null;
+  }
+
+  //if it has ELS_url that means we need to convert it.
+  if (_.has(match_obj, 'ELS_url'))
+  {
+    //check to see if the specified ELS_url is in the tourney database.
+    Tournament.find({ELS_url:match_obj.ELS_url}).exec(function(err, tournies)
+    {
+      if (tournies.length < 1)
+      {
+        //if not, then just set it as itself.
+        match_obj.tourneyName = match_obj.ELS_url;
+      }
+      else
+      {
+        match_obj.tourneyName = tournies[0].name;
+      }
+      inputMatch(match_obj, res, callback);
+
+    });
+
+  }
+  else
+  {
+    inputMatch(match_obj, res, callback);
+  }
+
 };
 
 //assumes the match is valid.
