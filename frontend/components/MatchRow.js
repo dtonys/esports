@@ -7,7 +7,7 @@ class MatchRow extends React.Component{
   render(){
     var item = this.props.item;
     return (
-      <div key={item._id} >
+      <div >
         <div  className="match-item clearfix"
               onClick={ () => page(`/matches/${item._id}`) } >
           <div className="left-80" >

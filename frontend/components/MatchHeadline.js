@@ -8,13 +8,9 @@ class MatchHeadline extends React.Component{
     return (
       <div className="headline">
         <a  className="link"
-            href={`/?gameName=${item.gameName}`}
-            target="_blank" >{ item.gameName }</a>
-          &nbsp;match between&nbsp;
-        <a  className="link"
             href={`/?teamName=${item.outcomeNames[0]}`}
             target="_blank" >{ item.outcomeNames[0] }</a>
-          &nbsp;and&nbsp;
+          &nbsp;vs&nbsp;
         <a  className="link"
             href={`/?teamName=${item.outcomeNames[1]}`}
             target="_blank" >{ item.outcomeNames[1]}</a>
