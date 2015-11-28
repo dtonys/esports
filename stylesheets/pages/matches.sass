@@ -32,7 +32,7 @@
     padding: 10px 10px
     display: none
   .match-items
-  .mybets-no-results
+  .no-results
     text-align: center
     background: $blue
     font-size: 18px
@@ -76,9 +76,9 @@
       margin-left: 5px
 
   .section
-    background: $blue_light
     position: relative
     padding: 10px
+    background: linear-gradient(to right, $blue 0%, $blue_light 100%)
     &._1
     &._2
       padding: 20px 10px
@@ -104,6 +104,9 @@
     &.chosen
       background: black
       color: white
+  .section-left
+    padding-left: 50px
+    position: relative
   .section-right
     position: absolute
     right: 0

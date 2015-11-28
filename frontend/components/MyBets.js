@@ -28,7 +28,7 @@ class MyBets extends React.Component{
   }
   renderNoResults(){
     return (
-      <div className="mybets-no-results" >
+      <div className="no-results" >
         You have not placed any bets yet.
         <br />
         Go to the

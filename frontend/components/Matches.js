@@ -9,6 +9,9 @@ import * as actions from '../actions/action_creators.js';
 import moment from 'moment';
 import util from 'FE_util.js';
 
+import SampleComponent from 'components/SampleComponent.js';
+import MatchRow from 'components/MatchRow.js';
+
 class Matches extends React.Component{
   render(){
     return (
@@ -16,81 +19,37 @@ class Matches extends React.Component{
         <div className="header">
           Matches
         </div>
-        <div className="match-items">
-          {
-            this.props.matches.map( ( item ) => {
-              var startMoment = moment(item.matchStartTime);
-              var gameName = item.gameName || 'default';
-              var gameObj = util.gameNameMap[gameName] ? util.gameNameMap[gameName] : util.gameNameMap['default'];
-
-              var betTotal = item.betPot.reduce( ( prev, curr ) => {
-                return prev + curr;
-              });
-
-              return (
-                <div key={item._id} >
-                  <div  className="match-item clearfix"
-                        onClick={ () => page(`/matches/${item._id}`) } >
-                    <div className="left-80" >
-                      <img  className="icon_40x40"
-                            src={ gameObj.icon_url } />
-                      <div className="headline">
-                        <a  className="link"
-                            href={`/?gameName=${item.gameName}`}
-                            target="_blank"
-                            onClick={ (e) => e.stopPropagation() } >{ item.gameName }</a>
-                        &nbsp;match between&nbsp;
-                        <a  className="link"
-                            href={`/?teamName=${item.outcomeNames[0]}`}
-                            target="_blank"
-                            onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[0] }</a>
-                        &nbsp;and&nbsp;
-                        <a  className="link"item
-                            href={`/?teamName=${item.outcomeNames[1]}`}
-                            target="_blank"
-                            onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[1] }</a>
-                      </div>
-                      <div className="start-date">
-                        Match begins on: &nbsp;
-                        { startMoment.format("dddd, MMMM Do YYYY, h:mm:ss a") }
-                        &nbsp;&nbsp;
-                        ( { startMoment.fromNow() } )
-                      </div>
-                      <div className="start-date">
-                        Pot: {betTotal}
-                      </div>
-                    </div>
-                    <div className="left-20" style={{ minHeight: "40px" }} >
-                      <div  className="btn bet-btn gold"
-                            onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
-                        <img className="bet-icon" src="/img/chip_icon.png" />
-                        <div className="text" > Bet </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="margin-10"></div>
-                </div>
-              )
-            })
-          }
-          {/*
-            this.props.matches.map( ( item ) => {
-              return (
-                <div  className="match-item"
-                      key={item._id}
-                      onClick={ () => page(`/matches/${item._id}`) } >
-                  <div className="start-date">
-                    Match begins on: &nbsp;
-                    { new Date(item.matchStartTime).toString() }
-                  </div>
-                  <pre>
-                    { JSON.stringify( item, null, 2 ) }
-                  </pre>
-                </div>
-              )
-            })
-          */}
-        </div>
+        {
+          this.props.matches.length ?
+            this.renderMatchItems.call( this ) :
+            this.renderNoResults.call( this )
+        }
+      </div>
+    )
+  }
+  renderMatchItems(){
+    return (
+      <div className="match-items">
+      {
+        this.props.matches.map( ( item ) => {
+          item.startMoment = moment(item.matchStartTime);
+          item.gameName = item.gameName || 'default';
+          item.gameObj = util.gameNameMap[item.gameName] ? util.gameNameMap[item.gameName] : util.gameNameMap['default'];
+          item.betTotal = item.betPot.reduce( ( prev, curr ) => {
+            return prev + curr;
+          });
+          return (
+            <MatchRow item={ item } />
+          )
+        })
+      }
+      </div>
+    )
+  }
+  renderNoResults(){
+    return (
+      <div className="no-results" >
+        There are no matches available right now.
       </div>
     )
   }

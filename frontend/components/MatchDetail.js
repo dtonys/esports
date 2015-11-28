@@ -12,6 +12,9 @@ import moment from 'moment';
 import util from 'FE_util.js';
 import * as K from '../constants/constants.js'
 
+import MatchRow from 'components/MatchRow.js';
+import MatchHeadline from 'components/MatchHeadline.js';
+
 class MatchDetail extends React.Component{
   constructor( props ){
     super( props );
@@ -87,6 +90,8 @@ class MatchDetail extends React.Component{
   }
   render(){
     var match = this.props.matchDetail.match;
+    match.gameObj = util.gameNameMap[match.gameName] ? util.gameNameMap[match.gameName] : util.gameNameMap['default'];
+
     var bets = this.state.bets;
     var startMoment = moment(match.matchStartTime);
     // m.format("dddd, MMMM Do YYYY, h:mm:ss a");
@@ -101,19 +106,9 @@ class MatchDetail extends React.Component{
         <div className="sections-wrap">
           <div className="section _1 clearfix">
             <div className={`section-left ${ betting ? "left-100" : "left-80" }`}>
-              <div className="headline">
-                <a  className="link"
-                    href={`/?gameName=${match.gameName}`}
-                    target="_blank" >{ match.gameName }</a>
-                &nbsp;match between&nbsp;
-                <a  className="link"
-                    href={`/?teamName=${match.outcomeNames[0]}`}
-                    target="_blank" >{ match.outcomeNames[0] }</a>
-                &nbsp;and&nbsp;
-                <a  className="link"
-                    href={`/?teamName=${match.outcomeNames[1]}`}
-                    target="_blank" >{ match.outcomeNames[1]}</a>
-              </div>
+              <img  className="icon_40x40"
+                    src={ match.gameObj.icon_url } />
+              <MatchHeadline item={ match } />
               <div className="match-status">
                 { this.match_status === K.MATCH_READY ?
                   <div className="status match-ready">
