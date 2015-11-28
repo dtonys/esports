@@ -21,7 +21,7 @@ class MatchRow extends React.Component{
               ( { item.startMoment.fromNow() } )
             </div>
             <div className="start-date">
-              Pot: {item.betTotal}
+              Pot: {item.betTotal} Ɖ
             </div>
           </div>
           <div className="left-20" style={{ minHeight: "40px" }} >
