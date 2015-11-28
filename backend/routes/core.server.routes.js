@@ -15,8 +15,8 @@ module.exports = function(app) {
 
   /** ADMIN STUFF */
   //Scrape esportlivescore.com for new matches
-  app.route('/api/v1/admin/scrapeELSnew')
-    .get(admintools.scrapeELSnew);
+  app.route('/api/v1/admin/scrapeNewMatches')
+    .get(admintools.scrapeNewMatches);
 
   //Scrape sportlivescore.com for recently finished matches.
   app.route('/api/v1/admin/scrapeELSfinished')
