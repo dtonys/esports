@@ -26,13 +26,13 @@ class Navbar extends React.Component{
     var loggedIn = this.props.member;
     return (
       <div className="fixed-navbar" >
-        <div className="navbar-center desktop-only link" onClick={ () => page('/') } >
+        <a className="navbar-center desktop-only link" href="/" >
           <div className="logo-text"> SuchBet </div>
           <div className="logo-icon"></div>
-        </div>
-        <div className="icon-link navbar-left phone-tablet f-left" onClick={ () => page('/') } >
+        </a>
+        <a className="icon-link navbar-left phone-tablet f-left" href="/" >
           <div className="logo-icon"></div>
-        </div>
+        </a>
 
         { loggedIn ? this.renderLoggedIn() : this.renderLoggedOut() }
       </div>
@@ -73,7 +73,8 @@ class Navbar extends React.Component{
               null
             }
           </div>
-          <a className="link navbar-item right-45 my-bets" onClick={ () => page('/mybets') } >
+          <a  className="link navbar-item right-45 my-bets"
+              href="/mybets" >
             <div className="wrap">
               <i className="fa fa-list"></i>
               <div className="text" > Bets </div>
@@ -86,8 +87,14 @@ class Navbar extends React.Component{
   renderLoggedOut(){
     return (
       <div className="navbar-right f-right" >
-        <a className="link navbar-item right-50" onClick={ () => page('/login') } > Login </a>
-        <a className="link navbar-item right-50" onClick={ () => page('/signup') } > Signup </a>
+        <a  className="link navbar-item right-50"
+            href="/login">
+            Login
+        </a>
+        <a  className="link navbar-item right-50"
+            href="/signup">
+            Signup
+        </a>
       </div>
     )
   }

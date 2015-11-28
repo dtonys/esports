@@ -17,35 +17,37 @@ class MyBets extends React.Component{
         </div>
         <div className="match-items">
           <div style={ {margin: "10px"} }>
-            <div className="bet-list">
-              {
-                this.props.myBets.map( ( bet ) => {
-                  return (
-                    <div className="bet-item" key={ bet._id } >
-                      { bet.amount } on { bet.match.outcomeNames[bet.prediction] }
-                    </div>
-                  )
-                })
-              }
-            </div>
+            { this.props.myBets.length ?
+                this.renderBetList.call(this) :
+                this.renderNoResults.call(this)
+            }
           </div>
-          { /*
-            this.props.myBets.map( ( item ) => {
-              return (
-                <div  className="match-item"
-                      key={item._id} >
-                  <div className="start-date">
-                      Bet Amount:
-                    { item.amount.toString() }
-                  </div>
-                  <pre>
-                    { JSON.stringify( item, null, 2 ) }
-                  </pre>
-                </div>
-              )
-            })
-          */}
         </div>
+      </div>
+    )
+  }
+  renderNoResults(){
+    return (
+      <div className="mybets-no-results" >
+        You have not placed any bets yet.
+        <br />
+        Go to the
+        <a href="/" className="link" > Matches </a> page to get started.
+      </div>
+    )
+  }
+  renderBetList(){
+    return (
+      <div className="bet-list">
+        {
+          this.props.myBets.map( ( bet ) => {
+            return (
+              <div className="bet-item" key={ bet._id } >
+                { bet.amount } on { bet.match.outcomeNames[bet.prediction] }
+              </div>
+            )
+          })
+        }
       </div>
     )
   }

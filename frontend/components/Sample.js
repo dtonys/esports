@@ -41,8 +41,10 @@ class Sample extends React.Component{
                 onClick={ ::this.clickBtn } >
             Button - { this.state.btn_count.toString() }
           </div>
-          <div  className="link left-50"
-                onClick={ () => page("/") }> Link </div>
+          <a  className="link left-50"
+              href="/">
+            Link
+          </a>
           <div className="margin-10 left-100"></div>
           <input  className="input"
                   type="text"
