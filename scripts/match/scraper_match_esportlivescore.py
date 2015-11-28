@@ -127,8 +127,8 @@ def start_scraping(path, find_results, more_pages):
 if __name__ == "__main__":
     #default
 
-    start_path = "ty_finished.html"#"ty_notstarted.html"
-    find_results = True#False
+    start_path = "ty_notstarted.html"#"ty_finished.html"#
+    find_results = False#True#
     repeats = 0
 
     if (len(sys.argv) > 1):

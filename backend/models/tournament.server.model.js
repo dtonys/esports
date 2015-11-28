@@ -21,6 +21,12 @@ var TournamentSchema = new Schema({
     required: "Tournament name required!"
   },
 
+  //When this object was created.
+  created: {
+    type: Date,
+    default: Date.now
+  },
+
   //name for esportlivescore purposes
   ELS_url: {
     type: String
