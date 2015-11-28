@@ -1,10 +1,11 @@
 from selenium import webdriver
 import json
 import time
+import sys
 
 
 #prints json of game if it's valid.
-def scrapeELSMatch(match_element):
+def scrapeELSMatch(match_element, find_winner=False):
 
     portion_home = match_element.find_element_by_xpath(".//tr[@class=' event-home-team']")
 
@@ -36,8 +37,11 @@ def scrapeELSMatch(match_element):
     matchsplit = matchvs.split('vs')
     team1name = matchsplit[0].strip()
     team2name = matchsplit[1].strip()
+    
+    outcome_names = [team1name, team2name]
+    outcome_names = sorted(outcome_names)
 
-    #since this is hidden, it doesn't work.
+    #since this is hidden, it doesn't work. wait what? nvm
     epoch_text = summary_section.find_element_by_xpath(".//span[@class='phpunixtime']").get_attribute("textContent")
     epoch = (float(epoch_text)/1000)
 
@@ -47,18 +51,42 @@ def scrapeELSMatch(match_element):
     tourney_name = portion_home.find_element_by_xpath(".//td[@class='init-click-done tournament-td']/a").get_attribute("href")
     tourney_name = tourney_name.replace("http://esportlivescore.com/to_", "").replace(".html", "")
 
-    result = {
+
+    game_obj = {
               'gameName': game_name,
               'tourneyName': tourney_name,
-              'outcomeNames':[team1name, team2name],
-              'matchStartTime':matchStartTime}
+              'outcomeNames': outcome_names,
+              'matchStartTime':matchStartTime
+              }
 
-    print json.dumps(result)
+    # add a result if we need to find a winner.
+    if find_winner:
+        homescore = int(portion_home.find_element_by_xpath(".//td[@oldtitle='score']").text)
+        portion_away = match_element.find_element_by_xpath(".//tr[@class=' event-away-team']")
+        awayscore = int(portion_away.find_element_by_xpath(".//td[@oldtitle='score']").text)
 
+        if (homescore > awayscore):
+            game_obj.update({'scraped_result': 1})
+        elif (homescore < awayscore):
+            game_obj.update({'scraped_result': 2})
+        
+        # if we switched the two around, we need to reverse these two too.
+        if (team2name == outcome_names[0]):
+            if (game_obj.get('scraped_result') == 1):
+                game_obj.update({'scraped_result': 2})
+            elif (game_obj.get('scraped_result') == 2):
+                game_obj.update({'scraped_result': 1})
+
+
+    print(json.dumps(game_obj))
     return
 
-def scrapeELSPage(driver, path):
-    driver.get('http://www.esportlivescore.com/' + path)
+'''
+'''
+def scrapeELSPage(driver, path, find_winner=False):
+
+    if (len(path) > 0):
+        driver.get('http://www.esportlivescore.com/' + path)
 
     match_sections = driver.find_elements_by_xpath("//div[@class='tables']/table/tbody/tr")
 
@@ -67,30 +95,48 @@ def scrapeELSPage(driver, path):
         time.sleep(5)
         match_sections = driver.find_elements_by_xpath("//div[@class='tables']/table[1]/tbody/tr")
 
-
-    #print 'sections in ' + path + ":" + str(len(match_sections))
-
-
+    # Loop through each section and scrape it.
     for i in range(0, len(match_sections)):
-        section = match_sections[i]
-        scrapeELSMatch(section)
+        scrapeELSMatch(match_sections[i], find_winner)
 
 
     return
 
 
-def main():
+def start_scraping(path, find_results, more_pages):
 
-    driver = webdriver.Firefox()
+    driver = webdriver.PhantomJS() #webdriver.Firefox()#
 
-    scrapeELSPage(driver, "ty_notstarted.html")
+    #scrape the specified webpage
+    scrapeELSPage(driver, path, find_results)
 
-    driver.get("http://esportlivescore.com/")
+    #more pages
+    while (more_pages > 0):
+        #click on "next day" button
+        driver.find_element_by_xpath("//li[@class='after ab-init-done']").click()
+
+        #scrape the page. We never scrape results because going into another page goes into the future.
+        scrapeELSPage(driver, "", False)
+
+        more_pages -= 1
+
     driver.close()
 
-    #print 'done'
     return
 
 if __name__ == "__main__":
-    main()
+    #default
 
+    start_path = "ty_finished.html"#"ty_notstarted.html"
+    find_results = True#False
+    repeats = 0
+
+    if (len(sys.argv) > 1):
+        start_path = sys.argv[1]
+    if (len(sys.argv) > 2):
+        find_results = (int(sys.argv[2]) > 0)
+    if (len(sys.argv) > 3):
+        repeats = int(sys.argv[3])
+
+    start_scraping(start_path, find_results, repeats)
+    #print 'done'

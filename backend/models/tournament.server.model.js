@@ -19,6 +19,11 @@ var TournamentSchema = new Schema({
   name: {
     type: String,
     required: "Tournament name required!"
+  },
+
+  //name for esportlivescore purposes
+  ELS_url: {
+    type: String
   }
 
   //active?
