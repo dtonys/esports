@@ -106,8 +106,10 @@ class MatchDetail extends React.Component{
         <div className="sections-wrap">
           <div className="section _1 clearfix">
             <div className={`section-left ${ betting ? "left-100" : "left-80" }`}>
-              <img  className="icon_40x40"
-                    src={ match.gameObj.icon_url } />
+              <div className="icon-wrap" >
+                <img  className="icon_40x40"
+                      src={ match.gameObj.icon_url } />
+              </div>
               <MatchHeadline item={ match } />
               <div className="match-status">
                 { this.match_status === K.MATCH_READY ?
