@@ -25,9 +25,77 @@ class AdminPanel extends React.Component{
       'team2name' : '',
       'tourneyName' : '',
       'gameName' : '',
-      'matchStartTime' : new Date().toISOString()
+      'matchStartTime' : new Date().toISOString(),
+
+      //stuff for tournament creation
+      tournament_name: ''
     }
   }
+
+  renderDropdown(valueName, placeholder, objectMap, displayProp) {
+    return(
+    <select className="select input amt"
+            name={valueName}
+            valueLink={this.linkState(valueName)}>
+      <option disabled="disabled">{placeholder}</option>
+      {
+        Object.keys(objectMap).map( ( item, index ) => {
+          return (
+            <option value={item}>
+              {objectMap[item][displayProp]}
+            </option>
+          )
+        })
+      }
+    </select>)
+  }
+
+  renderCreateMatch() {
+    return(<div>
+      <form className="generic-form container"
+            onSubmit = {() => { this.submitCreateMatch(this) } } >
+        <div className="headline"> CREATE A MATCH</div>
+        <div className="left-100 margin-10"></div>
+        {this.renderDropdown("gameName", "Game Name", util.gameNameMap, "display_name")}
+        <div className="left-100 margin-10"></div>
+        {this.renderDropdown("team1name", "Team 1 Name", util.teamNameMap, "display_name")}
+        <div className="left-100 margin-10"></div>
+        {this.renderDropdown("team2name", "Team 2 Name", util.teamNameMap, "display_name")}
+        <div className="left-100 margin-10"></div>
+        {this.renderDropdown("tourneyName", "Tournament Name",
+          this.props.adminPanel.tournaments, "name")}
+        <div className="left-100 margin-10"></div>
+        <input  className="input amt"
+                placeholder="Match Date"
+                name="matchStartTime"
+                valueLink={this.linkState('matchStartTime')}/>
+        <div className="left-100 margin-10"></div>
+        <input type="submit" value="Create Match"
+               className="input amt action-item submit btn left-50" />
+        <div className="left-100 margin-10"></div>
+      </form>
+    </div>)
+  }
+
+
+  renderCreateTournament() {
+    return (<div>
+      <form className="generic-form container"
+            onSubmit = {() => { this.submitCreateTournament(this) } } >
+        <div className="headline">CREATE A TOURNAMENT</div>
+        <div className="left-100 margin-10"></div>
+        <input  className="input amt"
+                placeholder="Tournament Name"
+                name="tournament_name"
+                valueLink={this.linkState('tournament_name')}/>
+        <div className="left-100 margin-10"></div>
+        <input type="submit" value="Create Tournament"
+               className="input amt action-item submit btn left-50" />
+      </form>
+
+    </div>)
+  }
+
   submitResolveMatch(e, match, winnerNum ) {
 
     var data = {"winnerNum" : winnerNum, "matchid" : match._id};
@@ -51,17 +119,35 @@ class AdminPanel extends React.Component{
 
 
     this.props.postCreateMatch( data )
-        .then( ( res ) => {
-          var resbody = res.body;
-          console.log('@@@then ' + resbody);
+      .then( ( res ) => {
+        var resbody = res.body;
+        console.log('@@@then ' + resbody);
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        this.setState({
+          errors: [msg]
         })
-        .catch( (res) => {
-          var msg = _.get( res, 'response.body.message' ) || 'error';
-          this.setState({
-            errors: [msg]
-          })
-        });
+      });
   }
+  submitCreateTournament(e) {
+    var tourneydata = {};
+    tourneydata.name = this.state.tournament_name;
+
+    this.props.postCreateTournament(tourneydata)
+      .then( ( res ) => {
+        var resbody = res.body;
+        console.log('@@@then ' + resbody);
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        this.setState({
+          errors: [msg]
+        })
+      });
+
+  }
+
   render(){
     return (
       <div className="matches-page-container" >
@@ -77,7 +163,7 @@ class AdminPanel extends React.Component{
           </div>
           <div className="match-items">
             {
-              this.props.adminPanel.map( ( item ) => {
+              this.props.adminPanel.matches.map( ( item ) => {
                 var startMoment = moment(item.matchStartTime);
                 return (
                     <div  className="match-item clearfix"
@@ -129,48 +215,15 @@ class AdminPanel extends React.Component{
               })
             }
           </div>
-          <div className="header">
-            CREATE A MATCH
+
+          <div className="left-50">
+            {this.renderCreateMatch()}
           </div>
-          <form className="generic-form container"
-                onSubmit = {() => { this.submitCreateMatch(this) } } >
-            <select className="select input amt"
-                    placeholder="Game Name"
-                    name="gameName"
-                    valueLink={this.linkState('gameName')}>
-              <option value=""></option>
-              {
-                Object.keys( util.gameNameMap ).map( ( item, index ) => {
-                  return (
-                    <option value={item} >{item}</option>
-                  )
-                })
-              }
-            </select>
-            <div className="left-100 margin-10"></div>
-            <input className="input amt"
-                   placeholder="Team 1 Name"
-                   name="team1name"
-                   valueLink={this.linkState('team1name')}/>
-            <div className="left-100 margin-10"></div>
-            <input  className="input amt"
-                    placeholder="Team 2 Name"
-                    name="team2name"
-                    valueLink={this.linkState('team2name')}/>
-            <div className="left-100 margin-10"></div>
-            <input  className="input amt"
-                    placeholder="Tourney Name"
-                    name="tourneyName"
-                    valueLink={this.linkState('tourneyName')}/>
-            <div className="left-100 margin-10"></div>
-            <input  className="input amt"
-                    placeholder="Match Date"
-                    name="matchStartTime"
-                    valueLink={this.linkState('matchStartTime')}/>
-            <div className="left-100 margin-10"></div>
-            <input type="submit" value="Create Match"
-                   className="input amt action-item submit btn left-50" />
-          </form>
+
+          <div className="left-50">
+            {this.renderCreateTournament()}
+          </div>
+
         </div>
       </div>
     )

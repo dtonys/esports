@@ -43,3 +43,25 @@
   .social-option-img
     width: 50px
     cursor: pointer
+
+.btn.gold
+  background: $gold
+  &:hover
+    box-shadow: 0px 0px 4px #000 inset
+  &:active
+    background: $gold_darker
+
+.btn.silver
+  background: linear-gradient(to bottom, #fff 0%, #aaa 100%)
+  &:hover
+    box-shadow: 0px 0px 4px #000 inset
+  &:active
+    background: #aaa
+  &.active
+    cursor: default
+    background: #aaa
+    box-shadow: none
+    &:hover
+      box-shadow: none
+    &:active
+      background: #aaa

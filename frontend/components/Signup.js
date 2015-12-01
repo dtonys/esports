@@ -138,9 +138,15 @@ class Signup extends React.Component{
           <div className="margin-10"></div>
           <div className="action-items clearfix">
             <input type="submit" value="submit" className="action-item submit btn left-50" />
-            <div className="action-item link left-50"
-              onClick={ () => page('/login') }>
-                Log In
+            <div  className="action-item link left-50"
+                  href="/login">
+              Log In
+            </div>
+          </div>
+          <div className="margin-10"></div>
+          <div className="bottom-text">
+            <div className="text">
+              I agree to SuchBet's <a target="_blank" href="/html/tos.html" > Terms of Service </a>
             </div>
           </div>
         </form>

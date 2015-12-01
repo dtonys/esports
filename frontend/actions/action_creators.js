@@ -137,6 +137,32 @@ function _postCreateMatchError( payload ){
     payload
   }
 }
+function _postCreateTournamentSuccess( payload ){
+  return {
+    type: 'POST_CREATE_TOURNAMENT_SUCCESS',
+    payload
+  }
+}
+function _postCreateTournamentError( payload ){
+  return {
+    type: 'POST_CREATE_TOURNAMENT_ERROR',
+    payload
+  }
+}
+
+function _postWithdrawSuccess( payload) {
+  return {
+    type: 'POST_WITHDRAW_SUCCESS',
+    payload
+  }
+}
+
+function _postWithdrawError( payload) {
+  return {
+    type: 'POST_WITHDRAW_ERROR',
+    payload
+  }
+}
 
 /**
  * Public
@@ -272,11 +298,13 @@ export function postMePassword( password_data ){
   }
 }
 
-export function getMatches( callback ){
+export function getMatches( params = {} ){
   var xhr_promise = null;
   return function( dispatch ){
+    params.page=1;
     xhr_promise = request
       .get('/api/v1/matches')
+      .query( params )
       .end();
 
     xhr_promise.then( ( res ) => {
@@ -333,11 +361,35 @@ export function getTransactionHistory(callback) {
 export function getAdminPanel( callback ){
   var xhr_promise = null;
   return function( dispatch ){
+    //get matches
     xhr_promise = request
       .get('/api/v1/matches')
       .end();
     xhr_promise.then( ( res ) => {
-      if( res.body ) dispatch( _getAdminPanel( res.body ) );
+      if( res.body ) {
+
+        var resObj = {};
+
+        resObj.matches = res.body;
+
+        //now get tournaments
+        var xhr_promise_tournaments = request
+          .get('/api/v1/tournaments')
+          .end();
+
+        xhr_promise_tournaments.then((tourney_res) => {
+
+          if (tourney_res.body) {
+
+            resObj.tournaments = tourney_res.body;
+
+            dispatch( _getAdminPanel( resObj ) );
+          }
+
+
+        });
+
+      }
     });
 
     return xhr_promise;
@@ -380,11 +432,46 @@ export function postCreateMatch( match_data ) {
       });
     return xhr_promise;
   };
+}
+
+export function postCreateTournament(tourney_data) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .post('/api/v1/tournaments')
+      .send( tourney_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postCreateTournamentSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postCreateTournamentError({ message: msg }) );
+      });
+    return xhr_promise;
+  };
 
 }
 
-
-
+export function postWithdraw(withdraw_data) {
+  var xhr_promise = null;
+  return function (dispatch) {
+    xhr_promise = request
+      .post('/api/v1/withdraw')
+      .send( withdraw_data )
+      .end();
+    xhr_promise
+      .then( (res) => {
+        if (res.body) dispatch( _postWithdrawSuccess(res.body));
+      })
+      .catch( (res) => {
+        var msg = _.get( res, 'response.body.message' ) || 'error';
+        dispatch( _postWithdrawError({ message: msg }) );
+      });
+    return xhr_promise;
+  };
+}
 
 export function postBet( bet_data ) {
   var xhr_promise = null;

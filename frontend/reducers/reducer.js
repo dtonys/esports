@@ -33,7 +33,10 @@ var initialState = fromJS({
   },
   myBets: [],
   transactionHistory: [],
-  adminPanel: []
+  adminPanel: {
+    matches: [],
+    tournaments: []
+  }
 });
 
 function login( state, action ){

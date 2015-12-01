@@ -1,6 +1,7 @@
 import page from 'page';
 import 'pages/matches.sass';
 import 'components/forms.sass';
+import 'components/forms_extend.sass';
 
 import {connect} from 'react-redux';
 import * as actions from '../actions/action_creators.js';
@@ -8,84 +9,95 @@ import * as actions from '../actions/action_creators.js';
 import moment from 'moment';
 import util from 'FE_util.js';
 
+import SampleComponent from 'components/SampleComponent.js';
+import MatchRow from 'components/MatchRow.js';
+
+// time states
+const ALL       = 'ALL';
+const UPCOMING  = 'UPCOMING';
+const PAST      = 'PAST';
+
 class Matches extends React.Component{
+  constructor( props ){
+    super( props );
+    this.state = {
+      'filter': UPCOMING
+    };
+  }
+  timeFilter( state ){
+    var now = (new Date()).getTime();
+    return this.props.matches.filter( item => {
+      var matchStartTime = (new Date( item.matchStartTime )).getTime()
+      if( state === UPCOMING )  return matchStartTime > now;
+      if( state === PAST )      return matchStartTime < now;
+      if( state === ALL )       return true;
+    })
+  }
+  filterList( time_state ){
+    console.log( 'filterList ', time_state);
+    this.setState({
+      'filter': time_state
+    });
+  }
   render(){
+    var matches = this.timeFilter( this.state.filter ) ;
     return (
       <div className="matches-page-container" >
         <div className="header">
           Matches
         </div>
-        <div className="match-items">
-          {
-            this.props.matches.map( ( item ) => {
-              var startMoment = moment(item.matchStartTime);
-              var gameName = item.gameName || 'default';
-              var gameObj = util.gameNameMap[gameName] ? util.gameNameMap[gameName] : util.gameNameMap['default'];
+        { this.renderFilters.call( this ) }
+        <div className="margin-10" ></div>
+        {
+          matches.length ?
+            this.renderMatchItems.call( this, matches ) :
+            this.renderNoResults.call( this )
+        }
+      </div>
+    )
+  }
+  renderFilters(){
+    var filter = this.state.filter;
+    var upcoming_active =  filter === UPCOMING && 'active';
+    var past_active =  filter === PAST && 'active';
+    var all_active =  filter === ALL && 'active';
 
-              return (
-                <div key={item._id} >
-                  <div  className="match-item clearfix"
-                        onClick={ () => page(`/matches/${item._id}`) } >
-                    <div className="left-80" >
-                      <img  className="icon_40x40"
-                            src={ gameObj.icon_url } />
-                      <div className="headline">
-                        <a  className="link"
-                            href={`/?gameName=${item.gameName}`}
-                            target="_blank"
-                            onClick={ (e) => e.stopPropagation() } >{ item.gameName }</a>
-                        &nbsp;match between&nbsp;
-                        <a  className="link"
-                            href={`/?teamName=${item.outcomeNames[0]}`}
-                            target="_blank"
-                            onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[0] }</a>
-                        &nbsp;and&nbsp;
-                        <a  className="link"item
-                            href={`/?teamName=${item.outcomeNames[1]}`}
-                            target="_blank"
-                            onClick={ (e) => e.stopPropagation() } >{ item.outcomeNames[1] }</a>
-                      </div>
-                      <div className="start-date">
-                        Match begins on: &nbsp;
-                        { startMoment.format("dddd, MMMM Do YYYY, h:mm:ss a") }
-                        &nbsp;&nbsp;
-                        ( { startMoment.fromNow() } )
-                      </div>
-                      <div className="start-date">
-                        Pot: {item.team1pot + item.team2pot}
-                      </div>
-                    </div>
-                    <div className="left-20" style={{ minHeight: "40px" }} >
-                      <div  className="btn bet-btn"
-                            onClick={ (e) => { e.stopPropagation(); page(`/matches/${item._id}?bet=1`) } } >
-                        <img className="bet-icon" src="/img/chip_icon.png" />
-                        <div className="text" > Bet </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="margin-10"></div>
-                </div>
-              )
-            })
-          }
-          {/*
-            this.props.matches.map( ( item ) => {
-              return (
-                <div  className="match-item"
-                      key={item._id}
-                      onClick={ () => page(`/matches/${item._id}`) } >
-                  <div className="start-date">
-                    Match begins on: &nbsp;
-                    { new Date(item.matchStartTime).toString() }
-                  </div>
-                  <pre>
-                    { JSON.stringify( item, null, 2 ) }
-                  </pre>
-                </div>
-              )
-            })
-          */}
-        </div>
+    return (
+      <div className="filters clearfix" >
+        <div  className={` filter btn silver left-30 ${ upcoming_active } `}
+              onClick={ this.filterList.bind(this, UPCOMING ) } > Upcoming </div>
+        <div className="left-5" > &nbsp; </div>
+        <div  className={` filter btn silver left-30 ${ past_active } `}
+              onClick={ this.filterList.bind(this, PAST ) } > Past </div>
+        <div className="left-5" > &nbsp; </div>
+        <div  className={` filter btn silver left-30 ${ all_active } `}
+              onClick={ this.filterList.bind(this, ALL ) } > All </div>
+      </div>
+    )
+  }
+  renderMatchItems( matches ){
+    return (
+      <div className="match-items">
+      {
+        matches.map( ( item ) => {
+          item.startMoment = moment(item.matchStartTime);
+          item.gameName = item.gameName || 'default';
+          item.gameObj = util.gameNameMap[item.gameName] ? util.gameNameMap[item.gameName] : util.gameNameMap['default'];
+          item.betTotal = item.betPot.reduce( ( prev, curr ) => {
+            return prev + curr;
+          });
+          return (
+            <MatchRow key={item._id} item={ item } />
+          )
+        })
+      }
+      </div>
+    )
+  }
+  renderNoResults(){
+    return (
+      <div className="no-results" >
+        There are no matches available right now.
       </div>
     )
   }

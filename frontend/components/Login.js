@@ -113,10 +113,10 @@ class Login extends React.Component{
           <div className="margin-10"></div>
           <div className="action-items clearfix">
             <input type="submit" value="submit" className="action-item submit btn left-50" />
-            <div className="action-item link left-50"
-              onClick={ () => page('/password/reset') }>
+            <a  className="action-item link left-50"
+                href="/password/reset" >
                 Forgot Password?
-            </div>
+            </a>
           </div>
         </form>
       </div>

@@ -93,8 +93,12 @@ var routeMap = {
         require.ensure([], () => res(require('components/Matches.js')) )
       });
     },
-    getData: function(){
-      return store.dispatch( actions.getMatches() );
+    getData: function( ctx ){
+      var filters = {};
+      if( ctx.queryparams.tourneyName ) filters.tourneyName = ctx.queryparams.tourneyName;
+      if( ctx.queryparams.gameName ) filters.gameName = ctx.queryparams.gameName;
+      if( ctx.queryparams.teamName ) filters.teamName = ctx.queryparams.teamName;
+      return store.dispatch( actions.getMatches( filters ) );
     },
   },
   '/login': {
@@ -188,8 +192,8 @@ var routeMap = {
         require.ensure([], () => res(require('components/MatchDetail.js')) )
       });
     },
-    getData: function( params ){
-      return store.dispatch( actions.getMatchDetail( params.id ) );
+    getData: function( ctx ){
+      return store.dispatch( actions.getMatchDetail( ctx.params.id ) );
     }
   },
   '/mybets': {
@@ -199,7 +203,7 @@ var routeMap = {
         require.ensure([], () => res(require('components/MyBets.js')))
       });
     },
-    getData: function(params){
+    getData: function(){
       return store.dispatch( actions.getMyBets() );
     }
   },
@@ -210,8 +214,16 @@ var routeMap = {
         require.ensure([], () => res(require('components/TransactionHistory.js')))
       });
     },
-    getData: function(params){
+    getData: function(){
       return store.dispatch( actions.getTransactionHistory());
+    }
+  },
+  '/nux': {
+    access: member_only,
+    getComponent: () => {
+      return new Promise( (res, rej) => {
+        require.ensure([], () => res(require('components/NUX.js')) )
+      });
     }
   },
   // NotFound

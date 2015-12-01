@@ -8,3 +8,6 @@ public/build/*
 npm-debug.log
 port.txt
 log
+scripts/.project
+scripts/.pydevproject
+phantomjs

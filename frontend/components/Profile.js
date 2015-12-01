@@ -50,6 +50,7 @@ class Profile extends React.Component{
       newPassword: '',
       verifyPassword: '',
       email: props.user && props.user.email ? props.user.email: '',
+      emailOptIn: this.props.user.emailOptIn, // todo
       password: {
         success: false,
         error: false
@@ -61,6 +62,7 @@ class Profile extends React.Component{
         email: []
       },
       save_profile_success: false,
+      save_notif_success: false,
       email_toggle: section === 'email',
       password_toggle: section === 'password',
       notif_toggle: section === 'notifications'
@@ -83,6 +85,20 @@ class Profile extends React.Component{
           save_profile_success: true
         });
       })
+  }
+  updateNotifSettings( e ){
+    e.preventDefault();
+    var data = {
+      emailOptIn: this.state.emailOptIn
+    };
+    alert( JSON.stringify( data, null, 2) );
+    this.props.putMe( data )
+      .then( () => {
+        this.setState({
+          save_notif_success: true
+        });
+      })
+
   }
   updatePassword( e ){
     e.preventDefault();
@@ -134,7 +150,7 @@ class Profile extends React.Component{
   render(){
     return (
       <div className="profile-page-container" >
-        { this.renderProfile() }
+        { this.renderEmail() }
         <div className="margin-10"></div>
         { this.renderPassword() }
         <div className="margin-10"></div>
@@ -154,7 +170,7 @@ class Profile extends React.Component{
               valueLink={this.linkState(name)} />
     )
   }
-  renderProfile(){
+  renderEmail(){
     var email_err = _.get( this.state, 'errors.email' );
     var has_email_err = email_err && email_err.length;
 
@@ -166,7 +182,8 @@ class Profile extends React.Component{
                 onClick ={ this.toggleState.bind(this, 'email_toggle' )}>
             Change Email
           </div>
-          <div className="form-toggle" >
+          <div  className="form-toggle"
+                onClick ={ this.toggleState.bind(this, 'email_toggle' )} >
             { this.state.email_toggle ?
                 <div className="on"> ▲ </div>
               :
@@ -233,6 +250,7 @@ class Profile extends React.Component{
     var has_verify_err = verify_err && verify_err.length;
 
     var server_error = _.get( this.state, 'password.error' );
+    var success_msg = _.get( this.state, 'password.success' );
 
     return (
       <div className="">
@@ -242,7 +260,8 @@ class Profile extends React.Component{
                 onClick ={ this.toggleState.bind(this, 'password_toggle' ) }  >
             Change Password
           </div>
-          <div className="form-toggle" >
+          <div  className="form-toggle"
+                onClick ={ this.toggleState.bind(this, 'password_toggle' )} >
             { this.state.password_toggle ?
                 <div className="on"> ▲ </div>
               :
@@ -264,10 +283,10 @@ class Profile extends React.Component{
               </div> :
               null
           }
-          { this.state.password.success ?
+          { success_msg ?
               <div>
                 <div className="margin-10"></div>
-                <div className="success input"> { this.state.password.success } </div>
+                <div className="success input"> { success_msg } </div>
               </div> :
               null
           }
@@ -325,12 +344,14 @@ class Profile extends React.Component{
   }
   renderNotifSettings(){
     return (
-      <form className="generic-form container clearfix">
+      <form   className="generic-form container clearfix"
+              onSubmit={ ::this.updateNotifSettings } >
         <div  className="form-title"
               onClick ={ this.toggleState.bind(this, 'notif_toggle' )} >
           Notification Settings
         </div>
-        <div className="form-toggle" >
+        <div  className="form-toggle"
+              onClick ={ this.toggleState.bind(this, 'notif_toggle' )} >
           { this.state.notif_toggle ?
               <div className="on"> ▲ </div>
             :
@@ -341,19 +362,32 @@ class Profile extends React.Component{
       </form>
     )
 
+    // this.state.save_notif_success
+
     function renderFormContents(){
       return (
         <div>
+          { this.state.save_notif_success ?
+              <div>
+                <div className="margin-10"></div>
+                <div className="success input"> Email Notifications Updated </div>
+              </div> :
+              null
+          }
           <input id="emailOptIn"
                  type="checkbox"
                  name="emailOptIn"
-                 valueLink={this.linkState("emailOptIn")}
+                 checked={ this.state.emailOptIn }
+                 value="true"
+                 onChange={ ::this.toggleState.bind( this, 'emailOptIn' ) }
                  className = "checkbox"/>
           <label htmlFor="emailOptIn" className="label">
             <div className="checked-box"></div>
             <div className="unchecked-box"></div>
             Email Opt In
           </label>
+          <div className="margin-10"></div>
+          <input type="submit" value="submit" className="action-item submit btn left-100" />
         </div>
       )
     }

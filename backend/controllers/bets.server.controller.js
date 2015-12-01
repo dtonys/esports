@@ -29,7 +29,10 @@ exports.create = function(req, res) {
   Match.findById(req.body.match).
     exec(function(err, match) {
       if (err) return next(err);
-      if (! match) return next(new Error('Failed to find Match ' + id));
+      if (! match) {
+        return res.status(400).send(
+          {message: 'Match not found!'});
+      }
 
       //Check timing/status of the match.
       //The match status must be 0 or 1, and must have a start time in the future.

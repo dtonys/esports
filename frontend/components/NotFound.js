@@ -8,9 +8,8 @@ class NotFound extends React.Component{
   }
   render(){
     return (
-      <div>
-        NotFound
-        <button onClick={ () => page('/') }> Home </button>
+      <div className="_404-page-container" >
+        Page Not Found
       </div>
     )
   }
