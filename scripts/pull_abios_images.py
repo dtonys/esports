@@ -15,26 +15,38 @@ Created on Nov 30, 2015
 import requests
 import json
 import shutil
+import re
+
+
+saved_names = []
 
 def save_team(team_name, team_logo_url):
-    team_internal = team_name.replace(" ", "").lower()
+    team_internal = team_name.replace(" ", "_").lower()
+    team_internal = re.sub(r'\W+', '', team_internal)
+    #don't duplicate
+    if team_internal in saved_names:
+        return
+    
+    saved_names.append(team_internal)
     
     splitted = team_logo_url.split('/')
     logo_filename = splitted[len(splitted) - 1]
-            
+    
     if logo_filename == 'team-placeholder.png':
         logo_filename = ''
     
     print "'" + team_internal + "': {"
-    print "display_name:'" + team_name + "',"
-    print "logo_url:'" + logo_filename + "'"
-    print '},'
+    print 'display_name:"' + team_name + '",'
+    print 'logo_url:"' + logo_filename + '"'
+    print "},"
     
+    '''
     if logo_filename != '':
         response = requests.get(team_logo_url, stream=True)
         with open("./output/" + logo_filename, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
+    '''
     
     return
     
@@ -70,9 +82,9 @@ def main():
         except Exception:
             errors.append(match)
     
+    '''
     print '@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     
-    '''
     for errored in errors:
         print json.dumps(errored)
     '''
