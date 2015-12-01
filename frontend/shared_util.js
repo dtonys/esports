@@ -69,81 +69,13 @@ var gameNameMap = exports.gameNameMap = {
 //http://wiki.teamliquid.net/counterstrike/Portal:Teams
 
 var teamNameMap = exports.teamNameMap = {
-  'complexity': {
-    display_name:"Complexity",
-    logo_url:"compLexity-Gaming-col.png"
-  },
-  'counter_logic_gaming': {
-    display_name:"Counter Logic Gaming",
-    logo_url:"Counter-Logic-Gaming-CLG.png"
-  },
-  'denial_esports': {
-    display_name:"Denial E-Sports",
-    logo_url:"Denial-eSports.png"
-  },
-  'followesports': {
-    display_name:"FollowEsports",
-    logo_url:"follow-esports-fe-team-logo.png"
-  },
-  'luminosity': {
-    display_name:"Luminosity",
-    logo_url:"Luminosity-LUM-Logo.png"
-  },
-  'ace_gaming': {
-    display_name:"Ace Gaming",
-    logo_url:"Ace-Gaming.png"
-  },
-  'nexus': {
-    display_name:"Nexus",
-    logo_url:""
-  },
-  'gosu': {
-    display_name:"Gosu",
-    logo_url:""
-  },
-  'astral_authority': {
-    display_name:"Astral Authority",
-    logo_url:"Astral-Authority.png"
-  },
-  'complexity_gaming': {
-    display_name:"compLexity Gaming",
-    logo_url:"compLexity-Gaming-col.png"
-  },
-  'mvp_phoenix': {
-    display_name:"MVP Phoenix",
-    logo_url:"MVP-Phoenix-Ph.png"
-  },
-  'the_chiefs': {
-    display_name:"The Chiefs",
-    logo_url:"The-Chiefs-Logo.png"
-  },
-  'trident': {
-    display_name:"Trident",
-    logo_url:"Trident-CS-Logo.png"
-  },
-  '4clovers__lepricon': {
-    display_name:"4Clovers & Lepricon",
-    logo_url:"4Clover-4-Leppricon-new.png"
-  },
-  'puzzle': {
-    display_name:"Puzzle",
-    logo_url:"Team-Puzzle.png"
-  },
-  'dicionary': {
-    display_name:"Dicionary",
-    logo_url:""
-  },
   'no_logic_gaming': {
     display_name:"No Logic Gaming",
     logo_url:"no-logic-gaming-nlg.png"
   },
-  'team_satuduatiga': {
-    display_name:"Team SatuDuaTiga",
-    logo_url:"team-123-logo-2.png"
-  },
-  'ideal': {
-    display_name:"iDeal",
-    logo_url:"iDeal-Gigabyte-logo.png"
+  '4clovers__lepricon': {
+    display_name:"4Clovers & Lepricon",
+    logo_url:"4Clover-4-Leppricon-new.png"
   },
   'og': {
     display_name:"OG",
@@ -153,37 +85,21 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"Natus Vincere",
     logo_url:"Natus-Vincere-NaVI.png"
   },
-  'devils_advocates': {
-    display_name:"Devil's Advocates",
-    logo_url:""
+  'mvp_phoenix': {
+    display_name:"MVP Phoenix",
+    logo_url:"MVP-Phoenix-Ph.png"
   },
-  '7kings': {
-    display_name:"7Kings",
-    logo_url:""
+  'dat_fe': {
+    display_name:"dAT fe",
+    logo_url:"DAT-Team.png"
+  },
+  'team_yp_fe': {
+    display_name:"Team YP Fe",
+    logo_url:"Team-YP-logo-smash.png"
   },
   'the_alliance': {
     display_name:"The Alliance",
     logo_url:"The-Alliance-new.png"
-  },
-  'goomba_gaming': {
-    display_name:"GOOMBA Gaming",
-    logo_url:"GOOMBA-Gaming.jpg"
-  },
-  'cis_rejects': {
-    display_name:"CIS Rejects",
-    logo_url:"CIS-Rejects-CISR.png"
-  },
-  'prodota_gaming': {
-    display_name:"Prodota Gaming",
-    logo_url:"Prodota-Gaming-new.png"
-  },
-  'team_alternate': {
-    display_name:"Team Alternate",
-    logo_url:"Team-Alternate.png"
-  },
-  '_gamenergy': {
-    display_name:" gamENERGY",
-    logo_url:""
   },
   'team_yp': {
     display_name:"Team YP",
@@ -217,33 +133,33 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"nEophyte",
     logo_url:"nEophyte.png"
   },
-  'ezmarketorg': {
-    display_name:"EZmarket.org",
-    logo_url:""
-  },
-  'killerfish_esports': {
-    display_name:"Killerfish eSports",
-    logo_url:"killerfish-eSport-KF.png"
-  },
   'playingducks_ev': {
     display_name:"Playing-Ducks e.V.",
     logo_url:"Playing-Ducks-e.V.-PDucks.png"
   },
-  'caseking': {
-    display_name:"CaseKing",
-    logo_url:""
+  'london_conspiracy': {
+    display_name:"London Conspiracy",
+    logo_url:"London-Conspiracy-LC-Logo.png"
+  },
+  'explosive': {
+    display_name:"eXplosive",
+    logo_url:"Team-eXplosive.png"
+  },
+  'complexity_gaming': {
+    display_name:"compLexity Gaming",
+    logo_url:"compLexity-Gaming-col.png"
   },
   'vega_squadron': {
     display_name:"Vega Squadron",
     logo_url:"Vega-Squadron.png"
   },
-  'planetkey_dynamics': {
-    display_name:"Planetkey Dynamics",
-    logo_url:"Planetkey.png"
+  'cis_rejects': {
+    display_name:"CIS Rejects",
+    logo_url:"CIS-Rejects-CISR.png"
   },
-  'eyes_on_u': {
-    display_name:"EYES ON U",
-    logo_url:"Eyes-on-u-Multigaming.png"
+  'onlinebots': {
+    display_name:"OnlineBOTS",
+    logo_url:"OnlineBOTS-OnBOTS.png"
   },
   'digital_chaos': {
     display_name:"Digital Chaos",
@@ -253,21 +169,25 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"Elite Wolves",
     logo_url:"EliteWolves.png"
   },
-  'team_mischief': {
-    display_name:"Team Mischief",
-    logo_url:""
+  'counter_logic_gaming': {
+    display_name:"Counter Logic Gaming",
+    logo_url:"Counter-Logic-Gaming-CLG.png"
+  },
+  'followesports': {
+    display_name:"FollowEsports",
+    logo_url:"follow-esports-fe-team-logo.png"
+  },
+  'denial_esports': {
+    display_name:"Denial E-Sports",
+    logo_url:"Denial-eSports.png"
+  },
+  'method': {
+    display_name:"Method",
+    logo_url:"Method.png"
   },
   'friendship_dedication_love': {
     display_name:"Friendship Dedication Love",
     logo_url:"Friendship-Dedication-Love.png"
-  },
-  'rex_regum_qeon': {
-    display_name:"Rex Regum Qeon",
-    logo_url:"Rex-Regum-Qeon-RRQ.png"
-  },
-  'pewpewvn': {
-    display_name:"PewPewVN",
-    logo_url:"PewPewVN.png"
   },
   'team_liquid': {
     display_name:"Team Liquid",
@@ -276,10 +196,6 @@ var teamNameMap = exports.teamNameMap = {
   'tyloo': {
     display_name:"TyLoo",
     logo_url:"TyLoo.png"
-  },
-  'pow': {
-    display_name:"pow",
-    logo_url:""
   },
   'team_empire': {
     display_name:"Team Empire",
@@ -293,14 +209,6 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"Team Panglima(5)",
     logo_url:"Team-Panglima.png"
   },
-  'various_artists': {
-    display_name:"Various Artists",
-    logo_url:""
-  },
-  'gank': {
-    display_name:"GANK",
-    logo_url:""
-  },
   'virtuspro': {
     display_name:"Virtus.pro",
     logo_url:"Virtus.Pro.png"
@@ -313,9 +221,9 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"Chappa",
     logo_url:"Chappa.png"
   },
-  'euronics_gaming': {
-    display_name:"Euronics Gaming",
-    logo_url:""
+  'killerfish_esports': {
+    display_name:"Killerfish eSports",
+    logo_url:"killerfish-eSport-KF.png"
   },
   'team_secret': {
     display_name:"Team Secret",
@@ -337,6 +245,14 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"MVP.karnal",
     logo_url:"MVP-karnal.png"
   },
+  'execration': {
+    display_name:"Execration",
+    logo_url:"Execration-XCTN.png"
+  },
+  'puzzle': {
+    display_name:"Puzzle",
+    logo_url:"Team-Puzzle.png"
+  },
   'fnatic_': {
     display_name:"Fnatic ",
     logo_url:"Fnatic.png"
@@ -348,6 +264,10 @@ var teamNameMap = exports.teamNameMap = {
   'yellow_submarine': {
     display_name:"Yellow Submarine",
     logo_url:"Yellow-Submarine.png"
+  },
+  'goomba_gaming': {
+    display_name:"GOOMBA Gaming",
+    logo_url:"GOOMBA-Gaming.jpg"
   },
   'enso': {
     display_name:"Enso",
@@ -369,6 +289,10 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"T Show",
     logo_url:"Team-T-Show.png"
   },
+  'top_dog_gaming': {
+    display_name:"Top Dog Gaming",
+    logo_url:"Top-Dog-Gaming.png"
+  },
   'pain_gaming': {
     display_name:"paiN Gaming",
     logo_url:"paiN-Gaming.png"
@@ -377,9 +301,13 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"Team nxl",
     logo_url:"team-nxl.png"
   },
-  'cyberzen': {
-    display_name:"CyberZen",
-    logo_url:""
+  'pewpewvn': {
+    display_name:"PewPewVN",
+    logo_url:"PewPewVN.png"
+  },
+  'team_satuduatiga': {
+    display_name:"Team SatuDuaTiga",
+    logo_url:"team-123-logo-2.png"
   },
   'first_departure': {
     display_name:"First Departure",
@@ -393,14 +321,240 @@ var teamNameMap = exports.teamNameMap = {
     display_name:"ScaryFaceZ",
     logo_url:"Team-ScaryFaceZ."
   },
-  'siberian_valenki_black': {
-    display_name:"Siberian Valenki Black",
-    logo_url:""
+  'team_alternate': {
+    display_name:"Team Alternate",
+    logo_url:"Team-Alternate.png"
   },
-  'walrus_punch': {
-    display_name:"Walrus Punch!",
-    logo_url:""
+  'zenith_esports': {
+    display_name:"Zenith eSports",
+    logo_url:"Zenith-eSports-2.png"
   },
+  'also_known_as': {
+    display_name:"Also Known As",
+    logo_url:"Also-Known-As.png"
+  },
+  'robert_morris_university_eagles': {
+    display_name:"Robert Morris University Eagles",
+    logo_url:"RMU-Eagles-logo.png"
+  },
+  'team_frostbite': {
+    display_name:"Team Frostbite",
+    logo_url:"Team-Frostbite.png"
+  },
+  'team_infused': {
+    display_name:"Team Infused",
+    logo_url:"Team-Infused.png"
+  },
+  'exertus_esports': {
+    display_name:"Exertus Esports",
+    logo_url:"Exertus-Esports-v3.png"
+  },
+  'team_liquid_academy': {
+    display_name:"Team Liquid Academy",
+    logo_url:"Team-Liquid-Academy.png"
+  },
+  'fm_esports': {
+    display_name:"FM eSports",
+    logo_url:"FM-Esports-logo.png"
+  },
+  'choke_gaming': {
+    display_name:"Choke Gaming",
+    logo_url:"Choke-Gaming.png"
+  },
+  'ideal': {
+    display_name:"iDeal",
+    logo_url:"iDeal-Gigabyte-logo.png"
+  },
+  'the_chiefs': {
+    display_name:"The Chiefs",
+    logo_url:"The-Chiefs-Logo.png"
+  },
+  'trident': {
+    display_name:"Trident",
+    logo_url:"Trident-CS-Logo.png"
+  },
+  'rex_regum_qeon': {
+    display_name:"Rex Regum Qeon",
+    logo_url:"Rex-Regum-Qeon-RRQ.png"
+  },
+  'complexity': {
+    display_name:"Complexity",
+    logo_url:"compLexity-Gaming-col.png"
+  },
+  'luminosity': {
+    display_name:"Luminosity",
+    logo_url:"Luminosity-LUM-Logo.png"
+  },
+  'ace_gaming': {
+    display_name:"Ace Gaming",
+    logo_url:"Ace-Gaming.png"
+  },
+  'astral_authority': {
+    display_name:"Astral Authority",
+    logo_url:"Astral-Authority.png"
+  },
+  'nexus_esports_storm': {
+    display_name:"Nexus Esports Storm",
+    logo_url:"Nexus-Esports-Storm-Team.png"
+  },
+  'space_soldiers_': {
+    display_name:"Space Soldiers ",
+    logo_url:"Space-Soldiers.png"
+  },
+  'piter': {
+    display_name:"PiTER",
+    logo_url:"piter-logo.png"
+  },
+  'torpedo': {
+    display_name:"Torpedo",
+    logo_url:"torpedo-team-logo.png"
+  },
+  'publiclirse': {
+    display_name:"Publiclir.se",
+    logo_url:"PUBLICLIR.png"
+  },
+  'kingdom': {
+    display_name:"Kingdom",
+    logo_url:"kingdom-team-logo.png"
+  },
+  'team_immunity': {
+    display_name:"Team Immunity",
+    logo_url:"Team-Immunity.png"
+  },
+  'mvp_hot6': {
+    display_name:"MVP HOT6",
+    logo_url:"MVP-Phoenix-Ph.png"
+  },
+  'enemy': {
+    display_name:"Enemy",
+    logo_url:"Enemy-eSports-Logo.png"
+  },
+  'tectonic_gaming': {
+    display_name:"Tectonic Gaming",
+    logo_url:"Tectonic-Gaming.png"
+  },
+  'epsilon_esports': {
+    display_name:"Epsilon eSports",
+    logo_url:"epsilon-esports.png"
+  },
+  'hellraisers': {
+    display_name:"Hellraisers",
+    logo_url:"hellraisers.png"
+  },
+  'united_states_of_america': {
+    display_name:"United States of America",
+    logo_url:"United-States.png"
+  },
+  'kazakhstan': {
+    display_name:"Kazakhstan",
+    logo_url:"Kazakhstan.png"
+  },
+  'wings_gaming': {
+    display_name:"Wings Gaming",
+    logo_url:"Wings-Gaming.png"
+  },
+  'cdec_youth': {
+    display_name:"CDEC Youth",
+    logo_url:"CDEC-new.png"
+  },
+  'newbeeyoung': {
+    display_name:"Newbee.Young",
+    logo_url:"Newbee-Young-Newby.png"
+  },
+  'exteam_dk': {
+    display_name:"ex-Team DK",
+    logo_url:"Team-DK.png"
+  },
+  'cis': {
+    display_name:"CIS",
+    logo_url:"CIS-Flag.png"
+  },
+  'turkey': {
+    display_name:"Turkey",
+    logo_url:"Turkey.png"
+  },
+  'seiya': {
+    display_name:"Seiya",
+    logo_url:"Lyon-Gaming.png"
+  },
+  'kira': {
+    display_name:"Kira",
+    logo_url:"Hard-Random-Logo.png"
+  },
+  'optimus': {
+    display_name:"Optimus",
+    logo_url:"Boba-Marines.png"
+  },
+  'whitelotus': {
+    display_name:"WhiteLotus",
+    logo_url:"Last-Kings.png"
+  },
+  'chuchuz': {
+    display_name:"ChuChuZ",
+    logo_url:"Legacy-eSports-Legacy.png"
+  },
+  'ceros': {
+    display_name:"Ceros",
+    logo_url:"detonation-focusme.png"
+  },
+  'g4': {
+    display_name:"G4",
+    logo_url:"Bangkok-Titans.png"
+  },
+  'carbon': {
+    display_name:"Carbon",
+    logo_url:"Legacy-eSports-Legacy.png"
+  },
+  'fnatic': {
+    display_name:"Fnatic",
+    logo_url:"Fnatic.png"
+  },
+  'stark_esports': {
+    display_name:"STARK eSports",
+    logo_url:"STARK-eSports.png"
+  },
+  '_ehomeluminous': {
+    display_name:" EHOME.Luminous",
+    logo_url:"EHOME.png"
+  },
+  'spac__creators': {
+    display_name:"Spac_ Creators",
+    logo_url:"Space-Creators.png"
+  },
+  'themongolz': {
+    display_name:"TheMongolz",
+    logo_url:"TheMongolz.png"
+  },
+  'ftd_club_b': {
+    display_name:"FTD club B",
+    logo_url:"FTD-club-b.png"
+  },
+  'tnc_gaming': {
+    display_name:"TnC Gaming",
+    logo_url:"TnC-Gaming.png"
+  },
+  'brazil': {
+    display_name:"Brazil",
+    logo_url:"Brazil.png"
+  },
+  'japan': {
+    display_name:"Japan",
+    logo_url:"Japan.png"
+  },
+  'team_archon': {
+    display_name:"Team Archon",
+    logo_url:"Team-Archon.png"
+  },
+  'epiphany': {
+    display_name:"Epiphany",
+    logo_url:"Team-Epiphany.png"
+  },
+  'ninjas_in_pyjamas': {
+    display_name:"Ninjas In Pyjamas",
+    logo_url:"Ninjas-in-Pyjamas-NiP.png"
+  },
+
+
   'default': {
     display_name:"Default",
     logo_url:"40x40.png"
