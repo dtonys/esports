@@ -79,8 +79,8 @@
   },
   "scripts": {
     "build:production": "webpack --config webpack.config.prod.js",
-    "start:production": "NODE_ENV=production forever start index.js",
-    "restart:production": "npm install && npm run build:production && NODE_ENV=production forever restart index.js",
+    "start:production": "NODE_ENV=production forever start index.js -l ./log/log.txt",
+    "restart:production": "npm install && npm run build:production && NODE_ENV=production forever restart index.js -l ./log/log.txt",
     "watch": "webpack-dev-server --content-base --hot --progress --colors",
     "start": "NODE_ENV=development nodemon --watch index.js index.js"
   }

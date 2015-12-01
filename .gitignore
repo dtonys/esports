@@ -7,3 +7,4 @@ public/build/*
 !public/build/.gitkeep
 npm-debug.log
 port.txt
+log
