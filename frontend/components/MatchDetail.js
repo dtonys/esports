@@ -14,6 +14,7 @@ import * as K from '../constants/constants.js'
 
 import MatchRow from 'components/MatchRow.js';
 import MatchHeadline from 'components/MatchHeadline.js';
+import MatchInfo from 'components/MatchInfo.js';
 
 class MatchDetail extends React.Component{
   constructor( props ){
@@ -98,6 +99,13 @@ class MatchDetail extends React.Component{
     var betting = this.state.betting;
     var _disabled = (this.bet_status === K.BET_DONE || this.bet_status === K.BET_CLOSED) ? 'disabled' : '';
 
+    match.startMoment = moment(match.matchStartTime);
+    match.gameName = match.gameName || 'default';
+    match.gameObj = util.gameNameMap[match.gameName] ? util.gameNameMap[match.gameName] : util.gameNameMap['default'];
+    match.betTotal = match.betPot.reduce( ( prev, curr ) => {
+      return prev + curr;
+    });
+
     console.log( 'render MatchDetail.js' );
     console.log( 'match', JSON.stringify( match ) );
 
@@ -112,33 +120,7 @@ class MatchDetail extends React.Component{
               </div>
               <div className="match-wrap">
                 <MatchHeadline item={ match } />
-                <div className="match-status">
-                  { this.match_status === K.MATCH_READY ?
-                    <div className="status match-ready">
-                      <div className="text start-date">
-                        Start Date: { startMoment.format("dddd, MMMM Do YYYY, h:mm:ss a") }
-                        &nbsp;&nbsp;
-                        ( { startMoment.fromNow() } )
-                      </div>
-                    </div>
-                    :
-                    this.match_status === K.MATCH_PENDING ?
-                    <div className="status match-pending">
-                      <div className="text start-date">
-                        Match Pending
-                      </div>
-                    </div>
-                    :
-                    this.match_status === K.MATCH_RESOLVED ?
-                    <div className="status match-resolved">
-                      <div className="text start-date">
-                        Match Resolved
-                      </div>
-                    </div>
-                    :
-                    null
-                  }
-                </div>
+                <MatchInfo item={ match } />
               </div>
             </div>
             { !betting ?

@@ -400,5 +400,9 @@ var teamNameMap = exports.teamNameMap = {
   'walrus_punch': {
     display_name:"Walrus Punch!",
     logo_url:""
+  },
+  'default': {
+    display_name:"Default",
+    logo_url:"40x40.png"
   }
 };

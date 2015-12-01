@@ -301,7 +301,7 @@ export function postMePassword( password_data ){
 export function getMatches( params = {} ){
   var xhr_promise = null;
   return function( dispatch ){
-    params.page=2;
+    params.page=1;
     xhr_promise = request
       .get('/api/v1/matches')
       .query( params )
