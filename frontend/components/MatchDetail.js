@@ -110,33 +110,35 @@ class MatchDetail extends React.Component{
                 <img  className="icon_40x40"
                       src={ match.gameObj.icon_url } />
               </div>
-              <MatchHeadline item={ match } />
-              <div className="match-status">
-                { this.match_status === K.MATCH_READY ?
-                  <div className="status match-ready">
-                    <div className="text start-date">
-                      Start Date: { startMoment.format("dddd, MMMM Do YYYY, h:mm:ss a") }
-                      &nbsp;&nbsp;
-                      ( { startMoment.fromNow() } )
+              <div className="match-wrap">
+                <MatchHeadline item={ match } />
+                <div className="match-status">
+                  { this.match_status === K.MATCH_READY ?
+                    <div className="status match-ready">
+                      <div className="text start-date">
+                        Start Date: { startMoment.format("dddd, MMMM Do YYYY, h:mm:ss a") }
+                        &nbsp;&nbsp;
+                        ( { startMoment.fromNow() } )
+                      </div>
                     </div>
-                  </div>
-                  :
-                  this.match_status === K.MATCH_PENDING ?
-                  <div className="status match-pending">
-                    <div className="text start-date">
-                      Match Pending
+                    :
+                    this.match_status === K.MATCH_PENDING ?
+                    <div className="status match-pending">
+                      <div className="text start-date">
+                        Match Pending
+                      </div>
                     </div>
-                  </div>
-                  :
-                  this.match_status === K.MATCH_RESOLVED ?
-                  <div className="status match-resolved">
-                    <div className="text start-date">
-                      Match Resolved
+                    :
+                    this.match_status === K.MATCH_RESOLVED ?
+                    <div className="status match-resolved">
+                      <div className="text start-date">
+                        Match Resolved
+                      </div>
                     </div>
-                  </div>
-                  :
-                  null
-                }
+                    :
+                    null
+                  }
+                </div>
               </div>
             </div>
             { !betting ?
@@ -145,6 +147,7 @@ class MatchDetail extends React.Component{
                   <div className="bet-status">
                     { this.bet_status === K.BET_CAN_DO ?
                         <div className="status bet-can-do">
+                          <img className="bet-icon" src="/img/chip_icon.png" />
                           <div className="link" > Place Bet </div>
                         </div>
                       :

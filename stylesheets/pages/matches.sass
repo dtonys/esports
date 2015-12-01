@@ -3,8 +3,9 @@
 @import '../helpers/colors'
 
 .bet-icon
-  width: 40px
-  height: 40px
+  width: 25px
+  height: 25px
+  display: inline-block
 
 .icon_40x40
   width: 40px
@@ -12,6 +13,7 @@
   position: absolute
   top: 0
   left: 0
+  margin: 12px 0px 0 5px
 
 .sections-wrap
   border-radius: 5px
@@ -58,8 +60,6 @@
     border: solid black 2px
     border-right: none
     border-bottom: none
-
-    padding: 10px 10px
     // border-bottom: solid black 2px
     cursor: pointer
     border-radius: 5px
@@ -68,12 +68,14 @@
     &:hover
       background: $blue
     .left-80
-      padding-left: 50px
+      padding: 2px
+      padding-left: 60px
       position: relative
+    .left-20
+      padding: 10px
   .bet-btn
     border-radius: 50px
-    min-height: 40px
-    padding: 10px
+    padding: 5px
     text-align: center
     background: $gold
     .fa
@@ -82,19 +84,26 @@
       display: inline-block
       vertical-align: top
     .text
-      font-size: 24px
+      font-size: 16px
       margin-top: 3px
       margin-left: 5px
+
+  .icon-wrap
+    background: $color-secondary-1-3
+    position: absolute
+    top: 0
+    left: 0
+    width: 50px
+    height: 100%
 
   .section
     position: relative
     padding: 10px
     background: linear-gradient(to right, $blue 0%, $blue_light 100%)
+    .match-wrap
+      padding: 10px
     &._1
-      .icon-wrap
-        position: absolute
-        top: 0
-        left: 0
+      padding: 0
     &._2
       padding: 20px 10px
       text-align: center
@@ -131,16 +140,31 @@
     border: none
     border-left: solid black 2px
     border-radius: 0
-    font-size: 28px
+    font-size: 18px
     line-height: 35px
     box-shadow: none
   .headline
-    font-size: 18px
+    font-size: 14px
     .team-wrap
-      padding-left: 10px
     > span, > a
       display: inline-block
+  .start-date
+    font-size: 12px
+  .tournament-area
+    font-size: 14px
+  .start-date-area
+    font-size: 12px
+  .pot-number
+    font-size: 12px
   .bet-status
+    .bet-icon
+      display: inline-block
+      vertical-align: top
+      margin-top: 5px
+      margin-right: 5px
+    .link
+      display: inline-block
+      vertical-align: top
     .status
       text-align: center
       height: auto
@@ -183,7 +207,7 @@
 
   @media #{$mobile_phone}
     .headline, .bet-status
-      font-size: 18px
+      font-size: 14px
       line-height: normal
     .bet-btn
       .text
@@ -194,6 +218,6 @@
       .text
         display: none
     .headline, .bet-status
-      font-size: 18px
+      font-size: 14px
       line-height: normal
 

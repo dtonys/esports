@@ -33,15 +33,6 @@ class Matches extends React.Component{
       if( state === ALL )       return true;
     })
   }
-  sortMatches(){
-    // this.props.matches.sort( ( a, b ) => {
-    //   var m_a = moment(a.matchStartTime).milli;
-    //   var m_b = moment(a.matchStartTime).milli;
-    //   if( m_a < m_b ) return -1;
-    //   if( m_a > m_b ) return 1;
-    //   return 0;
-    // });
-  }
   filterList( time_state ){
     console.log( 'filterList ', time_state);
     this.setState({

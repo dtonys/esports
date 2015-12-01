@@ -1,4 +1,5 @@
 import MatchHeadline from 'components/MatchHeadline.js';
+import MatchInfo from 'components/MatchInfo.js';
 
 class MatchRow extends React.Component{
   constructor( props ){
@@ -11,18 +12,12 @@ class MatchRow extends React.Component{
         <div  className="match-item clearfix"
               onClick={ () => page(`/matches/${item._id}`) } >
           <div className="left-80" >
-            <img  className="icon_40x40"
-                  src={ item.gameObj.icon_url } />
+            <div className="icon-wrap" >
+              <img  className="icon_40x40"
+                    src={ item.gameObj.icon_url } />
+            </div>
             <MatchHeadline item={ item } />
-            <div className="start-date">
-              Match begins on: &nbsp;
-              { item.startMoment.format("dddd, MMMM Do YYYY, h:mm:ss a") }
-              &nbsp;&nbsp;
-              ( { item.startMoment.fromNow() } )
-            </div>
-            <div className="start-date">
-              Pot: {item.betTotal} Ɖ
-            </div>
+            <MatchInfo item={ item } />
           </div>
           <div className="left-20" style={{ minHeight: "40px" }} >
             <div  className="btn bet-btn gold"
