@@ -193,7 +193,7 @@ exports.list = function(req, res) {
     findquery.outcomeNames = queries.teamName;
 
 
-  var per_page = ((queries.per_page)?queries.per_page:10);
+  var per_page = ((queries.per_page)?queries.per_page:40);
   var skipnum = (queries.page ? ((queries.page - 1) * per_page) : 0);
 
 
