@@ -1,7 +1,8 @@
 /*** CSS ***/
 import 'base/reset.sass';
 import 'base/default.sass';
-import 'pages/index.sass'
+import 'pages/index.sass';
+import EventEmitter from 'event-emitter';
 
 // global polyfill to allow use of ES6 Promise
 require('es6-promise').polyfill();
@@ -10,6 +11,9 @@ import FastClick from 'fastclick';
 window.addEventListener('load', () => {
   FastClick.attach(document.body);
 });
+
+// global event emitter for hacking around React's bullshit
+window.EE = EventEmitter({});
 
 import Router from './Router.js';
 

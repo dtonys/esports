@@ -27,6 +27,8 @@ var initialState = fromJS({
     email: null
   },
   matches: [],
+  moreMatchesLoading: false,
+  matchesEnd: false,
   matchDetail: {
     bets: [],
     match: {}
@@ -251,7 +253,7 @@ function adminpanel( substate, action )
   return substate;
 }
 
-// put misc actions here
+// put misc global actions here
 function core( state, action ){
   switch (action.type){
     case 'POST_BET_SUCCESS':
@@ -266,6 +268,20 @@ function core( state, action ){
     // TODO: Error can be handled by component
     case 'POST_BET_ERROR':
       return state;
+    case 'GET_MORE_MATCHES':
+      var _state = fromJS({
+        moreMatchesLoading: true
+      });
+      return state.mergeDeep( _state );
+    case 'GET_MORE_MATCHES_SUCCESS':
+      var _items = fromJS( action.payload );
+      var matchesEnd = action.payload.length === 0;
+      var _state = fromJS({
+        moreMatchesLoading: false,
+        matches: state.get('matches').concat( fromJS( _items ) ),
+        matchesEnd: matchesEnd
+      });
+      return state.mergeDeep( _state );
   }
   return state;
 }

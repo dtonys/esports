@@ -84,6 +84,19 @@ function _getMatches( payload ){
   }
 }
 
+function _getMoreMatches( ){
+  return {
+    type: 'GET_MORE_MATCHES'
+  }
+}
+
+function _getMoreMatchesSuccess( payload ){
+  return {
+    type: 'GET_MORE_MATCHES_SUCCESS',
+    payload
+  }
+}
+
 function _getMatchDetail( payload ){
   return {
     type: 'GET_MATCH_DETAIL_SUCCESS',
@@ -309,6 +322,23 @@ export function getMatches( params = {} ){
 
     xhr_promise.then( ( res ) => {
       if( res.body ) dispatch( _getMatches( res.body ) );
+    });
+
+    return xhr_promise;
+  };
+}
+
+export function getMoreMatches( params = {} ){
+  var xhr_promise = null;
+  return function( dispatch ){
+    dispatch( _getMoreMatches() );
+    xhr_promise = request
+      .get('/api/v1/matches')
+      .query( params )
+      .end();
+
+    xhr_promise.then( ( res ) => {
+      if( res.body ) dispatch( _getMoreMatchesSuccess( res.body ) );
     });
 
     return xhr_promise;

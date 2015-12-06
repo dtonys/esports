@@ -21,8 +21,30 @@ class Matches extends React.Component{
   constructor( props ){
     super( props );
     this.state = {
-      'filter': UPCOMING
+      'filter': UPCOMING,
+      'loading_more': false
     };
+
+    // load more params
+    this.load_more_threshhold = 200;
+    this.page = 2;
+
+    this.checkScroll = this.checkScroll.bind(this);
+  }
+  componentDidMount(){
+    window.EE.on('scrollWrap.scroll', this.checkScroll );
+  }
+  componentWillUnmount(){
+    window.EE.off('scrollWrap.scroll', this.checkScroll );
+  }
+  checkScroll({ scrollTop, clientHeight, scrollHeight }){
+    var dist = scrollTop + clientHeight;
+    var max = scrollHeight;
+    var load_more = ( max - dist <= this.load_more_threshhold );
+    if( !this.state.loading_more && load_more ){
+      this.props.getMoreMatches({ page: this.page });
+      this.page++;
+    }
   }
   timeFilter( state ){
     var now = (new Date()).getTime();
@@ -40,6 +62,7 @@ class Matches extends React.Component{
     });
   }
   render(){
+    console.log( "props.foo", this.props.foo );
     var matches = this.timeFilter( this.state.filter ) ;
     return (
       <div className="matches-page-container" >
@@ -104,7 +127,9 @@ class Matches extends React.Component{
 }
 var mapStateToProps = function( storeState ){
   return {
-    matches: storeState.get('matches').toJS()
+    matches: storeState.get('matches').toJS(),
+    moreMatchesLoading: storeState.get('moreMatchesLoading'),
+    matchesEnd: storeState.get('matchesEnd')
   }
 };
 

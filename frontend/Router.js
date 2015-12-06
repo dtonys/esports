@@ -82,7 +82,7 @@ class Router extends React.Component{
           <RoutedComponent
             { ...this.props }
             route_ctx={ this.state.route_ctx }
-            loginRedirect={::this.loginRedirect} /> :
+            loginRedirect={ ::this.loginRedirect } /> :
           null
         }
         { loading ?
